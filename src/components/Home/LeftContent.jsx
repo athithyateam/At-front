@@ -5,7 +5,7 @@ import "../../App.css";
 const SECTIONS = [
   {
     title: "Travel isn’t about places",
-    subtitle: "It’s about the moments that quietly stay with you.",
+    subtitle: "It’s about the moments that quietly stay with you just testing.",
   },
   {
     title: "Most travel stories are performed",
