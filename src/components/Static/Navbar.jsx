@@ -10,7 +10,7 @@ import AuthModal from "../auth/AuthSection";
 import { useAuth } from "../../context/AuthContext";
 
 export default function Navbar() {
-  const { user, loading } = useAuth();
+  const { user, loading, logout } = useAuth();
   const location = useLocation();
 
   const [scrolled, setScrolled] = useState(false);
@@ -62,15 +62,14 @@ export default function Navbar() {
    after:h-[2px] after:w-0 after:bg-[#C59A2F]
    after:transition-all after:duration-300
    hover:after:w-full
-   ${
-     location.pathname === path
-       ? "text-[#C59A2F] after:w-full"
-       : isHome
-       ? scrolled
-         ? "text-white/90 hover:text-[#C59A2F]"
-         : "text-white/80 hover:text-white"
-       : "text-gray-700 hover:text-[#C59A2F]"
-   }`;
+   ${location.pathname === path
+      ? "text-[#C59A2F] after:w-full"
+      : isHome
+        ? scrolled
+          ? "text-white/90 hover:text-[#C59A2F]"
+          : "text-white/80 hover:text-white"
+        : "text-gray-700 hover:text-[#C59A2F]"
+    }`;
 
   /* ---------------- Block render until auth resolves ---------------- */
   if (loading) {
@@ -123,13 +122,12 @@ export default function Navbar() {
                 {/* CREATE POST */}
                 <Link
                   to="/post"
-                  className={`inline-flex items-center justify-center w-9 h-9 rounded-full transition ${
-                    isHome
-                      ? scrolled
-                        ? "bg-[#C59A2F] text-white"
-                        : "border border-white/80 text-white"
-                      : "bg-[#C59A2F] text-white"
-                  } hover:scale-105`}
+                  className={`inline-flex items-center justify-center w-9 h-9 rounded-full transition ${isHome
+                    ? scrolled
+                      ? "bg-[#C59A2F] text-white"
+                      : "border border-white/80 text-white"
+                    : "bg-[#C59A2F] text-white"
+                    } hover:scale-105`}
                 >
                   <MdAdd size={20} />
                 </Link>
@@ -138,27 +136,24 @@ export default function Navbar() {
                 <div className="relative profile-dropdown">
                   <button
                     onClick={() => setDropdownOpen((p) => !p)}
-                    className={`w-9 h-9 rounded-full flex items-center justify-center transition ${
-                      isHome
-                        ? scrolled
-                          ? "bg-[#C59A2F] text-white"
-                          : "border border-white/80 text-white"
-                        : "border border-[#C59A2F] text-[#C59A2F]"
-                    }`}
+                    className={`w-9 h-9 rounded-full flex items-center justify-center transition ${isHome
+                      ? scrolled
+                        ? "bg-[#C59A2F] text-white"
+                        : "border border-white/80 text-white"
+                      : "border border-[#C59A2F] text-[#C59A2F]"
+                      }`}
                   >
                     <RxHamburgerMenu size={18} />
                   </button>
 
                   <div
-                    className={`absolute right-0 mt-2 w-44 rounded-xl border overflow-hidden transition-all ${
-                      dropdownOpen
-                        ? "opacity-100 translate-y-0 visible"
-                        : "opacity-0 -translate-y-2 invisible"
-                    } ${
-                      isHome
+                    className={`absolute right-0 mt-2 w-44 rounded-xl border overflow-hidden transition-all ${dropdownOpen
+                      ? "opacity-100 translate-y-0 visible"
+                      : "opacity-0 -translate-y-2 invisible"
+                      } ${isHome
                         ? "bg-black/80 backdrop-blur border-[#C59A2F]/40"
                         : "bg-white border-gray-200 shadow-lg"
-                    }`}
+                      }`}
                   >
                     {[
                       ["Explore", "/explore"],
@@ -170,15 +165,27 @@ export default function Navbar() {
                         key={path}
                         to={path}
                         onClick={() => setDropdownOpen(false)}
-                        className={`block px-4 py-2 text-sm transition ${
-                          isHome
-                            ? "text-white hover:bg-[#C59A2F]"
-                            : "text-gray-700 hover:bg-gray-100"
-                        }`}
+                        className={`block px-4 py-2 text-sm transition ${isHome
+                          ? "text-white hover:bg-[#C59A2F]"
+                          : "text-gray-700 hover:bg-gray-100"
+                          }`}
                       >
                         {label}
                       </Link>
                     ))}
+
+                    <button
+                      onClick={() => {
+                        logout();
+                        setDropdownOpen(false);
+                      }}
+                      className={`w-full text-left block px-4 py-2 text-sm transition border-t ${isHome
+                        ? "text-white hover:bg-[#C59A2F] border-white/20"
+                        : "text-red-500 hover:bg-gray-100 border-gray-100"
+                        }`}
+                    >
+                      Logout
+                    </button>
                   </div>
                 </div>
               </>
