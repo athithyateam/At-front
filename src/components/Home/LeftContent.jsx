@@ -4,7 +4,7 @@ import "../../App.css";
 
 const SECTIONS = [
   {
-    title: "Travel isn’t about places",
+    title: "Travel isn’t about places testing",
     subtitle: "It’s about the moments that quietly stay with you.",
   },
   {
@@ -39,13 +39,13 @@ export default function LeftContent({ scrollYProgress }) {
           i === 0
             ? [0, fadeOutStart, fadeOutEnd]
             : i === SECTIONS.length - 1
-            ? [fadeInStart, 1]
-            : [fadeInStart, fadeInEnd, fadeOutStart, fadeOutEnd],
+              ? [fadeInStart, 1]
+              : [fadeInStart, fadeInEnd, fadeOutStart, fadeOutEnd],
           i === 0
             ? [1, 1, 0]
             : i === SECTIONS.length - 1
-            ? [0, 1]
-            : [0, 1, 1, 0]
+              ? [0, 1]
+              : [0, 1, 1, 0]
         );
 
         const isLast = i === SECTIONS.length - 1;
@@ -54,9 +54,8 @@ export default function LeftContent({ scrollYProgress }) {
           <motion.div
             key={i}
             style={{ opacity }}
-            className={`absolute left-0 right-0 ${
-              isLast ? "text-neutral-800" : "text-neutral-600"
-            }`}
+            className={`absolute left-0 right-0 ${isLast ? "text-neutral-800" : "text-neutral-600"
+              }`}
           >
             {/* Step indicator */}
             <div className="flex items-center gap-4 mb-10">
