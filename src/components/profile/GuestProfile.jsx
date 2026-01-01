@@ -1,10 +1,11 @@
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiMapPin, FiClock, FiGrid, FiLayers, FiArrowRight } from "react-icons/fi";
+import { FiMapPin, FiClock, FiGrid, FiLayers, FiArrowRight, FiBriefcase } from "react-icons/fi";
 
 const GUEST_TABS = [
   { key: "posts", label: "Posts", icon: <FiGrid className="w-4 h-4" /> },
   { key: "itineraries", label: "Itineraries", icon: <FiLayers className="w-4 h-4" /> },
+  { key: "services", label: "Services", icon: <FiBriefcase className="w-4 h-4" /> },
 ];
 
 export default function GuestProfile({ posts = [] }) {
@@ -16,6 +17,9 @@ export default function GuestProfile({ posts = [] }) {
 
     if (activeTab === "itineraries")
       return posts.filter((p) => p.postType === "itinerary");
+
+    if (activeTab === "services")
+      return posts.filter((p) => p.postType === "service");
 
     return [];
   }, [activeTab, posts]);
