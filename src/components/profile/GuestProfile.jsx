@@ -27,22 +27,25 @@ export default function GuestProfile({ posts = [] }) {
   return (
     <div className="space-y-8 py-2">
       {/* Modern Pill Tabs */}
-      <div className="flex gap-2 p-1 bg-gray-50 rounded-2xl w-fit border border-gray-100">
-        {GUEST_TABS.map((t) => (
-          <button
-            key={t.key}
-            onClick={() => setActiveTab(t.key)}
-            className={`flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ${activeTab === t.key
-              ? "bg-white text-[#C59A2F] shadow-sm transform scale-[1.02]"
-              : "text-gray-400 hover:text-gray-600"
-              }`}
-          >
-            <span className={activeTab === t.key ? "text-[#C59A2F]" : "text-gray-300"}>
-              {t.icon}
-            </span>
-            {t.label}
-          </button>
-        ))}
+      {/* Modern Pill Tabs - Responsive */}
+      <div className="w-full overflow-x-auto pb-2 scrollbar-hide">
+        <div className="flex gap-2 p-1 bg-gray-50 rounded-2xl w-max md:w-fit border border-gray-100 mx-auto md:mx-0">
+          {GUEST_TABS.map((t) => (
+            <button
+              key={t.key}
+              onClick={() => setActiveTab(t.key)}
+              className={`flex items-center gap-2 px-4 md:px-6 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 whitespace-nowrap ${activeTab === t.key
+                ? "bg-white text-[#C59A2F] shadow-sm transform scale-[1.02]"
+                : "text-gray-400 hover:text-gray-600"
+                }`}
+            >
+              <span className={activeTab === t.key ? "text-[#C59A2F]" : "text-gray-300"}>
+                {t.icon}
+              </span>
+              {t.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Grid Content */}
