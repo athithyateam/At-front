@@ -165,9 +165,9 @@ export default function Navbar() {
                         key={path}
                         to={path}
                         onClick={() => setDropdownOpen(false)}
-                        className={`block px-4 py-2 text-sm transition ${isHome
-                          ? "text-white hover:bg-[#C59A2F]"
-                          : "text-gray-700 hover:bg-gray-100"
+                        className={`block px-4 py-2 text-sm text-center transition ${isHome
+                            ? "text-white hover:bg-[#C59A2F]"
+                            : "text-gray-700 hover:bg-gray-100"
                           }`}
                       >
                         {label}
@@ -179,9 +179,9 @@ export default function Navbar() {
                         logout();
                         setDropdownOpen(false);
                       }}
-                      className={`w-full text-left block px-4 py-2 text-sm transition border-t ${isHome
-                        ? "text-white hover:bg-[#C59A2F] border-white/20"
-                        : "text-red-500 hover:bg-gray-100 border-gray-100"
+                      className={`w-full block px-4 py-2 text-sm text-center transition ${isHome
+                        ? "text-white hover:bg-[#C59A2F]"
+                        : "text-red-500 hover:bg-gray-100"
                         }`}
                     >
                       Logout
