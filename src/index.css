@@ -1,0 +1,164 @@
+@import "tailwindcss";
+
+.stats-midline {
+  position: relative;
+}
+
+.big-gold {
+  text-shadow: 0 6px 18px rgba(145, 107, 9, 0.08);
+}
+
+/* luxury gold theme helpers */
+.GOLD {
+  color: #c59a2f;
+}
+
+.GOLD-bg {
+  background-color: #d4af37;
+}
+
+/* soft champagne border (no black) */
+.soft-border {
+  border: 1px solid rgba(197, 154, 47, 0.18);
+}
+
+/* soft shadow using gold tint */
+.soft-shadow {
+  box-shadow: 0 10px 30px rgba(197, 154, 47, 0.06);
+}
+
+/* input style used across the form */
+.input-lux {
+  background: #ffffff;
+  border: 1px solid rgba(197, 154, 47, 0.12);
+  color: #222;
+}
+
+/* input focus (soft gold halo) */
+.input-lux:focus {
+  outline: none;
+  border-color: rgba(197, 154, 47, 0.9);
+  box-shadow: 0 0 0 6px rgba(212, 175, 55, 0.06);
+}
+
+/* rounded luxurious buttons */
+.btn-lux {
+  border-radius: 14px;
+  padding: 10px 18px;
+  font-weight: 400;
+}
+
+/* pill styles */
+.pill {
+  background: #faf7f0;
+  border-radius: 9999px;
+  padding: 6px 12px;
+  border: 1px solid rgba(197, 154, 47, 0.08);
+}
+
+/* small helper */
+.muted {
+  color: #6b7280;
+}
+
+.gold-cta-x {
+  position: relative;
+  overflow: hidden;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: transform 0.6s ease, box-shadow 0.6s ease;
+}
+
+.gold-cta-x:hover {
+  transform: translateX(4px);
+  box-shadow: 0 10px 30px rgba(197, 154, 47, 0.25);
+}
+
+/* one gentle shimmer */
+.gold-cta-x::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0.35),
+    rgba(255, 255, 255, 0)
+  );
+  transform: skewX(-25deg);
+}
+
+.gold-cta-x:hover::before {
+  animation: shineOnce 1.4s ease forwards;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ---------- Cinematic Film Grain ---------- */
+.cinematic-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  background-image: repeating-radial-gradient(
+      circle at 20% 30%,
+      rgba(255, 255, 255, 0.04) 0px,
+      rgba(0, 0, 0, 0.04) 1px,
+      transparent 2px
+    ),
+    repeating-radial-gradient(
+      circle at 80% 70%,
+      rgba(255, 255, 255, 0.03) 0px,
+      rgba(0, 0, 0, 0.03) 1px,
+      transparent 2px
+    );
+
+  background-size: 120px 120px;
+  mix-blend-mode: soft-light;
+  opacity: 0.55;
+}
+
+@keyframes grainShift {
+  0% { transform: translate(0,0); }
+  50% { transform: translate(-1%, 1%); }
+  100% { transform: translate(0,0); }
+}
+
+.cinematic-grain::after {
+  animation: grainShift 6s steps(2) infinite;
+}
+
+@media (max-width: 768px) {
+  .cinematic-grain::after {
+    opacity: 0.35;
+    background-size: 160px 160px;
+  }
+}
+
+
+/* ---------- TYPOGRAPHY ---------- */
+.hero-main {
+  font-family: "Playfair Display", serif;
+  letter-spacing: 0.02em;
+}
+
+.hero-sub,
+.hero-tag {
+  font-family: "Inter", sans-serif;
+}
+
+.hero-tag {
+  line-height: 1.7; /* ~20% increase */
+  margin-top: 1.2rem;
+}
