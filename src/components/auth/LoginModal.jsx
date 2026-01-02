@@ -240,7 +240,7 @@ export default function LoginModal({ onClose, onSwitchToRegister }) {
               {showPwd ? <FaEyeSlash /> : <FaEye />}
             </span>
           </div>
-          <div className="text-right mt-1">
+          <div className="text-left mt-1">
             <button
               type="button"
               onClick={() => setView("forgot-email")}
