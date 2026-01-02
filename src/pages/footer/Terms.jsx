@@ -51,7 +51,7 @@ export default function Terms() {
               Last Updated: 01-Jan-26
             </p>
           </div>
-          <p className="text-gray-700 text-sm mt-6">
+          <p className="text-gray-700 text-sm mt-6 text-justify">
             Welcome to Athithya, a travel experience platform that seamlessly combines the warmth of local hosting with the interactivity of social media, offering everyone a complete, meaningful and immersive traveling experience. By accessing or using our website or application, you agree to be bound by these Terms and Conditions.
           </p>
         </motion.div>

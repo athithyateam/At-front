@@ -41,7 +41,7 @@ export default function Privacy() {
                 >
                     <div className="flex justify-between items-start flex-wrap gap-4">
                         <h1 className="text-3xl font-bold text-[#C9A24D]">
-                            Privacy Policy & Cookie Policy
+                            Privacy Policy
                         </h1>
                         <p className="text-sm font-medium text-gray-500">
                             Last Updated: 01-Jan-26
