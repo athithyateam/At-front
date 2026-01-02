@@ -94,7 +94,7 @@ export default function BaseTravelProfile({ user, isOwner, children }) {
                 )}
               </div>
 
-// Actions
+              {/* Actions */}
               <div className="flex items-center gap-2 relative">
                 {!isOwner && (
                   <button className="bg-yellow-500 text-white px-4 py-2 rounded shadow hover:brightness-95">
@@ -115,7 +115,7 @@ export default function BaseTravelProfile({ user, isOwner, children }) {
 
                   {/* Dropdown Menu */}
                   {showMenu && (
-                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 z-50 border border-gray-100 ring-1 ring-black ring-opacity-5">
+                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-2xl py-2 z-50 border border-gray-50">
                       {isOwner && (
                         <button
                           onClick={handleLogout}
