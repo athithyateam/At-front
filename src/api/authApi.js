@@ -106,6 +106,26 @@ export async function signinApi({ email, password }) {
   }
 }
 
+// Forgot Password
+export async function forgotPasswordApi({ email }) {
+  try {
+    const res = await api.post("/api/auth/forgot-password", { email });
+    return ok(res);
+  } catch (err) {
+    return toNiceError(err);
+  }
+}
+
+// Reset Password
+export async function resetPasswordApi({ email, otp, newPassword }) {
+  try {
+    const res = await api.post("/api/auth/reset-password", { email, otp, newPassword });
+    return ok(res);
+  } catch (err) {
+    return toNiceError(err);
+  }
+}
+
 // Fetch logged-in user
 export async function getUserDetailsApi() {
   try {
