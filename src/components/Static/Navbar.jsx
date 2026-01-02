@@ -166,26 +166,15 @@ export default function Navbar() {
                         to={path}
                         onClick={() => setDropdownOpen(false)}
                         className={`block px-4 py-2 text-sm text-center transition ${isHome
-                            ? "text-white hover:bg-[#C59A2F]"
-                            : "text-gray-700 hover:bg-gray-100"
+                          ? "text-white hover:bg-[#C59A2F]"
+                          : "text-gray-700 hover:bg-gray-100"
                           }`}
                       >
                         {label}
                       </Link>
                     ))}
 
-                    <button
-                      onClick={() => {
-                        logout();
-                        setDropdownOpen(false);
-                      }}
-                      className={`w-full block px-4 py-2 text-sm text-center transition ${isHome
-                        ? "text-white hover:bg-[#C59A2F]"
-                        : "text-red-500 hover:bg-gray-100"
-                        }`}
-                    >
-                      Logout
-                    </button>
+                    {/* Logout removed as requested */}
                   </div>
                 </div>
               </>
