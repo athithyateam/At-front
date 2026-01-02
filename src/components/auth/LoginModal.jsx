@@ -279,7 +279,7 @@ export default function LoginModal({ onClose, onSwitchToRegister }) {
       </div>
 
       <p className="text-gray-600 text-sm mb-4">
-        Enter your email address and we'll send you an OTP to reset your password.
+        Enter your email address to reset your password.
       </p>
 
       <form onSubmit={handleForgotEmailSubmit} className="space-y-4">
