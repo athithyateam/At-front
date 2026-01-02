@@ -158,7 +158,9 @@
   font-family: "Inter", sans-serif;
 }
 
-.hero-tag {
-  line-height: 1.7; /* ~20% increase */
-  margin-top: 1.2rem;
+.list-disc {
+  list-style-type: disc;
+}
+.list-decimal {
+  list-style-type: decimal;
 }

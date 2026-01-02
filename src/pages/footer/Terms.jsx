@@ -24,7 +24,7 @@ const Section = ({ icon: Icon, title, children }) => (
       <Icon className="text-[#C9A24D]" />
       {title}
     </h2>
-    <div className="text-gray-700 leading-relaxed text-sm space-y-4">
+    <div className="text-gray-700 leading-relaxed text-sm space-y-4 text-left">
       {children}
     </div>
   </motion.section>
@@ -72,7 +72,7 @@ export default function Terms() {
 
         {/* 2. Services Offered */}
         <Section icon={FiLayout} title="2. Services Offered">
-          <ul className="list-disc ml-5 space-y-2">
+          <ul className="list-disc pl-5 space-y-2">
             <li>
               <strong>Social Media:</strong> Share posts, travel stories, travel plans, reviews, images, and connect with fellow travellers and locals.
             </li>
@@ -87,7 +87,7 @@ export default function Terms() {
           <div className="space-y-4">
             <div>
               <h3 className="font-semibold text-gray-800 mb-2">For All Users:</h3>
-              <ul className="list-disc ml-5 space-y-1">
+              <ul className="list-disc pl-5 space-y-1">
                 <li>Provide accurate and truthful information.</li>
                 <li>Refrain from posting harmful, offensive, or illegal content.</li>
                 <li>Respect the privacy and rights of other users.</li>
@@ -96,7 +96,7 @@ export default function Terms() {
 
             <div>
               <h3 className="font-semibold text-gray-800 mb-2">For Hosts:</h3>
-              <ul className="list-disc ml-5 space-y-1">
+              <ul className="list-disc pl-5 space-y-1">
                 <li>Provide clear, accurate descriptions of services and pricing.</li>
                 <li>Fulfill all bookings honestly and professionally.</li>
                 <li>Comply with local laws and tax regulations.</li>
@@ -105,7 +105,7 @@ export default function Terms() {
 
             <div>
               <h3 className="font-semibold text-gray-800 mb-2">For Travelers:</h3>
-              <ul className="list-disc ml-5 space-y-1">
+              <ul className="list-disc pl-5 space-y-1">
                 <li>Respect the property, time, and rules of hosts.</li>
                 <li>Provide accurate reviews and feedback.</li>
               </ul>
@@ -199,7 +199,7 @@ export default function Terms() {
             <p className="font-semibold text-yellow-800 mb-2">
               Athithya will take utmost care but is not liable for:
             </p>
-            <ul className="list-disc ml-5 text-yellow-800 space-y-1">
+            <ul className="list-disc pl-5 text-yellow-800 space-y-1">
               <li>Personal injury, property damage, or legal issues arising from bookings.</li>
               <li>Misconduct by users or hosts.</li>
               <li>Downtime, data loss, or technical glitches.</li>

@@ -23,7 +23,7 @@ const Section = ({ icon: Icon, title, children }) => (
             <Icon className="text-[#C9A24D]" />
             {title}
         </h2>
-        <div className="text-gray-700 leading-relaxed text-sm space-y-4">
+        <div className="text-gray-700 leading-relaxed text-sm space-y-4 text-left">
             {children}
         </div>
     </motion.section>
@@ -56,7 +56,7 @@ export default function Privacy() {
                 <Section icon={FiDatabase} title="1. Information We Collect">
                     <h3 className="font-semibold text-gray-800 mb-2">A. Personal Information</h3>
                     <p>We collect Information you provide directly, including:</p>
-                    <ul className="list-disc ml-5 space-y-1 mb-4">
+                    <ul className="list-disc pl-5 space-y-1 mb-4">
                         <li>Name, email address, phone number</li>
                         <li>Profile photo and bio</li>
                         <li>Payment details (via secure third-party processors)</li>
@@ -64,7 +64,7 @@ export default function Privacy() {
                     </ul>
 
                     <h3 className="font-semibold text-gray-800 mb-2">B. Automatically Collected Information</h3>
-                    <ul className="list-disc ml-5 space-y-1 mb-4">
+                    <ul className="list-disc pl-5 space-y-1 mb-4">
                         <li>IP address, browser type, operating system</li>
                         <li>Usage data (pages visited, time spent, etc.)</li>
                         <li>Device identifiers and location data (with permission)</li>
@@ -72,7 +72,7 @@ export default function Privacy() {
 
                     <h3 className="font-semibold text-gray-800 mb-2">C. Third-Party Information</h3>
                     <p>We may receive data from:</p>
-                    <ul className="list-disc ml-5 space-y-1">
+                    <ul className="list-disc pl-5 space-y-1">
                         <li>Payment processors</li>
                         <li>Social logins</li>
                     </ul>
@@ -81,7 +81,7 @@ export default function Privacy() {
                 {/* 2. How We Use Your Information */}
                 <Section icon={FiUser} title="2. How We Use Your Information">
                     <p>We use your information to:</p>
-                    <ul className="list-disc ml-5 space-y-1">
+                    <ul className="list-disc pl-5 space-y-1">
                         <li>Create and manage your account</li>
                         <li>Facilitate bookings and community interactions</li>
                         <li>Process payments securely</li>
@@ -95,7 +95,7 @@ export default function Privacy() {
                 {/* 3. Sharing Your Information */}
                 <Section icon={FiGlobe} title="3. Sharing Your Information">
                     <p>We do not sell your personal data. However, we may share your information with:</p>
-                    <ul className="list-disc ml-5 space-y-1">
+                    <ul className="list-disc pl-5 space-y-1">
                         <li>Hosts or travelers for booking and communication</li>
                         <li>Service providers (e.g., payment gateways, hosting providers)</li>
                         <li>Legal authorities when required by law or in response to a valid request</li>
@@ -105,7 +105,7 @@ export default function Privacy() {
                 {/* 4. Cookies (Brief) */}
                 <Section icon={FiEye} title="4. Cookies and Tracking Technologies">
                     <p>We use cookies and similar tools to:</p>
-                    <ul className="list-disc ml-5 space-y-1">
+                    <ul className="list-disc pl-5 space-y-1">
                         <li>Keep you logged in</li>
                         <li>Remember your preferences</li>
                         <li>Analyze site performance and trends (See our Cookie Policy below for more details.)</li>
@@ -122,7 +122,7 @@ export default function Privacy() {
                 {/* 6. Your Rights */}
                 <Section icon={FiUser} title="6. Your Rights">
                     <p>You have the right to:</p>
-                    <ul className="list-disc ml-5 space-y-1">
+                    <ul className="list-disc pl-5 space-y-1">
                         <li>Access, update, or delete your personal data</li>
                         <li>Withdraw consent to data processing</li>
                         <li>Request a copy of your data</li>
@@ -132,7 +132,7 @@ export default function Privacy() {
                 {/* 7. Data Retention */}
                 <Section icon={FiDatabase} title="7. Data Retention">
                     <p>We retain personal data as long as necessary for:</p>
-                    <ul className="list-disc ml-5 space-y-1">
+                    <ul className="list-disc pl-5 space-y-1">
                         <li>Legal compliance</li>
                         <li>Providing services</li>
                         <li>Resolving disputes</li>
@@ -178,22 +178,22 @@ export default function Privacy() {
                     <Section icon={FiSettings} title="2. Types of Cookies We Use">
                         <div>
                             <h3 className="font-semibold text-gray-800 mb-2">A. Essential Cookies</h3>
-                            <ul className="list-disc ml-5 space-y-1 mb-4">
+                            <ul className="list-disc pl-5 space-y-1 mb-4">
                                 <li>Required for the platform to function properly (e.g., logging in, booking process).</li>
                             </ul>
 
                             <h3 className="font-semibold text-gray-800 mb-2">B. Performance Cookies</h3>
-                            <ul className="list-disc ml-5 space-y-1 mb-4">
+                            <ul className="list-disc pl-5 space-y-1 mb-4">
                                 <li>Collect anonymous data to understand how users interact with our site (e.g., Google Analytics).</li>
                             </ul>
 
                             <h3 className="font-semibold text-gray-800 mb-2">C. Functional Cookies</h3>
-                            <ul className="list-disc ml-5 space-y-1 mb-4">
+                            <ul className="list-disc pl-5 space-y-1 mb-4">
                                 <li>Remember choices you make (e.g., language, region, user preferences).</li>
                             </ul>
 
                             <h3 className="font-semibold text-gray-800 mb-2">D. Targeting/Advertising Cookies</h3>
-                            <ul className="list-disc ml-5 space-y-1 mb-4">
+                            <ul className="list-disc pl-5 space-y-1 mb-4">
                                 <li>May be set by third parties to build a profile of your interests and show relevant ads on other sites.</li>
                             </ul>
                         </div>
@@ -202,7 +202,7 @@ export default function Privacy() {
                     {/* 3. Third-Party Cookies */}
                     <Section icon={FiGlobe} title="3. Third-Party Cookies">
                         <p>Some cookies are placed by third-party services:</p>
-                        <ul className="list-disc ml-5 space-y-1 mb-4">
+                        <ul className="list-disc pl-5 space-y-1 mb-4">
                             <li>Google Analytics</li>
                             <li>Facebook Pixel</li>
                             <li>Stripe (payment processing)</li>
@@ -213,7 +213,7 @@ export default function Privacy() {
                     {/* 4. How You Can Control Cookies */}
                     <Section icon={FiSettings} title="4. How You Can Control Cookies">
                         <p>You can manage or disable cookies via your browser settings:</p>
-                        <ul className="list-disc ml-5 space-y-1">
+                        <ul className="list-disc pl-5 space-y-1">
                             <li>Block or delete cookies</li>
                             <li>Opt-out of specific third-party tracking</li>
                             <li>Note: Disabling cookies may limit functionality and degrade your user experience.</li>
