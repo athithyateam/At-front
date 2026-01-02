@@ -47,7 +47,7 @@ export default function Privacy() {
                             Last Updated: 01-Jan-26
                         </p>
                     </div>
-                    <p className="text-gray-700 text-sm mt-6">
+                    <p className="text-gray-700 text-sm mt-6 text-left">
                         Your privacy is important to us. This policy explains how information is collected, used, and disclosed by Athithya.
                     </p>
                 </motion.div>
