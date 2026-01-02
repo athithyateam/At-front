@@ -235,10 +235,10 @@ export default function Terms() {
               Athithya may offer optional or mandatory identity verification features for users and hosts to enhance trust and safety on the platform. Verification may include mobile number validation, email verification, government-issued identification checks, or social account linking. Verification badges or labels indicate that certain checks have been completed; however, they do not guarantee a user’s conduct, intent, or safety. Athithya does not make any representations or warranties regarding verified users.
             </p>
             <p>
-              Athithya does not conduct background checks on users unless explicitly stated. Users are solely responsible for their interactions with other users.
+              Athithya does not conduct background checks on users unless explicitly stated. Users are solely responsible for their interactions with other users, including travel partners met through the platform.
             </p>
             <p>
-              Athithya is not responsible for any disputes, misconduct, harassment, or incidents occurring during or outside the platform.
+              Athithya is not responsible for any disputes, misconduct, harassment, or incidents occurring during or outside the platform. Users are advised to exercise caution, meet in groups where possible, and follow safety guidelines provided by the platform.
             </p>
           </Section>
 
@@ -427,6 +427,7 @@ export default function Terms() {
         <hr className="my-12 border-gray-200" />
         <div id="host-agreement" className="mb-12">
           <h2 className="text-2xl font-bold text-[#C9A24D] mb-8">Host Agreement</h2>
+
           <Section icon={FiCheckCircle} title="1. Eligibility">
             <p>To become a Host, you must:</p>
             <ul className="list-disc pl-5 space-y-1">
@@ -436,29 +437,122 @@ export default function Terms() {
             </ul>
           </Section>
 
-          <Section icon={FiCheckCircle} title="2. Hosting Standards">
+          <Section icon={FiCheckCircle} title="2. Host Obligations">
+            <p>You agree to:</p>
             <ul className="list-disc pl-5 space-y-1">
-              <li>Hosts must provide accurate listings, maintain cleanliness and safety, and honor bookings.</li>
-              <li>Any cancellations by hosts must be for valid reasons and communicated promptly.</li>
+              <li>List truthful, complete, and up-to-date information</li>
+              <li>Clearly outline your services, prices, availability, rules, and cancellation terms</li>
+              <li>Honor all confirmed bookings</li>
+              <li>Maintain clean, safe, and respectful hosting environments</li>
+              <li>Treat guests with kindness, fairness, and professionalism</li>
             </ul>
           </Section>
 
-          <Section icon={FiCheckCircle} title="3. Fees and Payments">
+          <Section icon={FiLayout} title="3. Content and Media">
             <ul className="list-disc pl-5 space-y-1">
-              <li>Athithya charges a service fee for facilitating bookings.</li>
-              <li>Hosts receive payments after the successful completion of a booking, subject to processing times.</li>
+              <li>Hosts may upload photos, descriptions, and media to promote their listings.</li>
+              <li>You retain ownership of your content but grant Athithya a worldwide, royalty-free license to use and promote it.</li>
             </ul>
           </Section>
 
-          <Section icon={FiCheckCircle} title="4. Prohibited Activities">
+          <Section icon={FiCreditCard} title="4. Payments and Fees">
             <ul className="list-disc pl-5 space-y-1">
-              <li>Hosts may not use the platform for illegal activities, discrimination, or fraud.</li>
+              <li>Payments are processed via secure third-party providers. Athithya charges a platform fee on successful bookings. Hosts are responsible for any applicable taxes and must comply with local reporting obligations.</li>
             </ul>
           </Section>
 
-          <Section icon={FiCheckCircle} title="5. Termination">
+          <Section icon={FiAlertTriangle} title="5. Cancellations and Refunds">
+
+            <h4 className="font-semibold text-gray-800 mt-2 mb-2">Host Cancellation Policy</h4>
+
+            <h5 className="font-medium text-gray-700 mt-2">1. Traveler’s Rights when Host Cancels</h5>
+            <ul className="list-disc pl-5 space-y-1 mb-2">
+              <li>The traveller will instantly receive a notification regarding the cancellation.</li>
+              <li>The traveller will have the option to: Accept an alternative booking at the same price, OR Receive a full refund.</li>
+            </ul>
+
+            <h5 className="font-medium text-gray-700 mt-2">2. Host Cancellation Rules & Penalties</h5>
+            <p className="mt-1"><strong>Valid reasons (no penalty):</strong></p>
+            <ul className="list-disc pl-5 space-y-1 mb-2">
+              <li>Natural disasters</li>
+              <li>Personal safety emergencies</li>
+              <li>Government restrictions</li>
+              <li>Any reason Athithya’s team deems valid</li>
+            </ul>
+
+            <p><strong>Invalid reasons (penalties apply):</strong></p>
+            <ul className="list-disc pl-5 space-y-1 mb-2">
+              <li>Cancellation before 72 hours of check-in → Possible account block (based on reason).</li>
+              <li>Cancellation within 72 hours of check-in → Progressive penalties.</li>
+            </ul>
+
+            <div className="mt-4 overflow-x-auto">
+              <table className="min-w-full text-sm text-left border border-gray-200">
+                <thead className="bg-gray-50 text-gray-700 font-semibold">
+                  <tr>
+                    <th className="px-4 py-2 border-b border-gray-200">Number of Cancellations</th>
+                    <th className="px-4 py-2 border-b border-gray-200">Penalty</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  <tr>
+                    <td className="px-4 py-2">1st Warning</td>
+                    <td className="px-4 py-2">Negative de-rating</td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-2">2nd Warning</td>
+                    <td className="px-4 py-2">3 months account suspension</td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-2">3rd Warning</td>
+                    <td className="px-4 py-2">9 months account suspension</td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-2">4th Time</td>
+                    <td className="px-4 py-2">Permanent account block</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h5 className="font-medium text-gray-700 mt-4">3. Host Payment & Security Deposit Policy</h5>
+            <ul className="list-disc pl-5 space-y-1">
+              <li>Hosts will not receive payments directly into their bank accounts.</li>
+              <li>All payments will be credited into the Athithya’s Wallet.</li>
+              <li>95% amount from the last booking can be withdrawn.</li>
+              <li>5% is retained as a security deposit.</li>
+              <li>If a host cancels a booking for the first time (without fulfilling any booking prior), the 5% security deposit will go negative (deducted additionally from future earnings). This ensures accountability and discourages cancellations without genuine reasons.</li>
+            </ul>
+          </Section>
+
+          <Section icon={FiShield} title="6. Liability and Insurance">
+            <ul className="list-disc pl-5 space-y-1">
+              <li>Hosts are solely responsible for their own properties and experiences.</li>
+              <li>Athithya is not liable for any personal injury, damage, or loss arising from host services.</li>
+              <li>We recommend you obtain appropriate insurance coverage.</li>
+            </ul>
+          </Section>
+
+          <Section icon={FiUser} title="7. Code of Conduct">
+            <p>You must:</p>
+            <ul className="list-disc pl-5 space-y-1">
+              <li>Respect all travelers regardless of nationality, gender, religion, or background</li>
+              <li>Avoid any form of discrimination, harassment, or exploitation</li>
+              <li>Provide clear house rules and enforce them respectfully</li>
+            </ul>
+          </Section>
+
+          <Section icon={FiAlertTriangle} title="8. Suspension and Termination">
+            <p>Athithya reserves the right to:</p>
+            <ul className="list-disc pl-5 space-y-1">
+              <li>Suspend or remove listings that violate our policies</li>
+              <li>Terminate host accounts for misconduct or breach of agreement</li>
+            </ul>
+          </Section>
+
+          <Section icon={FiFileText} title="9. Modifications">
             <p>
-              Athithya reserves the right to suspend or remove hosts who violate these terms or community standards.
+              We may update this Agreement at any time. Continued use of the platform implies your acceptance of any changes.
             </p>
           </Section>
         </div>
