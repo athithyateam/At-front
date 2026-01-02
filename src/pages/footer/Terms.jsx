@@ -435,11 +435,32 @@ export default function Terms() {
               <li>Comply with all local laws and tax regulations</li>
             </ul>
           </Section>
-        </div>
 
-        {/* Footer */}
-        <div className="mt-12 text-center text-xs text-gray-500">
-          © {new Date().getFullYear()} Athithya. All rights reserved.
+          <Section icon={FiCheckCircle} title="2. Hosting Standards">
+            <ul className="list-disc pl-5 space-y-1">
+              <li>Hosts must provide accurate listings, maintain cleanliness and safety, and honor bookings.</li>
+              <li>Any cancellations by hosts must be for valid reasons and communicated promptly.</li>
+            </ul>
+          </Section>
+
+          <Section icon={FiCheckCircle} title="3. Fees and Payments">
+            <ul className="list-disc pl-5 space-y-1">
+              <li>Athithya charges a service fee for facilitating bookings.</li>
+              <li>Hosts receive payments after the successful completion of a booking, subject to processing times.</li>
+            </ul>
+          </Section>
+
+          <Section icon={FiCheckCircle} title="4. Prohibited Activities">
+            <ul className="list-disc pl-5 space-y-1">
+              <li>Hosts may not use the platform for illegal activities, discrimination, or fraud.</li>
+            </ul>
+          </Section>
+
+          <Section icon={FiCheckCircle} title="5. Termination">
+            <p>
+              Athithya reserves the right to suspend or remove hosts who violate these terms or community standards.
+            </p>
+          </Section>
         </div>
       </div>
     </div>

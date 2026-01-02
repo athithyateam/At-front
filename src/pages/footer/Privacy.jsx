@@ -228,10 +228,6 @@ export default function Privacy() {
                     </Section>
                 </div>
 
-                {/* Footer */}
-                <div className="mt-12 text-center text-xs text-gray-500">
-                    © {new Date().getFullYear()} Athithya. All rights reserved.
-                </div>
             </div>
         </div>
     );
