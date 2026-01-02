@@ -1,7 +1,10 @@
 // src/components/auth/RegisterModal.jsx
 import React, { useEffect, useState } from "react";
 import { FaGoogle, FaEye, FaEyeSlash } from "react-icons/fa";
-import { signupInitiateApi } from "../../api/authApi";
+import { useNavigate } from "react-router-dom";
+import { useGoogleLogin } from "@react-oauth/google";
+import { signupInitiateApi, googleSigninApi } from "../../api/authApi";
+import { useAuth } from "../../context/AuthContext";
 
 const ROLE_TABS = [
   { value: "guest", label: "Guest" },
@@ -19,7 +22,42 @@ export default function RegisterModal({ onClose, onSwitchToLogin, onProceedOTP }
   const [err, setErr] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const navigate = useNavigate();
+  const { fetchUser } = useAuth();
   const GOLD = "#d4af37";
+
+  const loginGoogle = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      setLoading(true);
+      setErr("");
+      try {
+        // Pass role so backend creates user with correct role
+        const res = await googleSigninApi({
+          token: tokenResponse.access_token,
+          role: role
+        });
+
+        if (!res?.ok) {
+          setErr(res?.message || "Google register failed");
+          setLoading(false);
+          return;
+        }
+
+        const token = res?.data?.token || res?.token;
+        localStorage.setItem("auth_token", token);
+        await fetchUser();
+
+        // Success -> Close and Navigate
+        onClose?.();
+        navigate("/explore", { replace: true });
+
+      } catch (error) {
+        setErr("Google register error");
+        setLoading(false);
+      }
+    },
+    onError: () => setErr("Google login failed"),
+  });
 
   useEffect(() => {
     const onKey = (e) => e.key === "Escape" && onClose?.();
@@ -81,7 +119,12 @@ export default function RegisterModal({ onClose, onSwitchToLogin, onProceedOTP }
         {err && <div className="mb-3 text-sm bg-red-50 text-red-700 border border-red-200 rounded px-3 py-2">{err}</div>}
 
         <form onSubmit={submit} className="space-y-4">
-          <button type="button" className="flex items-center justify-center gap-2 w-full py-2 border rounded-lg transition" style={{ borderColor: GOLD, color: GOLD }}>
+          <button
+            type="button"
+            onClick={() => loginGoogle()}
+            className="flex items-center justify-center gap-2 w-full py-2 border rounded-lg transition"
+            style={{ borderColor: GOLD, color: GOLD }}
+          >
             <FaGoogle /> Sign up with Google
           </button>
 

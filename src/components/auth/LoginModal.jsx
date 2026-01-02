@@ -2,8 +2,9 @@ import React, { useEffect, useState, useCallback } from "react";
 import { FaGoogle, FaEye, FaEyeSlash, FaArrowLeft } from "react-icons/fa";
 import { createPortal } from "react-dom";
 import { useNavigate } from "react-router-dom";
+import { useGoogleLogin } from "@react-oauth/google";
 
-import { signinApi, forgotPasswordApi, resetPasswordApi } from "../../api/authApi";
+import { signinApi, forgotPasswordApi, resetPasswordApi, googleSigninApi } from "../../api/authApi";
 import { useAuth } from "../../context/AuthContext";
 
 export default function LoginModal({ onClose, onSwitchToRegister }) {
@@ -59,6 +60,35 @@ export default function LoginModal({ onClose, onSwitchToRegister }) {
     setErr("");
     setSuccessMsg("");
   }, [view]);
+
+  /* ---------------- Google Login ---------------- */
+  const loginGoogle = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      setLoading(true);
+      setErr("");
+      try {
+        const res = await googleSigninApi({ token: tokenResponse.access_token });
+
+        if (!res?.ok) {
+          setErr(res?.message || "Google login failed");
+          setLoading(false);
+          return;
+        }
+
+        const token = res?.data?.token || res?.token;
+        localStorage.setItem("auth_token", token);
+        await fetchUser();
+
+        unlockScroll();
+        navigate("/explore", { replace: true });
+        onClose?.();
+      } catch (error) {
+        setErr("Google login error");
+        setLoading(false);
+      }
+    },
+    onError: () => setErr("Google login failed"),
+  });
 
   /* ---------------- Submit Handlers ---------------- */
 
@@ -201,6 +231,7 @@ export default function LoginModal({ onClose, onSwitchToRegister }) {
         {/* Google Login (placeholder) */}
         <button
           type="button"
+          onClick={() => loginGoogle()}
           className="flex items-center justify-center gap-2 w-full py-2 border rounded-lg transition"
           style={{ borderColor: GOLD, color: GOLD }}
         >

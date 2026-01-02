@@ -126,6 +126,16 @@ export async function resetPasswordApi({ email, otp, newPassword }) {
   }
 }
 
+// Google Signin
+export async function googleSigninApi(payload) {
+  try {
+    const res = await api.post("/api/auth/google", payload);
+    return ok(res);
+  } catch (err) {
+    return toNiceError(err);
+  }
+}
+
 // Fetch logged-in user
 export async function getUserDetailsApi() {
   try {
