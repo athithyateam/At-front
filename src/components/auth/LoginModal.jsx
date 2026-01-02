@@ -193,7 +193,7 @@ export default function LoginModal({ onClose, onSwitchToRegister }) {
           className="w-1/2 py-2 text-center font-semibold text-gray-400 hover:opacity-80"
           onClick={onSwitchToRegister}
         >
-          Register
+          Create an account
         </button>
       </div>
 
