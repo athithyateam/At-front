@@ -240,11 +240,11 @@ export default function LoginModal({ onClose, onSwitchToRegister }) {
               {showPwd ? <FaEyeSlash /> : <FaEye />}
             </span>
           </div>
-          <div className="text-left mt-1">
+          <div className="text-left mt-3">
             <button
               type="button"
               onClick={() => setView("forgot-email")}
-              className="text-xs hover:underline"
+              className="text-sm hover:underline"
               style={{ color: GOLD }}
             >
               Forgot Password?
