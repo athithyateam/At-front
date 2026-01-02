@@ -21,9 +21,9 @@ const Section = ({ icon: Icon, title, children }) => (
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.4 }}
     viewport={{ once: true }}
-    className="mb-10"
+    className="mb-10 text-left"
   >
-    <h2 className="flex items-center gap-3 text-xl font-semibold text-[#C9A24D] mb-4">
+    <h2 className="flex items-center gap-3 text-xl font-semibold text-[#C9A24D] mb-4 text-left">
       <Icon className="text-[#C9A24D]" />
       {title}
     </h2>
@@ -259,8 +259,8 @@ export default function Terms() {
 
         {/* --- PART 2: PRIVACY POLICY --- */}
         <hr className="my-12 border-gray-200" />
-        <div id="privacy-policy" className="mb-12">
-          <h2 className="text-2xl font-bold text-[#C9A24D] mb-8">Privacy Policy</h2>
+        <div id="privacy-policy" className="mb-12 text-left">
+          <h2 className="text-2xl font-bold text-[#C9A24D] mb-8 text-left">Privacy Policy</h2>
 
           <Section icon={FiDatabase} title="1. Information We Collect">
             <h3 className="font-semibold text-gray-800 mb-2">A. Personal Information</h3>
@@ -364,8 +364,8 @@ export default function Terms() {
 
         {/* --- PART 3: COOKIE POLICY --- */}
         <hr className="my-12 border-gray-200" />
-        <div id="cookie-policy" className="mb-12">
-          <h2 className="text-2xl font-bold text-[#C9A24D] mb-8">Cookie Policy</h2>
+        <div id="cookie-policy" className="mb-12 text-left">
+          <h2 className="text-2xl font-bold text-[#C9A24D] mb-8 text-left">Cookie Policy</h2>
 
           <Section icon={FiEye} title="1. What Are Cookies?">
             <p>
@@ -425,8 +425,8 @@ export default function Terms() {
 
         {/* --- PART 4: HOST AGREEMENT --- */}
         <hr className="my-12 border-gray-200" />
-        <div id="host-agreement" className="mb-12">
-          <h2 className="text-2xl font-bold text-[#C9A24D] mb-8">Host Agreement</h2>
+        <div id="host-agreement" className="mb-12 text-left">
+          <h2 className="text-2xl font-bold text-[#C9A24D] mb-8 text-left">Host Agreement</h2>
 
           <Section icon={FiCheckCircle} title="1. Eligibility">
             <p>To become a Host, you must:</p>

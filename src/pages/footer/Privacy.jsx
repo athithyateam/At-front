@@ -17,9 +17,9 @@ const Section = ({ icon: Icon, title, children }) => (
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
         viewport={{ once: true }}
-        className="mb-10"
+        className="mb-10 text-left"
     >
-        <h2 className="flex items-center gap-3 text-xl font-semibold text-[#C9A24D] mb-4">
+        <h2 className="flex items-center gap-3 text-xl font-semibold text-[#C9A24D] mb-4 text-left">
             <Icon className="text-[#C9A24D]" />
             {title}
         </h2>
@@ -164,8 +164,8 @@ export default function Privacy() {
                 <hr className="my-12 border-gray-200" />
 
                 {/* COOKIE POLICY SECTION */}
-                <div id="cookie-policy">
-                    <h2 className="text-2xl font-bold text-[#C9A24D] mb-8">Cookie Policy</h2>
+                <div id="cookie-policy" className="text-left">
+                    <h2 className="text-2xl font-bold text-[#C9A24D] mb-8 text-left">Cookie Policy</h2>
 
                     {/* 1. What Are Cookies? */}
                     <Section icon={FiEye} title="1. What Are Cookies?">
