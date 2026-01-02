@@ -24,6 +24,7 @@ import UttarakhandTravelCost from "./pages/guides/UttarakhandTravelCost";
 import UttarakhandPackingList from "./pages/guides/UttarakhandPackingList";
 import UttarakhandTravelTips from "./pages/guides/UttarakhandTravelTips";
 import Terms from "./pages/footer/Terms";
+import Privacy from "./pages/footer/Privacy";
 import Safety from "./pages/footer/Safety";
 import ForHost from "./pages/footer/ForHost";
 import AboutUs from "./pages/footer/About";
@@ -59,6 +60,7 @@ function App() {
           {/* PUBLIC ROUTES */}
           <Route path="/" element={<Home />} />
           <Route path="/terms" element={<Terms />} />
+          <Route path="/privacy" element={<Privacy />} />
           <Route path="/safety" element={<Safety />} />
           <Route path="/host" element={<ForHost />} />
           <Route path="/mentions" element={<SpecialMentionsPage />} />
