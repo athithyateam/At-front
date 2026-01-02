@@ -63,7 +63,7 @@ export default function RegisterModal({ onClose, onSwitchToLogin, onProceedOTP }
 
         <div className="flex border-b mb-4" style={{ borderColor: `${GOLD}66` }}>
           <button className="w-1/2 py-2 cursor-pointer text-center font-semibold text-gray-400" onClick={onSwitchToLogin}>Login</button>
-          <button className="w-1/2 py-2 cursor-pointer text-center font-semibold border-b-2" style={{ color: GOLD, borderColor: GOLD }}>Register</button>
+          <button className="w-1/2 py-2 cursor-pointer text-center font-semibold border-b-2" style={{ color: GOLD, borderColor: GOLD }}>Create an account</button>
         </div>
 
         <div className="flex mb-4 rounded-lg overflow-hidden border" style={{ borderColor: `${GOLD}66` }}>
