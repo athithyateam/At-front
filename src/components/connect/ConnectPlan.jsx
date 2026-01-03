@@ -161,14 +161,27 @@ const ConnectPlan = () => {
           ]}
         />
 
-        <label className="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
-          <input
-            type="checkbox"
-            checked={topRatedOnly}
-            onChange={(e) => setTopRatedOnly(e.target.checked)}
-          />
-          Top rated only
-        </label>
+        <div
+          onClick={() => setTopRatedOnly(!topRatedOnly)}
+          className="flex items-center gap-3 cursor-pointer select-none pb-1"
+        >
+          <div
+            className={`w-11 h-6 flex items-center rounded-full p-1 transition-colors duration-300 ${topRatedOnly ? "bg-[#C59A2F] justify-end" : "bg-gray-300 justify-start"
+              }`}
+          >
+            <motion.div
+              layout
+              transition={{ type: "spring", stiffness: 500, damping: 30 }}
+              className="w-4 h-4 bg-white rounded-full shadow-sm"
+            />
+          </div>
+          <span
+            className={`text-sm font-medium transition-colors ${topRatedOnly ? "text-[#C59A2F]" : "text-gray-600"
+              }`}
+          >
+            Top rated only
+          </span>
+        </div>
       </div>
 
       {/* ---------------- PLANS ---------------- */}
