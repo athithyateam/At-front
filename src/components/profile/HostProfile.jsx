@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { FiMapPin, FiClock, FiStar, FiGrid, FiLayers, FiBriefcase, FiChevronRight, FiEdit2, FiTrash2, FiMoreVertical } from "react-icons/fi";
@@ -13,20 +13,26 @@ const HOST_TABS = [
 export default function HostProfile({ posts = [], postStats = {}, reviewStats = {}, isOwner = false }) {
   const [activeTab, setActiveTab] = useState("posts");
   const [openMenuId, setOpenMenuId] = useState(null);
+  const [localPosts, setLocalPosts] = useState(posts);
   const navigate = useNavigate();
+
+  // Sync localPosts if posts prop changes
+  useEffect(() => {
+    setLocalPosts(posts);
+  }, [posts]);
 
   const filteredPosts = useMemo(() => {
     if (activeTab === "posts")
-      return posts.filter((p) => p.postType === "experience");
+      return localPosts.filter((p) => p.postType === "experience");
 
     if (activeTab === "services")
-      return posts.filter((p) => p.postType === "service");
+      return localPosts.filter((p) => p.postType === "service");
 
     if (activeTab === "plans")
-      return posts.filter((p) => p.postType === "plan");
+      return localPosts.filter((p) => p.postType === "plan");
 
     return [];
-  }, [activeTab, posts]);
+  }, [activeTab, localPosts]);
 
   return (
     <div className="space-y-8 py-4">
@@ -165,7 +171,8 @@ export default function HostProfile({ posts = [], postStats = {}, reviewStats = 
                                     if (window.confirm("Are you sure you want to delete this?")) {
                                       try {
                                         await deletePost(p._id, { token: localStorage.getItem("auth_token") });
-                                        window.location.reload();
+                                        // Update local state instead of reload
+                                        setLocalPosts(prev => prev.filter(item => item._id !== p._id));
                                       } catch (err) {
                                         alert("Failed: " + err.message);
                                       }
