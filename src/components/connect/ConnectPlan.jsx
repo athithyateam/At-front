@@ -244,9 +244,13 @@ const ConnectPlan = () => {
             className="pb-12 border-b border-gray-200"
           >
             {/* AUTHOR */}
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-full bg-[#C59A2F] text-white flex items-center justify-center font-bold">
-                {user.firstname?.[0] || "U"}
+            <div className="flex items-center gap-3 mb-3 text-left">
+              <div className="w-10 h-10 rounded-full bg-[#C59A2F] text-white flex items-center justify-center font-bold overflow-hidden">
+                {user.avatar?.url ? (
+                  <img src={user.avatar.url} alt="" className="w-full h-full object-cover" />
+                ) : (
+                  user.firstname?.[0] || "U"
+                )}
               </div>
 
               <div className="flex flex-col text-left">
