@@ -139,7 +139,7 @@ export default function LeftContent({ scrollYProgress }) {
                 </motion.p>
               </div>
 
-              <div className="mt-6 md:mt-12 pointer-events-auto flex justify-start">
+              <div className="mt-4 md:mt-12 pointer-events-auto flex justify-start">
                 <button
                   onClick={handleExplore}
                   className="
