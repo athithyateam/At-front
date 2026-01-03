@@ -79,10 +79,17 @@ export default function LeftContent({ scrollYProgress }) {
                 : [50, 0, 0, -50]
           );
 
+          // Dynamic z-index: visible section gets higher z-index
+          const zIndex = useTransform(
+            opacity,
+            [0, 0.5, 1],
+            [0, 10, 10]
+          );
+
           return (
             <motion.div
               key={i}
-              style={{ opacity, y }}
+              style={{ opacity, y, zIndex }}
               className="absolute inset-0 flex flex-col justify-center text-gray-900 px-1 md:px-0 pointer-events-none"
             >
               {/* Step indicator */}
