@@ -86,7 +86,7 @@ export default function LeftContent({ scrollYProgress }) {
                 }`}
             >
               {/* Step indicator */}
-              <div className="flex items-center gap-4 mb-10">
+              <div className="flex items-center gap-4 mb-4 md:mb-10">
                 <div className="w-0.5 h-8 bg-[#C59A2F]/80 rounded-full" />
                 <span className="text-[11px] uppercase tracking-[0.25em] text-[#C59A2F]/80">
                   Step {i + 1}
@@ -97,7 +97,7 @@ export default function LeftContent({ scrollYProgress }) {
               <motion.h2
                 className="
                 story-title
-                text-3xl md:text-5xl
+                text-2xl md:text-5xl
                 font-semibold
                 leading-tight
                 max-w-[520px]
@@ -111,8 +111,8 @@ export default function LeftContent({ scrollYProgress }) {
               <motion.p
                 className="
                 story-sub
-                mt-5
-                text-base md:text-lg
+                mt-3 md:mt-5
+                text-sm md:text-lg
                 max-w-[500px]
                 text-justify
               "
@@ -120,11 +120,11 @@ export default function LeftContent({ scrollYProgress }) {
                 {item.subtitle}
               </motion.p>
 
-              <div className="mt-8 pointer-events-auto flex justify-start">
+              <div className="mt-5 md:mt-8 pointer-events-auto flex justify-start">
                 <button
                   onClick={handleExplore}
                   className="
-                      px-8 py-3 
+                      px-6 py-2 md:px-8 md:py-3 
                       bg-[#C59A2F] text-white 
                       rounded-full font-medium 
                       shadow-lg hover:bg-[#b0892a] 
