@@ -47,3 +47,20 @@ export async function getUserLocationApi() {
 
   return res.data; // { success, data }
 }
+
+export async function updateProfileApi(formData) {
+  const token = localStorage.getItem("auth_token");
+
+  const res = await axios.put(
+    `${API_BASE}/api/users/profile`,
+    formData,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
+
+  return res.data;
+}

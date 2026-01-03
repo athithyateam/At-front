@@ -1,31 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { FiMoreVertical } from "react-icons/fi";
+import { motion, AnimatePresence } from "framer-motion";
+import { FiMoreVertical, FiEdit3, FiLogOut } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import EditProfileModal from "./EditProfileModal";
 
-export default function BaseTravelProfile({ user, isOwner, children }) {
+export default function BaseTravelProfile({ user: initialUser, isOwner, children }) {
   const [showMenu, setShowMenu] = useState(false);
-  const { logout } = useAuth();
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [user, setUser] = useState(initialUser);
+
+  const { logout, user: authUser, setUser: setAuthUser } = useAuth();
   const navigate = useNavigate();
 
-  // Close menu on click outside
   useEffect(() => {
-    const closeMenu = (e) => {
-      // If menu is open and click is not inside the menu container (simple check)
-      // For a more robust check we could use useRef, but this is a quick valid DOM check if we attached a common class or handled bubbling carefully. 
-      // Actually, standard practice is useRef. Let's rely on bubbling or just global click closing it if it doesn't hit the button.
-    };
+    setUser(initialUser);
+  }, [initialUser]);
 
-    // Better simple implementation:
-    const handleGlobalClick = (e) => {
-      // We will assume simpler logic: if showMenu is true, any click closes it,
-      // unless we stopped propagation on the menu itself.
-      // We'll add stopPropagation to the menu button and container.
-    };
-  }, []);
-
-  // Actually, let's just use a backdrop or window event.
+  // Close menu on click outside
   useEffect(() => {
     const handleWindowClick = () => setShowMenu(false);
     if (showMenu) {
@@ -38,6 +30,23 @@ export default function BaseTravelProfile({ user, isOwner, children }) {
     logout();
     navigate("/", { replace: true });
   };
+
+  const handleUpdateUser = (updatedUser) => {
+    setUser(updatedUser);
+    // If updating own profile, sync with AuthContext
+    if (isOwner && setAuthUser) {
+      setAuthUser({
+        ...authUser,
+        firstname: updatedUser.firstname,
+        lastname: updatedUser.lastname,
+        avatar: updatedUser.avatar,
+        description: updatedUser.description
+      });
+    }
+  };
+
+  const avatarUrl = user?.avatar?.url || user?.avatar || "";
+
   return (
     <div className="min-h-screen bg-white text-gray-800">
       {/* Cover */}
@@ -61,9 +70,9 @@ export default function BaseTravelProfile({ user, isOwner, children }) {
           {/* Avatar */}
           <div className="shrink-0 -mt-12 md:mt-0">
             <div className="w-32 h-32 rounded-full ring-4 ring-white overflow-hidden shadow">
-              {user?.avatar ? (
+              {avatarUrl ? (
                 <img
-                  src={user.avatar}
+                  src={avatarUrl}
                   alt="avatar"
                   className="w-full h-full object-cover"
                 />
@@ -88,7 +97,7 @@ export default function BaseTravelProfile({ user, isOwner, children }) {
                   </span>
                 </div>
                 {user.description && (
-                  <p className="mt-3 text-gray-600 text-sm max-w-3xl text-left">
+                  <p className="mt-3 text-gray-600 text-sm max-w-3xl text-left whitespace-pre-wrap">
                     {user.description}
                   </p>
                 )}
@@ -114,31 +123,60 @@ export default function BaseTravelProfile({ user, isOwner, children }) {
                   </button>
 
                   {/* Dropdown Menu */}
-                  {showMenu && (
-                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-2xl py-2 z-50 border border-gray-50">
-                      {isOwner && (
-                        <button
-                          onClick={handleLogout}
-                          className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors flex items-center gap-2"
-                        >
-                          Logout
-                        </button>
-                      )}
+                  <AnimatePresence>
+                    {showMenu && (
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.95, y: 10 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.95, y: 10 }}
+                        className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-2xl py-2 z-50 border border-gray-100"
+                      >
+                        {isOwner && (
+                          <>
+                            <button
+                              onClick={() => {
+                                setShowEditModal(true);
+                                setShowMenu(false);
+                              }}
+                              className="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors flex items-center gap-2 font-medium"
+                            >
+                              <FiEdit3 className="text-[#C59A2F]" /> Edit Profile
+                            </button>
+                            <div className="h-px bg-gray-100 my-1 mx-2" />
+                            <button
+                              onClick={handleLogout}
+                              className="w-full text-left px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors flex items-center gap-2 font-medium"
+                            >
+                              <FiLogOut /> Logout
+                            </button>
+                          </>
+                        )}
 
-                      {/* You can add more menu items here later */}
-                      {!isOwner && (
-                        <button
-                          className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
-                          onClick={() => setShowMenu(false)}
-                        >
-                          Report User
-                        </button>
-                      )}
-                    </div>
-                  )}
+                        {!isOwner && (
+                          <button
+                            className="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                            onClick={() => setShowMenu(false)}
+                          >
+                            Report User
+                          </button>
+                        )}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               </div>
             </div>
+
+            {/* Editing Modal */}
+            <AnimatePresence>
+              {showEditModal && (
+                <EditProfileModal
+                  user={user}
+                  onClose={() => setShowEditModal(false)}
+                  onUpdate={handleUpdateUser}
+                />
+              )}
+            </AnimatePresence>
 
             {/* Dynamic role-based content */}
             <div className="mt-6">{children}</div>
