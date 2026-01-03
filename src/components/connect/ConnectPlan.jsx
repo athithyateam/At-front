@@ -6,13 +6,16 @@ import {
   FiTrendingUp,
   FiMessageCircle,
   FiChevronDown,
+  FiSmile,
 } from "react-icons/fi";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { listItineraries } from "../../api/itineraries";
 import PremiumSelect from "../PremiumSelect";
 import RatingStars from "../RatingStars";
 
 /* ---------------- helpers ---------------- */
+
+const EMOJIS = ["🔥", "❤️", "👍", "😍", "😮", "👏"];
 
 const LOOKING_FOR_MAP = [
   { key: "partner", label: "Partner" },
@@ -221,9 +224,8 @@ const ConnectPlan = () => {
                 <FiCalendar />
                 {duration.days} day{duration.days > 1 ? "s" : ""}
                 {duration.nights
-                  ? ` · ${duration.nights} night${
-                      duration.nights > 1 ? "s" : ""
-                    }`
+                  ? ` · ${duration.nights} night${duration.nights > 1 ? "s" : ""
+                  }`
                   : ""}
               </span>
 
@@ -260,9 +262,8 @@ const ConnectPlan = () => {
                 >
                   {isExpanded ? "Show less" : "Read more"}
                   <FiChevronDown
-                    className={`transition-transform ${
-                      isExpanded ? "rotate-180" : ""
-                    }`}
+                    className={`transition-transform ${isExpanded ? "rotate-180" : ""
+                      }`}
                   />
                 </button>
               )}
@@ -293,7 +294,7 @@ const ConnectPlan = () => {
               </button>
 
               <button className="flex cursor-pointer items-center gap-1 text-sm text-gray-600 hover:text-gray-900"
-              onClick={()=> handleMessage(plan)}>
+                onClick={() => handleMessage(plan)}>
                 <FiMessageCircle />
                 Message
               </button>
