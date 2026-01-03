@@ -77,8 +77,30 @@ export async function listItineraries(params = {}, { token } = {}) {
   }
 }
 
+export async function updateItinerary(id, formData, { token, onUploadProgress } = {}) {
+  try {
+    const config = {
+      headers: {
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+      onUploadProgress: (evt) => {
+        if (!evt?.total) return;
+        const percent = Math.round((evt.loaded * 100) / evt.total);
+        if (typeof onUploadProgress === "function") onUploadProgress(percent);
+      },
+    };
+    const res = await axiosInstance.put(`${ENDPOINT}/${id}`, formData, config);
+    return res.data;
+  } catch (err) {
+    const message = err?.response?.data?.message || err?.message || "Failed to update itinerary";
+    console.error("updateItinerary error:", message, err);
+    throw { success: false, message, original: err };
+  }
+}
+
 export default {
   createItinerary,
   getItinerary,
   listItineraries,
+  updateItinerary,
 };

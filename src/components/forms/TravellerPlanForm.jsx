@@ -156,7 +156,7 @@ function Section({ title, children }) {
 }
 
 /* ================= MAIN FORM ================= */
-export default function TravellerPlanForm() {
+export default function TravellerPlanForm({ editId }) {
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [formError, setFormError] = useState("");
@@ -187,6 +187,81 @@ export default function TravellerPlanForm() {
 
   /* looking for */
   const [lookingFor, setLookingFor] = useState("anyone");
+
+  /* photos */
+  const [photos, setPhotos] = useState([]);
+  const [existingPhotos, setExistingPhotos] = useState([]);
+
+  /* ---------------- FETCH DATA IF EDITING ---------------- */
+  useEffect(() => {
+    if (editId) {
+      const fetchData = async () => {
+        try {
+          const res = await getItinerary(editId);
+          if (res.success) {
+            const i = res.post; // backend returns post object
+            setTitle(i.title || "");
+            setDescription(i.description || "");
+            setPlanName(i.plan?.name || "");
+            setCategories(i.categories || []);
+            setAmenities(i.amenities || []);
+            setLocation(i.location || emptyLocation);
+            setDays(i.duration?.days || 1);
+            setNights(i.duration?.nights || 0);
+            setMaxPeople(i.capacity?.maxPeople || 5);
+            setPriceTotal(i.price?.total || "");
+            setPricePerPerson(i.price?.perPerson || "");
+            setPeriod(i.price?.period || "person");
+            setExistingPhotos(i.photos || []);
+
+            // availability
+            if (i.availability?.ranges) {
+              setAvailability(i.availability.ranges.map((r, idx) => ({ ...r, id: idx })));
+            }
+
+            // looking for from tags
+            const lookTag = i.tags?.find(t => t.startsWith('looking:'));
+            if (lookTag) setLookingFor(lookTag.split(':')[1]);
+
+            // other tags
+            setTags(i.tags?.filter(t => !t.startsWith('looking:')) || []);
+          }
+        } catch (err) {
+          console.error("Fetch itinerary error:", err);
+          setFormError("Failed to load itinerary data");
+        }
+      };
+      fetchData();
+    }
+  }, [editId]);
+
+  /* ---------------- PHOTOS ---------------- */
+  const onDropPhotos = useCallback((files) => {
+    setPhotos((p) => [
+      ...p,
+      ...files.map((f) => ({
+        file: f,
+        preview: URL.createObjectURL(f),
+      })),
+    ]);
+  }, []);
+
+  const photoDZ = useDropzone({
+    onDrop: onDropPhotos,
+    accept: { "image/*": [] },
+  });
+
+  useEffect(() => {
+    return () => photos.forEach((p) => URL.revokeObjectURL(p.preview));
+  }, [photos]);
+
+  function removePhoto(index) {
+    setPhotos((p) => p.filter((_, i) => i !== index));
+  }
+
+  function removeExistingPhoto(url) {
+    setExistingPhotos((p) => p.filter((u) => u !== url));
+  }
 
   /* ---------------- VALIDATION ---------------- */
   function validate() {
@@ -242,7 +317,7 @@ export default function TravellerPlanForm() {
     fd.append("postType", POST_TYPE);
     fd.append("title", title);
     fd.append("description", description);
-    fd.append("plan", JSON.stringify({ name: planName }));
+    fd.append("planName", planName);
     fd.append("location", JSON.stringify(location));
     fd.append("duration", JSON.stringify({ days, nights }));
     fd.append("capacity", JSON.stringify({ maxPeople }));
@@ -269,13 +344,38 @@ export default function TravellerPlanForm() {
       })
     );
 
+    // Photos
+    photos.forEach(p => fd.append("photos", p.file));
+    fd.append("existingPhotos", JSON.stringify(existingPhotos));
+
     try {
-      await createItinerary(fd, {
-        token: localStorage.getItem("auth_token"),
-        onUploadProgress: (p) => setProgress(Math.floor(p || 0)),
-      });
-    } catch {
-      setFormError("Submission failed. Please try again.");
+      const token = localStorage.getItem("auth_token");
+      if (editId) {
+        await updateItinerary(editId, fd, {
+          token,
+          onUploadProgress: (p) => setProgress(Math.floor(p || 0)),
+        });
+        alert("Itinerary updated successfully");
+      } else {
+        await createItinerary(fd, {
+          token,
+          onUploadProgress: (p) => setProgress(Math.floor(p || 0)),
+        });
+        alert("Itinerary created successfully");
+        // reset
+        setTitle("");
+        setDescription("");
+        setPlanName("");
+        setLocation(emptyLocation);
+        setCategories([]);
+        setTags([]);
+        setAmenities([]);
+        setAvailability([]);
+        setPhotos([]);
+        setExistingPhotos([]);
+      }
+    } catch (err) {
+      setFormError(err.message || "Submission failed. Please try again.");
     } finally {
       setLoading(false);
       setProgress(0);
@@ -518,6 +618,57 @@ export default function TravellerPlanForm() {
 
           {/* -------- RIGHT (META) -------- */}
           <div className="space-y-5">
+            {/* PHOTOS */}
+            <Section title="Photos">
+              <div
+                {...photoDZ.getRootProps()}
+                className="rounded-lg p-4 text-center cursor-pointer soft-border border-dashed border-2 hover:bg-[#fbf6ea] transition-colors"
+              >
+                <input {...photoDZ.getInputProps()} />
+                <FiUpload className="mx-auto mb-1 GOLD" size={18} />
+                <p className="text-[10px] muted">Click or drag photos</p>
+              </div>
+
+              {(photos.length > 0 || existingPhotos.length > 0) && (
+                <div className="grid grid-cols-2 gap-2 mt-3">
+                  {/* Existing */}
+                  {existingPhotos.map((p, i) => (
+                    <div key={`existing-${i}`} className="relative group">
+                      <img
+                        src={p.url}
+                        alt=""
+                        className="rounded-lg object-cover h-16 w-full opacity-70"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => removeExistingPhoto(p)}
+                        className="absolute top-1 right-1 bg-white/90 rounded-full p-1 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity"
+                      >
+                        <FiX size={10} className="text-red-500" />
+                      </button>
+                    </div>
+                  ))}
+                  {/* New */}
+                  {photos.map((p, i) => (
+                    <div key={`new-${i}`} className="relative group">
+                      <img
+                        src={p.preview}
+                        alt=""
+                        className="rounded-lg object-cover h-16 w-full border border-yellow-200"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => removePhoto(i)}
+                        className="absolute top-1 right-1 bg-white/90 rounded-full p-1 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity"
+                      >
+                        <FiX size={10} />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </Section>
+
             {/* CATEGORIES */}
             <Section title="Categories">
               <CategoryPills
@@ -587,7 +738,7 @@ export default function TravellerPlanForm() {
                 disabled={loading}
                 className="w-full GOLD-bg text-white py-3 rounded-xl"
               >
-                {loading ? "Creating..." : "Create Itinerary"}
+                {loading ? (editId ? "Updating..." : "Creating...") : (editId ? "Update Itinerary" : "Create Itinerary")}
               </button>
             </div>
           </div>

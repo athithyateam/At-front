@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useDropzone } from "react-dropzone";
-import { createItinerary } from "../../api/itineraries";
-import { FiChevronDown } from "react-icons/fi";
+import { FiChevronDown, FiX } from "react-icons/fi";
+import { createItinerary, getItinerary, updateItinerary } from "../../api/itineraries";
 
 /* ----------------------- visual constants ----------------------- */
 const GOLD = "#C59D5F";
@@ -186,7 +186,8 @@ function validateDateRange(range) {
 }
 
 /* ----------------------- MAIN Component ----------------------- */
-export default function HostPlanForm({ onSaved }) {
+
+export default function HostPlanForm({ editId, onSaved }) {
   // core text fields
   const [title, setTitle] = useState("");
   const [longDesc, setLongDesc] = useState("");
@@ -210,12 +211,48 @@ export default function HostPlanForm({ onSaved }) {
   const [availability, setAvailability] = useState([]);
 
   // media
-  const [media, setMedia] = useState([]); // {file, preview, type}
+  const [media, setMedia] = useState([]); // new files {file, preview, type}
+  const [existingPhotos, setExistingPhotos] = useState([]);
+  const [existingVideos, setExistingVideos] = useState([]);
 
   // ui
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [errors, setErrors] = useState({});
+
+  // Fetch data if editing
+  useEffect(() => {
+    if (editId) {
+      const fetchData = async () => {
+        try {
+          const res = await getItinerary(editId);
+          if (res.success) {
+            const i = res.post;
+            setTitle(i.title || "");
+            setLongDesc(i.description || "");
+            setCity(i.location?.city || "");
+            setStateField(i.location?.state || "");
+            setCountry(i.location?.country || "India");
+            setDays(i.duration?.days || 1);
+            setNights(i.duration?.nights || 0);
+            setPricePerPerson(i.price?.perPerson || "");
+            setCapacity(i.capacity?.maxPeople || 4);
+            setTags(i.tags || []);
+            setAmenities(i.amenities || []);
+            setExistingPhotos(i.photos || []);
+            setExistingVideos(i.videos || []);
+            if (i.availability?.ranges) {
+              setAvailability(i.availability.ranges.map((r, idx) => ({ ...r, id: idx })));
+            }
+          }
+        } catch (err) {
+          console.error("Fetch itinerary error:", err);
+          alert("Failed to load itinerary data");
+        }
+      };
+      fetchData();
+    }
+  }, [editId]);
 
   /* ----------------------- Dropzone ----------------------- */
   const onDrop = useCallback((acceptedFiles) => {
@@ -262,6 +299,13 @@ export default function HostPlanForm({ onSaved }) {
       if (m?.preview) URL.revokeObjectURL(m.preview);
       return prev.filter((_, i) => i !== idx);
     });
+  }
+
+  function removeExistingPhoto(idx) {
+    setExistingPhotos(prev => prev.filter((_, i) => i !== idx));
+  }
+  function removeExistingVideo(idx) {
+    setExistingVideos(prev => prev.filter((_, i) => i !== idx));
   }
 
   function addTag(v) {
@@ -335,12 +379,17 @@ export default function HostPlanForm({ onSaved }) {
       })
     );
 
+    // New Media
     media
       .filter((m) => m.type === "image")
       .forEach((m) => fd.append("photos", m.file));
     media
       .filter((m) => m.type === "video")
       .forEach((m) => fd.append("videos", m.file));
+
+    // Existing Media
+    fd.append("existingPhotos", JSON.stringify(existingPhotos));
+    fd.append("existingVideos", JSON.stringify(existingVideos));
 
     return fd;
   }
@@ -359,36 +408,48 @@ export default function HostPlanForm({ onSaved }) {
       const fd = buildFormData();
       const token = window.localStorage.getItem("auth_token");
 
-      const data = await createItinerary(fd, {
-        onUploadProgress: (p) => setProgress(p),
-        token,
-      });
+      let data;
+      if (editId) {
+        data = await updateItinerary(editId, fd, {
+          token,
+          onUploadProgress: (p) => setProgress(p),
+        });
+      } else {
+        data = await createItinerary(fd, {
+          onUploadProgress: (p) => setProgress(p),
+          token,
+        });
+      }
 
       if (data?.success) {
         setProgress(100);
-        // reset some fields
-        setTitle("");
-        setLongDesc("");
-        setAvailability([]);
-        media.forEach((m) => m.preview && URL.revokeObjectURL(m.preview));
-        setMedia([]);
-        setTags([]);
-        setAmenities([]);
-        setCity("");
-        setStateField("");
-        setCountry("India");
-        setPricePerPerson("");
-        setCapacity(4);
+        if (!editId) {
+          // reset only on create
+          setTitle("");
+          setLongDesc("");
+          setAvailability([]);
+          media.forEach((m) => m.preview && URL.revokeObjectURL(m.preview));
+          setMedia([]);
+          setTags([]);
+          setAmenities([]);
+          setCity("");
+          setStateField("");
+          setCountry("India");
+          setPricePerPerson("");
+          setCapacity(4);
+          setExistingPhotos([]);
+          setExistingVideos([]);
+        }
 
-        if (typeof onSaved === "function") onSaved(data.post);
-        alert("Listing saved successfully");
+        if (typeof onSaved === "function") onSaved(data.post || data.itinerary);
+        alert(editId ? "Listing updated successfully" : "Listing saved successfully");
       } else {
         console.warn("Unexpected response", data);
-        alert("Saved but unexpected response — check console");
+        alert("Action completed but unexpected response — check console");
       }
     } catch (err) {
-      console.error("Upload failed", err?.response ?? err);
-      alert("Save failed — check console");
+      console.error("Action failed", err?.response ?? err);
+      alert("Failed to save listing — " + (err.message || "check console"));
     } finally {
       setLoading(false);
       setTimeout(() => setProgress(0), 700);
@@ -636,7 +697,7 @@ export default function HostPlanForm({ onSaved }) {
             <Section title="Media">
               <div
                 {...getRootProps()}
-                className="rounded-lg p-4 border-dashed cursor-pointer"
+                className="rounded-lg p-4 border-dashed border-2 cursor-pointer hover:bg-gray-50 transition"
                 style={{ borderColor: "#F0F0F0", background: "#FAFAFA" }}
               >
                 <input {...getInputProps()} />
@@ -645,33 +706,75 @@ export default function HostPlanForm({ onSaved }) {
                 </p>
               </div>
 
-              <div className="mt-3 flex gap-3 overflow-x-auto">
-                {media.map((m, i) => (
-                  <div
-                    key={i}
-                    className="relative w-28 h-20 rounded overflow-hidden border"
-                    style={{ borderColor: "#F6F6F6" }}
-                  >
-                    {m.type === "video" ? (
-                      <video
-                        src={m.preview}
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <img
-                        src={m.preview}
-                        className="w-full h-full object-cover"
-                      />
-                    )}
-                    <button
-                      type="button"
-                      onClick={() => removeMedia(i)}
-                      className="absolute top-1 right-1 bg-black/60 text-white px-1 text-xs rounded"
-                    >
-                      ×
-                    </button>
+              {/* Display Merged List */}
+              <div className="mt-4 space-y-4">
+                {/* Existing Photos/Videos */}
+                {existingPhotos.length > 0 && (
+                  <div>
+                    <p className="text-[10px] text-gray-400 mb-1 uppercase tracking-wider">Existing Photos</p>
+                    <div className="flex gap-3 overflow-x-auto pb-2">
+                      {existingPhotos.map((p, i) => (
+                        <div key={`ex-p-${i}`} className="relative w-28 h-20 rounded-lg overflow-hidden border soft-shadow group">
+                          <img src={p.url} className="w-full h-full object-cover opacity-80" alt="" />
+                          <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
+                          <button
+                            type="button"
+                            onClick={() => removeExistingPhoto(i)}
+                            className="absolute top-1 right-1 bg-white/90 rounded-full p-1 shadow-sm hover:bg-red-50"
+                          >
+                            <FiX size={12} className="text-red-500" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                ))}
+                )}
+
+                {existingVideos.length > 0 && (
+                  <div>
+                    <p className="text-[10px] text-gray-400 mb-1 uppercase tracking-wider">Existing Videos</p>
+                    <div className="flex gap-3 overflow-x-auto pb-2">
+                      {existingVideos.map((v, i) => (
+                        <div key={`ex-v-${i}`} className="relative w-28 h-20 rounded-lg overflow-hidden border soft-shadow group">
+                          <video src={v.url} className="w-full h-full object-cover opacity-80" />
+                          <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
+                          <button
+                            type="button"
+                            onClick={() => removeExistingVideo(i)}
+                            className="absolute top-1 right-1 bg-white/90 rounded-full p-1 shadow-sm hover:bg-red-50"
+                          >
+                            <FiX size={12} className="text-red-500" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* New Media */}
+                {media.length > 0 && (
+                  <div>
+                    <p className="text-[10px] GOLD mb-1 uppercase tracking-wider">New Uploads</p>
+                    <div className="flex gap-3 overflow-x-auto pb-2">
+                      {media.map((m, i) => (
+                        <div key={`new-${i}`} className="relative w-28 h-20 rounded-lg overflow-hidden border-2 border-[#C59D5F]/30 soft-shadow">
+                          {m.type === "video" ? (
+                            <video src={m.preview} className="w-full h-full object-cover" />
+                          ) : (
+                            <img src={m.preview} className="w-full h-full object-cover" alt="" />
+                          )}
+                          <button
+                            type="button"
+                            onClick={() => removeMedia(i)}
+                            className="absolute top-1 right-1 bg-white/90 rounded-full p-1 shadow-sm"
+                          >
+                            <FiX size={12} className="GOLD" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </Section>
 
@@ -685,7 +788,7 @@ export default function HostPlanForm({ onSaved }) {
                 disabled={loading}
                 className="w-full GOLD-bg text-white py-3 rounded-xl font-medium btn-lux"
               >
-                {loading ? "Saving..." : "Save Plan"}
+                {loading ? (editId ? "Updating..." : "Saving...") : (editId ? "Update Plan" : "Save Plan")}
               </button>
             </div>
           </div>

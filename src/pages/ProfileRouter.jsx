@@ -45,9 +45,10 @@ export default function ProfileRouter() {
           posts={posts}
           postStats={postStats}
           reviewStats={reviewStats}
+          isOwner={isOwner}
         />
       ) : (
-        <GuestProfile posts={posts} />
+        <GuestProfile posts={posts} isOwner={isOwner} />
       )}
     </BaseTravelProfile>
   );

@@ -81,10 +81,41 @@ export async function reactToPost(id, emoji, { token } = {}) {
   }
 }
 
+export async function updatePost(id, formData, { token } = {}) {
+  try {
+    const config = {
+      headers: {
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+    };
+    const res = await axiosInstance.put(ENDPOINTS.GET_POST(id), formData, config);
+    return res.data;
+  } catch (err) {
+    const message = err?.response?.data?.message || err?.message || "Failed to update post";
+    console.error("updatePost error:", message, err);
+    throw { success: false, message, original: err };
+  }
+}
+
+export async function deletePost(id, { token } = {}) {
+  try {
+    const res = await axiosInstance.delete(ENDPOINTS.GET_POST(id), {
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    });
+    return res.data;
+  } catch (err) {
+    const message = err?.response?.data?.message || err?.message || "Failed to delete post";
+    console.error("deletePost error:", message, err);
+    throw { success: false, message, original: err };
+  }
+}
+
 export default {
   axiosInstance,
   createPost,
   getPost,
   listPosts,
   reactToPost,
+  updatePost,
+  deletePost,
 };

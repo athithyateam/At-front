@@ -1,6 +1,8 @@
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiMapPin, FiClock, FiStar, FiGrid, FiLayers, FiBriefcase, FiChevronRight } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
+import { FiMapPin, FiClock, FiStar, FiGrid, FiLayers, FiBriefcase, FiChevronRight, FiEdit2, FiTrash2 } from "react-icons/fi";
+import { deletePost } from "../../api/posts";
 
 const HOST_TABS = [
   { key: "posts", label: "Momentos", icon: <FiGrid className="w-4 h-4" /> },
@@ -8,8 +10,9 @@ const HOST_TABS = [
   { key: "services", label: "Experiences", icon: <FiBriefcase className="w-4 h-4" /> },
 ];
 
-export default function HostProfile({ posts = [], postStats = {}, reviewStats = {} }) {
+export default function HostProfile({ posts = [], postStats = {}, reviewStats = {}, isOwner = false }) {
   const [activeTab, setActiveTab] = useState("posts");
+  const navigate = useNavigate();
 
   const filteredPosts = useMemo(() => {
     if (activeTab === "posts")
@@ -90,6 +93,40 @@ export default function HostProfile({ posts = [], postStats = {}, reviewStats = 
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60" />
+
+                  {/* Actions for Owner */}
+                  {isOwner && (
+                    <div className="absolute top-4 right-4 flex gap-2 z-10">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          const typeMap = { 'experience': 'post', 'plan': 'plan', 'service': 'service' };
+                          navigate(`/post?edit=${p._id}&type=${typeMap[p.postType] || 'post'}`);
+                        }}
+                        className="p-2 bg-white/90 backdrop-blur shadow-sm rounded-full text-blue-600 hover:bg-blue-600 hover:text-white transition-all transform hover:scale-110"
+                        title="Edit Listing"
+                      >
+                        <FiEdit2 size={14} />
+                      </button>
+                      <button
+                        onClick={async (e) => {
+                          e.stopPropagation();
+                          if (window.confirm("Are you sure you want to delete this listing? This action cannot be undone.")) {
+                            try {
+                              await deletePost(p._id, { token: localStorage.getItem("auth_token") });
+                              window.location.reload();
+                            } catch (err) {
+                              alert("Failed to delete: " + err.message);
+                            }
+                          }
+                        }}
+                        className="p-2 bg-white/90 backdrop-blur shadow-sm rounded-full text-red-600 hover:bg-red-600 hover:text-white transition-all transform hover:scale-110"
+                        title="Delete Listing"
+                      >
+                        <FiTrash2 size={14} />
+                      </button>
+                    </div>
+                  )}
 
                   {activeTab !== "posts" && (
                     <div className="absolute top-4 left-4">

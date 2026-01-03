@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import HostForm from "../components/forms/HostForm";
 import TravellerForm from "../components/forms/TravellerForm";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 export default function PostForm() {
   const { user, loading } = useAuth();
@@ -46,20 +46,24 @@ export default function PostForm() {
   const rawRole = (user.role || "guest").toLowerCase();
   const isHost = rawRole === "host" || rawRole === "admin";
 
+  const [searchParams] = useSearchParams();
+  const editId = searchParams.get("edit");
+  const editType = searchParams.get("type");
+
   return (
     <div className="mx-0 p-0 md:p-4 mb-20 md:mb-0">
       <div className="max-w-4xl mx-auto">
         {/* Role Indicator (Optional but helpful for testing) */}
         <div className="flex justify-end px-4 mt-2">
           <span className="text-[10px] uppercase tracking-widest font-bold px-2 py-0.5 rounded bg-gray-100 text-gray-400">
-            Mode: {isHost ? 'Host' : 'Guest'}
+            Mode: {isHost ? 'Host' : 'Guest'} {editId ? `(Editing ${editType})` : ''}
           </span>
         </div>
 
         {isHost ? (
-          <HostForm />
+          <HostForm editId={editId} editType={editType} />
         ) : (
-          <TravellerForm />
+          <TravellerForm editId={editId} editType={editType} />
         )}
       </div>
     </div>

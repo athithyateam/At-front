@@ -190,7 +190,7 @@ function PolicyAdder({ policies = [], onAdd, onRemove }) {
 }
 
 /* ---------------- Host Service Form ---------------- */
-export default function HostServiceForm({ onSaved }) {
+export default function HostServiceForm({ editId, onSaved }) {
   // core
   const [title, setTitle] = useState("");
   const [summary, setSummary] = useState("");
@@ -200,10 +200,10 @@ export default function HostServiceForm({ onSaved }) {
   const [categories, setCategories] = useState([]);
   const [tags, setTags] = useState([]);
 
-  // amenities (merged with categories/tags UI)
+  // amenities
   const [amenities, setAmenities] = useState([]);
 
-  // privacy policies (numbered sentences)
+  // privacy policies
   const [privacyPolicies, setPrivacyPolicies] = useState([]);
 
   // pricing / capacity
@@ -212,17 +212,54 @@ export default function HostServiceForm({ onSaved }) {
 
   // scheduling
   const [duration, setDuration] = useState(1);
-  const [period, setPeriod] = useState("hour"); // hour/day/session
+  const [period, setPeriod] = useState("hour");
 
   // media
-  const [media, setMedia] = useState([]); // {file, preview}
+  const [media, setMedia] = useState([]); // new files {file, preview}
+  const [existingPhotos, setExistingPhotos] = useState([]);
+
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
+
   // location
   const [city, setCity] = useState("");
   const [stateField, setStateField] = useState("");
   const [country, setCountry] = useState("India");
   const [meetingPoint, setMeetingPoint] = useState("");
+
+  // Fetch data if editing
+  useEffect(() => {
+    if (editId) {
+      const fetchData = async () => {
+        try {
+          const res = await ServicesAPI.getService(editId);
+          if (res.success) {
+            const s = res.post;
+            setTitle(s.title || "");
+            setSummary(s.summary || "");
+            setDescription(s.description || "");
+            setPrice(s.price?.perPerson || "");
+            setPeriod(s.price?.period || "hour");
+            setMaxPeople(s.capacity?.maxPeople || 1);
+            setDuration(s.duration?.days || 1);
+            setCity(s.location?.city || "");
+            setStateField(s.location?.state || "");
+            setCountry(s.location?.country || "India");
+            setMeetingPoint(s.location?.meetingPoint || "");
+            setCategories(s.categories || []);
+            setTags(s.tags || []);
+            setAmenities(s.amenities || []);
+            setPrivacyPolicies(s.privacyPolicy || []);
+            setExistingPhotos(s.photos || []);
+          }
+        } catch (err) {
+          console.error("Fetch service error:", err);
+          alert("Failed to load experience data");
+        }
+      };
+      fetchData();
+    }
+  }, [editId]);
 
   // dropzone
   const onDrop = useCallback((files) => {
@@ -283,6 +320,10 @@ export default function HostServiceForm({ onSaved }) {
     });
   }
 
+  function removeExistingPhoto(idx) {
+    setExistingPhotos(prev => prev.filter((_, i) => i !== idx));
+  }
+
   function validate() {
     if (!title.trim()) return "Title required";
     if (!summary.trim()) return "Short summary required";
@@ -329,51 +370,59 @@ export default function HostServiceForm({ onSaved }) {
       })
     );
 
-    if (categories.length) fd.append("categories", JSON.stringify(categories));
-    if (tags.length) fd.append("tags", JSON.stringify(tags));
-    if (amenities.length) fd.append("amenities", JSON.stringify(amenities));
-    if (privacyPolicies.length)
-      fd.append("privacyPolicy", JSON.stringify(privacyPolicies));
+    fd.append("categories", JSON.stringify(categories));
+    fd.append("tags", JSON.stringify(tags));
+    fd.append("amenities", JSON.stringify(amenities));
+    fd.append("privacyPolicy", JSON.stringify(privacyPolicies));
 
+    // Files
     media.forEach((m) => fd.append("photos", m.file));
+    fd.append("existingPhotos", JSON.stringify(existingPhotos));
 
     setLoading(true);
     setProgress(0);
     try {
       const token = window.localStorage.getItem("auth_token");
-      const res = await ServicesAPI.createService(fd, {
-        token,
-        onUploadProgress: (evtPercent) => {
-          // support both direct percent or evt.loaded/evt.total if used differently
-          const p = Math.floor(evtPercent || 0);
-          setProgress(p);
-        },
-      });
+      let res;
+      if (editId) {
+        res = await ServicesAPI.updateService(editId, fd, {
+          token,
+          onUploadProgress: (p) => setProgress(p),
+        });
+      } else {
+        res = await ServicesAPI.createService(fd, {
+          token,
+          onUploadProgress: (p) => setProgress(p),
+        });
+      }
 
       if (res?.success) {
-        alert("Experiences created successfully");
-        // reset form to defaults
-        setTitle("");
-        setSummary("");
-        setDescription("");
-        setPrice("");
-        setMaxPeople(1);
-        setDuration(1);
-        setPeriod("hour");
-        setCategories([]);
-        setTags([]);
-        setAmenities([]);
-        setPrivacyPolicies([]);
-        media.forEach((m) => m.preview && URL.revokeObjectURL(m.preview));
-        setMedia([]);
+        alert(editId ? "Experiences updated successfully" : "Experiences created successfully");
+        if (!editId) {
+          // reset
+          setTitle("");
+          setSummary("");
+          setDescription("");
+          setPrice("");
+          setMaxPeople(1);
+          setDuration(1);
+          setPeriod("hour");
+          setCategories([]);
+          setTags([]);
+          setAmenities([]);
+          setPrivacyPolicies([]);
+          media.forEach((m) => m.preview && URL.revokeObjectURL(m.preview));
+          setMedia([]);
+          setExistingPhotos([]);
+        }
         if (typeof onSaved === "function") onSaved(res.post);
       } else {
         console.warn("unexpected", res);
-        alert("Saved but unexpected response");
+        alert("Action completed but unexpected response");
       }
     } catch (err) {
       console.error(err);
-      alert("Save failed — check console");
+      alert("Action failed — " + (err.message || "check console"));
     } finally {
       setLoading(false);
       setTimeout(() => setProgress(0), 600);
@@ -616,7 +665,7 @@ export default function HostServiceForm({ onSaved }) {
           <Section title="Media">
             <div
               {...getRootProps()}
-              className="rounded-lg p-4 border-dashed cursor-pointer"
+              className="rounded-lg p-4 border-dashed border-2 cursor-pointer hover:bg-gray-50 transition"
               style={{ borderColor: "#F0F0F0", background: "#FAFAFB" }}
             >
               <input {...getInputProps()} />
@@ -626,28 +675,49 @@ export default function HostServiceForm({ onSaved }) {
               </div>
             </div>
 
-            {media.length > 0 && (
-              <div className="mt-3 flex gap-2 overflow-x-auto">
-                {media.map((m, i) => (
-                  <div
-                    key={i}
-                    className="relative w-28 h-20 rounded overflow-hidden border"
-                  >
-                    <img
-                      src={m.preview}
-                      className="w-full h-full object-cover"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => removeMedia(i)}
-                      className="absolute top-1 right-1 bg-white rounded-full px-1 text-xs"
-                    >
-                      ×
-                    </button>
+            <div className="mt-4 space-y-3">
+              {/* Existing */}
+              {existingPhotos.length > 0 && (
+                <div>
+                  <p className="text-[10px] muted uppercase mb-1">Existing Photos</p>
+                  <div className="flex gap-2 overflow-x-auto pb-1">
+                    {existingPhotos.map((p, i) => (
+                      <div key={`ex-${i}`} className="relative w-24 h-16 rounded overflow-hidden border group">
+                        <img src={p.url} className="w-full h-full object-cover opacity-80" alt="" />
+                        <button
+                          type="button"
+                          onClick={() => removeExistingPhoto(i)}
+                          className="absolute top-0.5 right-0.5 bg-white/90 rounded-full p-0.5 shadow-sm opacity-0 group-hover:opacity-100 transition"
+                        >
+                          <FiX size={10} className="text-red-500" />
+                        </button>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            )}
+                </div>
+              )}
+
+              {/* New */}
+              {media.length > 0 && (
+                <div>
+                  <p className="text-[10px] GOLD uppercase mb-1">New Uploads</p>
+                  <div className="flex gap-2 overflow-x-auto pb-1">
+                    {media.map((m, i) => (
+                      <div key={`new-${i}`} className="relative w-24 h-16 rounded overflow-hidden border-2 border-[#C59D5F]/30 group">
+                        <img src={m.preview} className="w-full h-full object-cover" alt="" />
+                        <button
+                          type="button"
+                          onClick={() => removeMedia(i)}
+                          className="absolute top-0.5 right-0.5 bg-white/90 rounded-full p-0.5 shadow-sm"
+                        >
+                          <FiX size={10} className="GOLD" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
           </Section>
 
           {/* STICKY SUBMIT */}
@@ -660,7 +730,7 @@ export default function HostServiceForm({ onSaved }) {
               disabled={loading}
               className="w-full GOLD-bg text-white py-3 rounded-xl font-medium btn-lux"
             >
-              {loading ? "Saving..." : "Save Experiences"}
+              {loading ? (editId ? "Updating..." : "Saving...") : (editId ? "Update Experiences" : "Save Experiences")}
             </button>
           </div>
         </div>

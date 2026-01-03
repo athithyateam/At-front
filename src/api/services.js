@@ -111,12 +111,29 @@ export async function getUserServices(userId, { token } = {}) {
 }
 
 /**
- * deleteService - Delete a service by ID
+ * updateService - Update an existing service
  * @param {string} id - Service ID
+ * @param {FormData} formData - Updated form data
  * @param {Object} options - Configuration options
- * @param {string} options.token - Auth token
- * @returns {Promise} Deletion response
+ * @returns {Promise} Unified response
  */
+export async function updateService(id, formData, { token, onUploadProgress } = {}) {
+  try {
+    const res = await axiosInstance.put(`${ENDPOINTS.POST_SERVICE}/${id}`, formData, {
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+      onUploadProgress: (evt) => {
+        if (!evt?.total) return;
+        const p = Math.round((evt.loaded * 100) / evt.total);
+        if (onUploadProgress) onUploadProgress(p);
+      },
+    });
+    return res.data;
+  } catch (err) {
+    const message = err?.response?.data?.message || err?.message || "Failed to update service";
+    throw { success: false, message, original: err };
+  }
+}
+
 export async function deleteService(id, { token } = {}) {
   try {
     const res = await axiosInstance.delete(ENDPOINTS.DELETE_SERVICE(id), {
@@ -135,6 +152,7 @@ export async function deleteService(id, { token } = {}) {
 
 export default {
   createService,
+  updateService,
   getService,
   listServices,
   getUserServices,

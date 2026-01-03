@@ -183,7 +183,7 @@ function CategoryPills({ values, onAdd, onRemove }) {
 
 /* ---------------- MAIN FORM ---------------- */
 
-export default function TravellerPostForm() {
+export default function TravellerPostForm({ editId }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
@@ -192,6 +192,7 @@ export default function TravellerPostForm() {
   const [amenities, setAmenities] = useState([]);
 
   const [photos, setPhotos] = useState([]);
+  const [existingPhotos, setExistingPhotos] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const [latitude, setLatitude] = useState(null);
@@ -209,6 +210,42 @@ export default function TravellerPostForm() {
   const [days, setDays] = useState("");
   const [nights, setNights] = useState("");
   const { addNotification } = useNotifications();
+
+  // Fetch data if editing
+  useEffect(() => {
+    if (editId) {
+      const fetchData = async () => {
+        try {
+          const res = await getPost(editId);
+          if (res.success) {
+            const p = res.post;
+            setTitle(p.title || "");
+            setDescription(p.description || "");
+            setCategories(p.categories || []);
+            setTags(p.tags || []);
+            setAmenities(p.amenities || []);
+            setCity(p.location?.city || "");
+            setState(p.location?.state || "");
+            setCountry(p.location?.country || "India");
+            setDifficulty(p.difficulty || "Easy");
+            setPricePerPerson(p.price?.perPerson || "");
+            setMaxPeople(p.capacity?.maxPeople || "");
+            setDays(p.duration?.days || "");
+            setNights(p.duration?.nights || "");
+            setExistingPhotos(p.photos || []);
+            if (p.location?.coordinates?.coordinates) {
+              setLongitude(p.location.coordinates.coordinates[0]);
+              setLatitude(p.location.coordinates.coordinates[1]);
+            }
+          }
+        } catch (err) {
+          console.error("Fetch post error:", err);
+          alert("Failed to load post data");
+        }
+      };
+      fetchData();
+    }
+  }, [editId]);
 
   /* ---------------- Photos ---------------- */
   const onDropPhotos = useCallback((files) => {
@@ -236,7 +273,7 @@ export default function TravellerPostForm() {
 
     if (!title.trim()) return alert("Title is required");
     if (!description.trim()) return alert("Description is required");
-    if (photos.length === 0) {
+    if (photos.length === 0 && existingPhotos.length === 0) {
       alert("Please upload at least one photo");
       return;
     }
@@ -275,32 +312,40 @@ export default function TravellerPostForm() {
       fd.append("location", JSON.stringify(locationPayload));
     }
 
+    // New photos
     photos.forEach((p) => fd.append("photos", p.file));
+
+    // Existing photos to keep
+    fd.append("existingPhotos", JSON.stringify(existingPhotos));
 
     setLoading(true);
     try {
-      await createPost(fd, {
-        token: localStorage.getItem("auth_token"),
-      });
-      alert("Post created successfully");
-
-      setTitle("");
-      setDescription("");
-      setCategories([]);
-      setTags([]);
-      setAmenities([]);
-      setPhotos([]);
-      setCity("");
-      setState("");
-      setCountry("India");
-      setDifficulty("Easy");
-      setPricePerPerson("");
-      setMaxPeople("");
-      setDays("");
-      setNights("");
+      const token = localStorage.getItem("auth_token");
+      if (editId) {
+        await updatePost(editId, fd, { token });
+        alert("Post updated successfully");
+      } else {
+        await createPost(fd, { token });
+        alert("Post created successfully");
+        // Clear form only on create
+        setTitle("");
+        setDescription("");
+        setCategories([]);
+        setTags([]);
+        setAmenities([]);
+        setPhotos([]);
+        setCity("");
+        setState("");
+        setCountry("India");
+        setDifficulty("Easy");
+        setPricePerPerson("");
+        setMaxPeople("");
+        setDays("");
+        setNights("");
+      }
     } catch (error) {
-      console.error("Post creation error:", error);
-      alert(error.message || "Failed to create post. Please try again.");
+      console.error("Post save error:", error);
+      alert(error.message || "Failed to save post. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -497,14 +542,35 @@ export default function TravellerPostForm() {
           <p className="text-sm muted">Click or drag photos</p>
         </div>
 
-        {photos.length > 0 && (
+        {(photos.length > 0 || existingPhotos.length > 0) && (
           <div className="grid grid-cols-3 md:grid-cols-5 gap-2 mt-3">
+            {/* Existing Photos */}
+            {existingPhotos.map((p, i) => (
+              <div key={`existing-${i}`} className="relative">
+                <img
+                  src={p.url}
+                  alt=""
+                  className="rounded-lg object-cover h-20 w-full opacity-70"
+                />
+                <button
+                  type="button"
+                  onClick={() =>
+                    setExistingPhotos(existingPhotos.filter((_, idx) => idx !== i))
+                  }
+                  className="absolute top-1 right-1 bg-white rounded-full p-1 soft-shadow hover:bg-red-50"
+                >
+                  <FiX size={12} className="text-red-500" />
+                </button>
+                <div className="absolute bottom-1 left-1 bg-black/40 text-white text-[8px] px-1 rounded">Existing</div>
+              </div>
+            ))}
+            {/* New Photos */}
             {photos.map((p, i) => (
-              <div key={i} className="relative">
+              <div key={`new-${i}`} className="relative">
                 <img
                   src={p.preview}
                   alt=""
-                  className="rounded-lg object-cover h-20 w-full"
+                  className="rounded-lg object-cover h-20 w-full border-2 border-yellow-200"
                 />
                 <button
                   type="button"
@@ -515,6 +581,7 @@ export default function TravellerPostForm() {
                 >
                   <FiX size={12} />
                 </button>
+                <div className="absolute bottom-1 left-1 bg-yellow-500 text-white text-[8px] px-1 rounded">New</div>
               </div>
             ))}
           </div>
@@ -527,7 +594,7 @@ export default function TravellerPostForm() {
           disabled={loading}
           className="GOLD-bg text-white px-6 py-2.5 rounded-lg font-medium btn-lux"
         >
-          {loading ? "Posting..." : "Create Post"}
+          {loading ? (editId ? "Updating..." : "Posting...") : (editId ? "Update Post" : "Create Post")}
         </button>
       </div>
     </form>
