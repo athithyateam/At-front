@@ -25,7 +25,7 @@ export default function RightContent({ scrollYProgress }) {
   const scale = useTransform(scrollYProgress, [0, 1], [1.08, 1]);
 
   return (
-    <div className="relative h-[45vh] md:h-[60vh] rounded-3xl overflow-hidden cinematic-grain">
+    <div className="relative h-[40vh] md:h-[60vh] w-full rounded-2xl md:rounded-3xl overflow-hidden cinematic-grain">
       {IMAGES.map((src, i) => (
         <motion.img
           key={i}
