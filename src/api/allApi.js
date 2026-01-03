@@ -6,6 +6,7 @@ export const ENDPOINTS = {
   GET_POST: (id) => `${API_BASE}/api/posts/experiences/${id}`,
   DELETE_POST: (id) => `${API_BASE}/api/posts/experiences/${id}`,
   USER_POST: (userId) => `${API_BASE}/api/posts/experiences/user/${userId}`,
+  REACT_POST: (id) => `${API_BASE}/api/posts/${id}/react`,
 
   // itineraries (plans)
   ITINERARIES: `${API_BASE}/api/itineraries`,

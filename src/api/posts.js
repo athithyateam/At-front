@@ -68,9 +68,23 @@ export async function listPosts(params = {}, { token } = {}) {
   }
 }
 
+export async function reactToPost(id, emoji, { token } = {}) {
+  try {
+    const res = await axiosInstance.put(ENDPOINTS.REACT_POST(id), { emoji }, {
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    });
+    return res.data;
+  } catch (err) {
+    const message = err?.response?.data?.message || err?.message || "Failed to react";
+    console.error("reactToPost error:", message, err);
+    throw { success: false, message, original: err };
+  }
+}
+
 export default {
   axiosInstance,
   createPost,
   getPost,
   listPosts,
+  reactToPost,
 };
