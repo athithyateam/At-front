@@ -10,6 +10,7 @@ import {
 } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 import { listItineraries } from "../../api/itineraries";
+import { reactToPost } from "../../api/posts";
 import { useAuth } from "../../context/AuthContext";
 import PremiumSelect from "../PremiumSelect";
 import RatingStars from "../RatingStars";
@@ -32,8 +33,6 @@ function getLookingFor(tags = []) {
   ).map((l) => l.label);
 }
 
-
-
 /* ---------------- component ---------------- */
 
 const ConnectPlan = () => {
@@ -43,11 +42,6 @@ const ConnectPlan = () => {
 
   const [raised, setRaised] = useState({});
   const [expanded, setExpanded] = useState({});
-  // allReactions: { [planId]: { [userId]: emoji } }
-  const [allReactions, setAllReactions] = useState(() => {
-    const saved = localStorage.getItem("ath_global_reactions_plans");
-    return saved ? JSON.parse(saved) : {};
-  });
   const [openPicker, setOpenPicker] = useState(null);
 
   /* filters */
@@ -70,6 +64,49 @@ const ConnectPlan = () => {
     fetchPlans();
   }, []);
 
+  async function react(planId, emoji) {
+    if (!user) return alert("Please login to react");
+
+    try {
+      const res = await reactToPost(planId, emoji, {
+        token: localStorage.getItem("auth_token"),
+      });
+
+      if (res.success) {
+        setPlans((prev) =>
+          prev.map((p) => {
+            if (p._id === planId) {
+              return { ...p, reactions: res.reactions };
+            }
+            return p;
+          })
+        );
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Failed to react");
+    }
+    setOpenPicker(null);
+  }
+
+  function getCounts(plan) {
+    const counts = {};
+    if (plan.reactions) {
+      plan.reactions.forEach((r) => {
+        counts[r.emoji] = (counts[r.emoji] || 0) + 1;
+      });
+    }
+    return counts;
+  }
+
+  function getMyReaction(plan) {
+    if (!user || !plan.reactions) return null;
+    const r = plan.reactions.find(
+      (react) => react.user === user._id || react.user?._id === user._id
+    );
+    return r ? r.emoji : null;
+  }
+
   function toggleRaise(id) {
     setRaised((r) => ({
       ...r,
@@ -79,48 +116,6 @@ const ConnectPlan = () => {
 
   function toggleExpand(id) {
     setExpanded((e) => ({ ...e, [id]: !e[id] }));
-  }
-
-  function react(postId, emoji) {
-    if (!user) return alert("Please login to react");
-
-    setAllReactions((prev) => {
-      const next = { ...prev };
-      if (!next[postId]) next[postId] = {};
-
-      const current = next[postId][user._id];
-      const currentEmoji = typeof current === "string" ? current : current?.emoji;
-
-      if (currentEmoji === emoji) {
-        delete next[postId][user._id];
-      } else {
-        next[postId][user._id] = {
-          emoji,
-          name: user.firstname || user.username || "User",
-          timestamp: Date.now()
-        };
-      }
-
-      localStorage.setItem("ath_global_reactions_plans", JSON.stringify(next));
-      return next;
-    });
-    setOpenPicker(null);
-  }
-
-  function getCounts(planId) {
-    const r = allReactions[planId] || {};
-    const counts = {};
-    Object.values(r).forEach((val) => {
-      const e = typeof val === "string" ? val : val.emoji;
-      counts[e] = (counts[e] || 0) + 1;
-    });
-    return counts;
-  }
-
-  function getMyReaction(planId) {
-    if (!user) return null;
-    const val = allReactions[planId]?.[user._id];
-    return typeof val === "string" ? val : val?.emoji;
   }
 
   function handleMessage(plan) {
@@ -352,29 +347,30 @@ const ConnectPlan = () => {
 
             {/* FOOTER */}
             <div className="relative mt-6 flex items-center gap-4">
-              {/* Reaction Counts: Added inline with buttons or above? Let's put slightly above or left */}
-              {Object.entries(getCounts(plan._id)).map(([emoji, count]) => (
-                <span key={emoji} className="bg-gray-50 px-2 py-0.5 rounded-full border border-gray-100 text-xs flex items-center gap-1">
-                  <span>{emoji}</span>
-                  <span className="font-semibold text-gray-700">{count}</span>
-                </span>
-              ))}
+              <div className="flex gap-2">
+                {Object.entries(getCounts(plan)).map(([emoji, count]) => (
+                  <span key={emoji} className="bg-gray-50 px-2 py-0.5 rounded-full border border-gray-100 text-xs flex items-center gap-1">
+                    <span>{emoji}</span>
+                    <span className="font-semibold text-gray-700">{count}</span>
+                  </span>
+                ))}
+              </div>
 
               <button
                 onClick={() =>
                   setOpenPicker(openPicker === plan._id ? null : plan._id)
                 }
-                className={`flex cursor-pointer items-center gap-2 text-sm transition ${getMyReaction(plan._id) ? "text-yellow-600 font-medium" : "text-gray-600 hover:text-black"
+                className={`flex cursor-pointer items-center gap-2 text-sm transition ${getMyReaction(plan) ? "text-yellow-600 font-medium" : "text-gray-600 hover:text-black"
                   }`}
               >
-                {getMyReaction(plan._id) ? (
+                {getMyReaction(plan) ? (
                   <span className="text-lg leading-none">
-                    {getMyReaction(plan._id)}
+                    {getMyReaction(plan)}
                   </span>
                 ) : (
                   <FiSmile />
                 )}
-                {getMyReaction(plan._id) ? "Reacted" : "React"}
+                {getMyReaction(plan) ? "Reacted" : "React"}
               </button>
 
               <AnimatePresence>
