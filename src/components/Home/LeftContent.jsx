@@ -39,7 +39,7 @@ export default function LeftContent({ scrollYProgress }) {
 
   return (
     <>
-      <div className="relative h-[40vh] md:h-[60vh] flex items-center">
+      <div className="relative h-[50vh] md:h-[60vh] flex items-center">
         {SECTIONS.map((item, i) => {
           const start = i * step;
 
