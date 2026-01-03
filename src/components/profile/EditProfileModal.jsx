@@ -116,6 +116,18 @@ export default function EditProfileModal({ user, onClose, onUpdate }) {
                                     className="hidden"
                                 />
                             </label>
+
+                            {/* Remove Picture Icon */}
+                            {preview && (
+                                <button
+                                    type="button"
+                                    onClick={handleRemovePhoto}
+                                    className="absolute -top-1 -right-1 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-red-600 transition-colors z-10 border-2 border-white"
+                                    title="Remove Picture"
+                                >
+                                    <FiX className="w-4 h-4" />
+                                </button>
+                            )}
                         </div>
                         <p className="text-[10px] text-gray-400 font-black uppercase tracking-[0.2em]">Change Profile Photo</p>
                     </div>
