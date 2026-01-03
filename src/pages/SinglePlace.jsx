@@ -35,7 +35,7 @@ const COLORS = {
 const TABS = [
   { key: "detail", label: "Detail" },
   { key: "photos", label: "Photos" },
-  { key: "Plan", label: "Plan" },
+  { key: "Plans", label: "Plans" },
   { key: "map", label: "Map" },
   { key: "hosts", label: "Hosts" },
   { key: "reviews", label: "Reviews" },
@@ -279,9 +279,9 @@ export default function SinglePlace({ tabs = TABS }) {
                   </motion.div>
                 )}
 
-                {active === "Plan" && (
+                {active === "Plans" && (
                   <motion.div
-                    key="Plan"
+                    key="Plans"
                     initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 8 }}
@@ -292,7 +292,7 @@ export default function SinglePlace({ tabs = TABS }) {
                       border: `1px solid ${COLORS.border}`,
                     }}
                   >
-                    <h2 className="text-2xl font-semibold mb-3">Plan</h2>
+                    <h2 className="text-2xl font-semibold mb-3">Plans</h2>
                     <ol
                       className="list-decimal ml-5 space-y-2"
                       style={{ color: COLORS.muted }}

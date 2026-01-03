@@ -94,7 +94,7 @@ export default function HostProfile({ posts = [], postStats = {}, reviewStats = 
                   {activeTab !== "posts" && (
                     <div className="absolute top-4 left-4">
                       <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-[10px] font-black uppercase tracking-widest text-gray-800 shadow-sm border border-white/50">
-                        {activeTab === "plans" ? "Plan" : p.postType}
+                        {activeTab === "plans" ? "Plans" : activeTab === "services" ? "Experiences" : p.postType}
                       </span>
                     </div>
                   )}

@@ -229,20 +229,20 @@ export default function InstagramPlanPageOptimized() {
               <button
                 onClick={() => setView("Momentos")}
                 className={`px-4 py-2 rounded-full text-sm font-medium ${view === "Momentos"
-                    ? "bg-linear-to-r from-yellow-400 to-yellow-300 text-white shadow"
-                    : "text-gray-700"
+                  ? "bg-linear-to-r from-yellow-400 to-yellow-300 text-white shadow"
+                  : "text-gray-700"
                   }`}
               >
                 Momentos
               </button>
               <button
-                onClick={() => setView("Plan")}
-                className={`px-4 py-2 rounded-full text-sm font-medium ${view === "Plan"
-                    ? "bg-linear-to-r from-yellow-400 to-yellow-300 text-white shadow"
-                    : "text-gray-700"
+                onClick={() => setView("Plans")}
+                className={`px-4 py-2 rounded-full text-sm font-medium ${view === "Plans"
+                  ? "bg-linear-to-r from-yellow-400 to-yellow-300 text-white shadow"
+                  : "text-gray-700"
                   }`}
               >
-                Plan
+                Plans
               </button>
             </nav>
           </div>
