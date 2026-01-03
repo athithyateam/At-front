@@ -34,12 +34,5 @@ export const ENDPOINTS = {
   GET_TOPRATED_TREKS: `${API_BASE}/api/posts/top-rated/treks`,
 
   // top rated hosts
-  // top rated hosts
   GET_TOPRATED_HOSTS: `${API_BASE}/api/users/top-rated/hosts`,
-
-  // notifications
-  NOTIFICATIONS: `${API_BASE}/api/notifications`,
-  MARK_READ: (id) => `${API_BASE}/api/notifications/${id}/read`,
-  MARK_ALL_READ: `${API_BASE}/api/notifications/mark-all/read`,
-  CLEAR_ALL_NOTIFS: `${API_BASE}/api/notifications/clear/all`,
 };
