@@ -3,6 +3,7 @@ import { useAuth } from "./AuthContext";
 import { listPosts } from "../api/posts";
 import { listItineraries } from "../api/itineraries";
 import { listServices } from "../api/services";
+import * as notifApi from "../api/notifications";
 
 const NotificationContext = createContext();
 
@@ -15,56 +16,95 @@ export function NotificationProvider({ children }) {
     const [notifications, setNotifications] = useState([]);
     const [unreadCount, setUnreadCount] = useState(0);
 
-    // Load from local storage on mount
-    useEffect(() => {
-        const saved = localStorage.getItem("ath_notifications");
-        if (saved) {
-            try {
-                const parsed = JSON.parse(saved);
-                setNotifications(parsed);
-                setUnreadCount(parsed.filter((n) => !n.read).length);
-            } catch (e) {
-                console.error("Failed to parse notifications", e);
+    const token = localStorage.getItem("auth_token");
+
+    // Fetch Notifications from Backend
+    const fetchNotifications = async () => {
+        if (!user) return;
+        try {
+            const res = await notifApi.getNotifications({ limit: 50 }, { token });
+            if (res.success) {
+                setNotifications(res.notifications);
+                setUnreadCount(res.unreadCount);
             }
+        } catch (error) {
+            console.error("Failed to fetch notifications", error);
         }
-    }, []);
+    };
 
-    // Save to local storage on change
+    // Initial Load
     useEffect(() => {
-        localStorage.setItem("ath_notifications", JSON.stringify(notifications));
-        setUnreadCount(notifications.filter((n) => !n.read).length);
-    }, [notifications]);
+        if (user) fetchNotifications();
+    }, [user]);
 
-    // Add a notification
-    const addNotification = ({ title, message, type = "info", link = null }) => {
+    // Add a notification (Saved to DB)
+    const addNotification = async ({ title, message, type = "info", link = null }) => {
+        // Optimistic UI update
+        const tempId = Date.now();
         const newNotif = {
-            id: Date.now(),
+            _id: tempId,
+            recipient: user?._id,
             title,
             message,
             type,
             link,
             read: false,
-            date: new Date().toISOString(),
+            createdAt: new Date().toISOString(),
         };
         setNotifications((prev) => [newNotif, ...prev]);
+        setUnreadCount((prev) => prev + 1);
+
+        try {
+            await notifApi.createNotification(
+                { title, message, type, link },
+                { token }
+            );
+            // Refresh to get real ID
+            fetchNotifications();
+        } catch (error) {
+            console.error("Failed to save notification", error);
+        }
+    };
+
+    // Mark one as read
+    const markAsRead = async (id) => {
+        // Optimistic
+        setNotifications((prev) =>
+            prev.map((n) => (n._id === id ? { ...n, read: true } : n))
+        );
+        setUnreadCount((prev) => Math.max(0, prev - 1));
+
+        try {
+            await notifApi.markAsRead(id, { token });
+        } catch (error) {
+            console.error("Failed to mark read", error);
+            fetchNotifications(); // Revert on error
+        }
     };
 
     // Mark all as read
-    const markAllAsRead = () => {
-        setNotifications((prev) =>
-            prev.map((n) => ({ ...n, read: true }))
-        );
+    const markAllAsRead = async () => {
+        setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
+        setUnreadCount(0);
+
+        try {
+            await notifApi.markAllRead({ token });
+        } catch (error) {
+            console.error("Failed to mark all read", error);
+            fetchNotifications();
+        }
     };
 
-    const markAsRead = (id) => {
-        setNotifications((prev) =>
-            prev.map((n) => (n.id === id ? { ...n, read: true } : n))
-        );
-    };
-
-    const clearNotifications = () => {
+    const clearNotifications = async () => {
         setNotifications([]);
-    }
+        setUnreadCount(0);
+        try {
+            await notifApi.clearAllNotifications({ token });
+        } catch (error) {
+            console.error("Failed to clear", error);
+            fetchNotifications();
+        }
+    };
 
     // REAL-TIME POLLING: Check for new content from other users
     useEffect(() => {
@@ -138,9 +178,13 @@ export function NotificationProvider({ children }) {
 
         // Initial check
         checkNewContent();
+        fetchNotifications(); // Also poll for server-side notifications
 
         // Poll every 30 seconds
-        const interval = setInterval(checkNewContent, 30000);
+        const interval = setInterval(() => {
+            checkNewContent();
+            fetchNotifications();
+        }, 30000);
         return () => clearInterval(interval);
     }, [user]);
 
