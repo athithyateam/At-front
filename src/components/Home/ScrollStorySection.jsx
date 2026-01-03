@@ -20,7 +20,7 @@ export default function ScrollStorySection() {
       className="relative"
       style={{ height: `${STEPS * 100}vh` }}
     >
-      <div className="sticky top-0 h-screen flex items-center md:items-center overflow-hidden">
+      <div className="sticky top-0 h-screen flex items-start pt-12 md:items-center md:pt-0 overflow-hidden">
         <div
           className="
             max-w-7xl
