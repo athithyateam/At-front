@@ -30,7 +30,7 @@ export default function Footer() {
           </div>
 
           {/* --- Column 2: Quick Links --- */}
-          <div className="flex flex-col gap-2 md:items-center">
+          <div className="flex flex-col gap-2 items-start md:items-center">
             <h4 className="font-semibold text-yellow-600 mb-1">Explore</h4>
             <Link to="/host" className="hover:text-yellow-600 transition">
               For Host
@@ -47,7 +47,7 @@ export default function Footer() {
           </div>
 
           {/* --- Column 3: Legal + Social --- */}
-          <div className="flex flex-col gap-2 md:items-end">
+          <div className="flex flex-col gap-2 items-start md:items-end">
             <h4 className="font-semibold text-yellow-600 mb-1">Important Information</h4>
             <Link to="/terms" className="hover:text-yellow-600 transition">
               Terms & Conditions
