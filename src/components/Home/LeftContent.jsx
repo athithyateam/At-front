@@ -10,15 +10,18 @@ import "../../App.css";
 const SECTIONS = [
   {
     title: "Local Experience",
-    subtitle: "Because hotels never say, “Let's go to my favourite place.” On Athithya, locals do.",
+    subtitle: "Because hotels never say, \"Let's go to my favourite place.\"",
+    highlight: "locals do.",
   },
   {
     title: "Connect & Share Stories",
-    subtitle: "Because the best plans are never planned — we just get inspired by someone else’s story. At Athithya, share and get inspired with genuine travel stories & moments.",
+    subtitle: "Because the best plans are never planned - we just get inspired by someone else's story.",
+    highlight: "share and get inspired with genuine travel stories and moments.",
   },
   {
     title: "Join a Plan",
-    subtitle: "Ever wondered what it feels like to join a plan with people who share the same interests as you? At Athithya, you just do it.",
+    subtitle: "Ever wondered what it feels like to join a plan with people who share the same interests as you?",
+    highlight: "you just do it.",
   },
 ];
 
@@ -76,19 +79,16 @@ export default function LeftContent({ scrollYProgress }) {
                 : [50, 0, 0, -50]
           );
 
-          const isLast = i === SECTIONS.length - 1;
-
           return (
             <motion.div
               key={i}
               style={{ opacity, y }}
-              className={`absolute left-0 right-0 ${isLast ? "text-neutral-800" : "text-neutral-600"
-                }`}
+              className="absolute left-0 right-0 text-gray-900"
             >
               {/* Step indicator */}
-              <div className="flex items-center gap-4 mb-4 md:mb-10">
-                <div className="w-0.5 h-8 bg-[#C59A2F]/80 rounded-full" />
-                <span className="text-[11px] uppercase tracking-[0.25em] text-[#C59A2F]/80">
+              <div className="flex items-center gap-4 mb-4 md:mb-8 font-serif">
+                <div className="w-1.5 h-10 md:h-12 bg-[#C59A2F] rounded-full" />
+                <span className="text-xl md:text-4xl font-bold uppercase tracking-widest text-[#C59A2F]">
                   Step {i + 1}
                 </span>
               </div>
@@ -97,37 +97,53 @@ export default function LeftContent({ scrollYProgress }) {
               <motion.h2
                 className="
                 story-title
-                text-2xl md:text-5xl
-                font-semibold
+                text-3xl md:text-6xl
+                font-bold
                 leading-tight
                 max-w-[520px]
                 text-left
+                text-black
               "
               >
                 {item.title}
               </motion.h2>
 
-              {/* Subline */}
-              <motion.p
-                className="
-                story-sub
-                mt-3 md:mt-5
-                text-sm md:text-lg
-                max-w-[500px]
-                text-justify
-              "
-              >
-                {item.subtitle}
-              </motion.p>
+              {/* Subline container */}
+              <div className="mt-4 md:mt-8 space-y-4 md:space-y-6">
+                <motion.p
+                  className="
+                    text-base md:text-2xl
+                    text-gray-800
+                    max-w-[500px]
+                    text-left
+                    leading-relaxed
+                  "
+                >
+                  {item.subtitle}
+                </motion.p>
 
-              <div className="mt-5 md:mt-8 pointer-events-auto flex justify-start">
+                <motion.p
+                  className="
+                    text-base md:text-2xl
+                    font-medium
+                    text-gray-900
+                    max-w-[520px]
+                    text-left
+                  "
+                >
+                  At <span className="text-[#C59A2F] font-bold">Athithya</span>, {item.highlight}
+                </motion.p>
+              </div>
+
+              <div className="mt-8 md:mt-12 pointer-events-auto flex justify-start">
                 <button
                   onClick={handleExplore}
                   className="
-                      px-6 py-2 md:px-8 md:py-3 
+                      px-8 py-3 md:px-12 md:py-4 
                       bg-[#C59A2F] text-white 
-                      rounded-full font-medium 
-                      shadow-lg hover:bg-[#b0892a] 
+                      rounded-full font-bold
+                      text-lg
+                      shadow-xl hover:bg-[#b0892a] 
                       transform transition-all active:scale-95
                     "
                 >
