@@ -8,6 +8,7 @@ export default function EditProfileModal({ user, onClose, onUpdate }) {
     const [lastname, setLastname] = useState(user.lastname || "");
     const [description, setDescription] = useState(user.description || "");
     const [avatar, setAvatar] = useState(null);
+    const [removeAvatar, setRemoveAvatar] = useState(false);
     const [preview, setPreview] = useState(user.avatar?.url || user.avatar || "");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
@@ -21,8 +22,15 @@ export default function EditProfileModal({ user, onClose, onUpdate }) {
             }
             setAvatar(file);
             setPreview(URL.createObjectURL(file));
+            setRemoveAvatar(false);
             setError("");
         }
+    };
+
+    const handleRemovePhoto = () => {
+        setAvatar(null);
+        setPreview("");
+        setRemoveAvatar(true);
     };
 
     const handleSubmit = async (e) => {
@@ -35,6 +43,8 @@ export default function EditProfileModal({ user, onClose, onUpdate }) {
             formData.append("firstname", firstname);
             formData.append("lastname", lastname);
             formData.append("description", description);
+            formData.append("removeAvatar", removeAvatar);
+
             if (avatar) {
                 formData.append("avatar", avatar);
             }
