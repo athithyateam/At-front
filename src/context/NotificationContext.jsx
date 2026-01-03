@@ -177,12 +177,15 @@ export function NotificationProvider({ children }) {
 
                         // If this specific reaction didn't exist before
                         if (!oldReactions[reactorId]) {
-                            const emoji = newReactions[reactorId];
+                            const reactionData = newReactions[reactorId];
+                            const emoji = typeof reactionData === "string" ? reactionData : reactionData.emoji;
+                            const reactorName = typeof reactionData === "string" ? "Someone" : reactionData.name;
+
                             const postTitle = myPosts.find(p => p._id === postId)?.title || "your post";
 
                             addNotification({
                                 title: "New Reaction",
-                                message: `Someone reacted with ${emoji} to "${postTitle}"`,
+                                message: `${reactorName} reacted with ${emoji} to "${postTitle}"`,
                                 type: "success",
                                 link: "/connect?tab=posts"
                             });

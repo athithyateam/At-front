@@ -82,13 +82,16 @@ const ConnectPost = () => {
       const next = { ...prev };
       if (!next[postId]) next[postId] = {};
 
-      const current = next[postId][user._id];
-      if (current === emoji) {
-        // Toggle off (remove)
+      const current = next[postId][user._id]; // Now expects object or undefined
+      // handle backward compat if string
+      const currentEmoji = typeof current === "string" ? current : current?.emoji;
+
+      if (currentEmoji === emoji) {
+        // Toggle off
         delete next[postId][user._id];
       } else {
-        // Set new
-        next[postId][user._id] = emoji;
+        // Set new with NAME
+        next[postId][user._id] = { emoji, name: user.firstname || user.username || "User" };
       }
 
       localStorage.setItem("ath_global_reactions_posts", JSON.stringify(next));
@@ -100,7 +103,8 @@ const ConnectPost = () => {
   function getCounts(postId) {
     const r = allReactions[postId] || {};
     const counts = {};
-    Object.values(r).forEach((e) => {
+    Object.values(r).forEach((val) => {
+      const e = typeof val === "string" ? val : val.emoji;
       counts[e] = (counts[e] || 0) + 1;
     });
     return counts;
@@ -108,7 +112,8 @@ const ConnectPost = () => {
 
   function getMyReaction(postId) {
     if (!user) return null;
-    return allReactions[postId]?.[user._id];
+    const val = allReactions[postId]?.[user._id];
+    return typeof val === "string" ? val : val?.emoji;
   }
 
   function toggleRaise(postId) {

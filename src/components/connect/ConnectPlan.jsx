@@ -89,10 +89,12 @@ const ConnectPlan = () => {
       if (!next[postId]) next[postId] = {};
 
       const current = next[postId][user._id];
-      if (current === emoji) {
+      const currentEmoji = typeof current === "string" ? current : current?.emoji;
+
+      if (currentEmoji === emoji) {
         delete next[postId][user._id];
       } else {
-        next[postId][user._id] = emoji;
+        next[postId][user._id] = { emoji, name: user.firstname || user.username || "User" };
       }
 
       localStorage.setItem("ath_global_reactions_plans", JSON.stringify(next));
@@ -104,7 +106,8 @@ const ConnectPlan = () => {
   function getCounts(planId) {
     const r = allReactions[planId] || {};
     const counts = {};
-    Object.values(r).forEach((e) => {
+    Object.values(r).forEach((val) => {
+      const e = typeof val === "string" ? val : val.emoji;
       counts[e] = (counts[e] || 0) + 1;
     });
     return counts;
@@ -112,7 +115,8 @@ const ConnectPlan = () => {
 
   function getMyReaction(planId) {
     if (!user) return null;
-    return allReactions[planId]?.[user._id];
+    const val = allReactions[planId]?.[user._id];
+    return typeof val === "string" ? val : val?.emoji;
   }
 
   function handleMessage(plan) {
