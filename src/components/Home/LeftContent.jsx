@@ -86,13 +86,10 @@ export default function LeftContent({ scrollYProgress }) {
               className="absolute inset-0 flex flex-col justify-center text-gray-900 px-1 md:px-0"
             >
               {/* Step indicator */}
-              <div className="flex items-center gap-3 md:gap-5 mb-4 md:mb-10 font-serif">
-                <div className="w-1.5 h-12 md:h-16 bg-[#C59A2F] rounded-full" />
-                <span className="flex items-center gap-2 md:gap-3 text-[#C59A2F]">
-                  <span className="text-base md:text-xl font-bold uppercase tracking-[0.3em]">Step</span>
-                  <span className="text-5xl md:text-7xl font-black tabular-nums leading-none">
-                    {i + 1}
-                  </span>
+              <div className="flex items-center gap-3 md:gap-4 mb-4 md:mb-8 font-serif">
+                <div className="w-1.5 h-8 md:h-10 bg-[#C59A2F] rounded-full" />
+                <span className="flex items-center gap-2 text-[#C59A2F] text-base md:text-xl font-bold uppercase tracking-[0.3em]">
+                  Step {i + 1}
                 </span>
               </div>
 

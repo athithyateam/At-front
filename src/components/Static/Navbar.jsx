@@ -51,7 +51,7 @@ export default function Navbar() {
     if (user) setShowAuth(false);
   }, [user]);
 
-  const navBase = "fixed inset-x-0 top-0 z-50 transition-all duration-300";
+  const navBase = "absolute inset-x-0 top-0 z-50 transition-all duration-300";
   const heroNav = scrolled
     ? "bg-black/60 backdrop-blur-md shadow-lg"
     : "bg-transparent";
@@ -81,7 +81,7 @@ export default function Navbar() {
   /* ---------------- Block render until auth resolves ---------------- */
   if (loading) {
     return (
-      <nav className="fixed inset-x-0 top-0 z-50 h-16 bg-white border-b border-gray-200" />
+      <nav className="absolute inset-x-0 top-0 z-50 h-16 bg-white border-b border-gray-200" />
     );
   }
 
