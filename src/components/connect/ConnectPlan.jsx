@@ -260,7 +260,7 @@ const ConnectPlan = () => {
             )}
 
             {/* DESCRIPTION */}
-            <div className="mt-4 text-[15px] text-gray-700 leading-relaxed">
+            <div className="mt-4 text-[15px] text-gray-700 leading-relaxed text-justify">
               <p className={isExpanded ? "" : "line-clamp-3"}>
                 {plan.description}
               </p>
