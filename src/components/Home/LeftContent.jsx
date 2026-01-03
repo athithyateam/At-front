@@ -87,8 +87,8 @@ export default function LeftContent({ scrollYProgress }) {
             >
               {/* Step indicator */}
               <div className="flex items-center gap-4 mb-4 md:mb-8 font-serif">
-                <div className="w-1.5 h-10 md:h-12 bg-[#C59A2F] rounded-full" />
-                <span className="text-xl md:text-4xl font-bold uppercase tracking-widest text-[#C59A2F]">
+                <div className="w-1.5 h-8 md:h-10 bg-[#C59A2F] rounded-full" />
+                <span className="text-lg md:text-3xl font-bold uppercase tracking-widest text-[#C59A2F]">
                   Step {i + 1}
                 </span>
               </div>
