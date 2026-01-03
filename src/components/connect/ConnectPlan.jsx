@@ -197,11 +197,11 @@ const ConnectPlan = () => {
                 {user.firstname?.[0] || "U"}
               </div>
 
-              <div className="flex flex-col">
+              <div className="flex flex-col text-left">
                 <span className="text-sm font-semibold text-gray-900">
                   {user.firstname} {user.lastname}
                 </span>
-                <span className="text-xs text-gray-500">Host</span>
+                <span className="text-xs text-gray-600">Host</span>
               </div>
 
               {isTopRated && (
@@ -212,7 +212,7 @@ const ConnectPlan = () => {
             </div>
 
             {/* TITLE */}
-            <h2 className="text-2xl font-bold text-gray-900 leading-snug">
+            <h2 className="text-2xl font-bold text-gray-900 leading-snug text-left">
               {plan.title}
             </h2>
 
