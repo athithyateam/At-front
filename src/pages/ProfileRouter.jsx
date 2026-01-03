@@ -36,7 +36,7 @@ export default function ProfileRouter() {
   if (!profileData) return <div className="p-6">Profile not found</div>;
 
   const { user, posts, postStats, reviewStats } = profileData;
-  const isOwner = loggedInUser?._id === user._id;
+  const isOwner = (loggedInUser?._id || loggedInUser?.id) === (user?._id || user?.id);
 
   return (
     <BaseTravelProfile user={user} isOwner={isOwner}>

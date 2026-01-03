@@ -118,19 +118,20 @@ export default function GuestProfile({ posts = [], isOwner = false }) {
                     </h4>
 
                     {isOwner && (
-                      <div className="relative">
+                      <div className="relative shrink-0">
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
-                            setOpenMenuId(openMenuId === p._id ? null : p._id);
+                            const pid = p._id || p.id;
+                            setOpenMenuId(openMenuId === pid ? null : pid);
                           }}
-                          className="p-1 hover:bg-gray-100 rounded-full transition-colors text-gray-400 hover:text-gray-900"
+                          className="flex items-center justify-center p-1.5 bg-gray-50 hover:bg-gray-100 rounded-full transition-all text-gray-400 hover:text-[#C59A2F] border border-transparent hover:border-gray-200"
                         >
-                          <FiMoreVertical size={18} />
+                          <FiMoreVertical size={20} />
                         </button>
 
                         <AnimatePresence>
-                          {openMenuId === p._id && (
+                          {(openMenuId === (p._id || p.id)) && (
                             <>
                               <div
                                 className="fixed inset-0 z-10"
@@ -143,26 +144,27 @@ export default function GuestProfile({ posts = [], isOwner = false }) {
                                 initial={{ opacity: 0, scale: 0.95, y: -10 }}
                                 animate={{ opacity: 1, scale: 1, y: 0 }}
                                 exit={{ opacity: 0, scale: 0.95, y: -10 }}
-                                className="absolute right-0 mt-1 w-32 bg-white rounded-xl shadow-xl border border-gray-100 py-1 z-20"
+                                className="absolute right-0 mt-2 w-36 bg-white rounded-2xl shadow-2xl border border-gray-100 py-2 z-20 overflow-hidden"
                               >
                                 <button
                                   onClick={(e) => {
                                     e.stopPropagation();
-                                    handleEdit(p._id, p.postType);
+                                    handleEdit(p._id || p.id, p.postType);
                                   }}
-                                  className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+                                  className="w-full px-4 py-2.5 text-left text-sm font-semibold text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors flex items-center gap-3"
                                 >
-                                  <FiEdit2 size={14} className="text-blue-500" />
+                                  <FiEdit2 size={16} />
                                   Edit
                                 </button>
+                                <div className="h-px bg-gray-50 mx-2" />
                                 <button
                                   onClick={(e) => {
                                     e.stopPropagation();
-                                    handleDelete(p._id, p.postType);
+                                    handleDelete(p._id || p.id, p.postType);
                                   }}
-                                  className="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 flex items-center gap-2"
+                                  className="w-full px-4 py-2.5 text-left text-sm font-semibold text-red-600 hover:bg-red-50 transition-colors flex items-center gap-3"
                                 >
-                                  <FiTrash2 size={14} />
+                                  <FiTrash2 size={16} />
                                   Delete
                                 </button>
                               </motion.div>
