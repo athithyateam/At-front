@@ -56,9 +56,8 @@ function AnimatedSelect({ label, value, options, onChange }) {
                   onChange(opt);
                   setOpen(false);
                 }}
-                className={`px-4 py-2 text-sm cursor-pointer hover:bg-[#fbf6ea] ${
-                  opt === value ? "GOLD font-medium" : "text-gray-600"
-                }`}
+                className={`px-4 py-2 text-sm cursor-pointer hover:bg-[#fbf6ea] ${opt === value ? "GOLD font-medium" : "text-gray-600"
+                  }`}
               >
                 {opt}
               </li>
@@ -84,7 +83,7 @@ function InlineAdder({ placeholder, values, onAdd, onRemove }) {
 
   return (
     <div>
-      <div className="flex gap-2 mb-3">
+      <div className="flex flex-col md:flex-row gap-2 mb-3">
         <input
           ref={ref}
           value={value}
@@ -96,7 +95,7 @@ function InlineAdder({ placeholder, values, onAdd, onRemove }) {
         <button
           type="button"
           onClick={commit}
-          className="btn-lux cursor-pointer soft-border px-4 text-gray-600"
+          className="btn-lux cursor-pointer soft-border px-4 text-gray-600 w-full md:w-auto"
         >
           Add
         </button>
@@ -201,7 +200,7 @@ export default function TravellerPostForm() {
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [country, setCountry] = useState("India");
-  
+
   // Additional fields for experiences
   const [difficulty, setDifficulty] = useState("Easy");
   const [pricePerPerson, setPricePerPerson] = useState("");
@@ -245,13 +244,13 @@ export default function TravellerPostForm() {
     fd.append("description", description);
     fd.append("categories", JSON.stringify(categories));
     fd.append("amenities", JSON.stringify(amenities));
-    
+
     // -------- LOCATION FIELDS (FRONTEND) --------
     // The backend expects city, state, country as separate fields
     if (city) fd.append("city", city);
     if (state) fd.append("state", state);
     if (country) fd.append("country", country);
-    
+
     // -------- ADDITIONAL FIELDS --------
     if (difficulty) fd.append("difficulty", difficulty);
     if (pricePerPerson) fd.append("pricePerPerson", pricePerPerson);
