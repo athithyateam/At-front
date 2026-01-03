@@ -76,11 +76,7 @@ export default function GuestProfile({ posts = [] }) {
                     alt={p.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
-                  <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-[10px] font-black uppercase tracking-widest text-gray-800 shadow-sm">
-                      {p.postType}
-                    </span>
-                  </div>
+                  {/* Tag removed as requested */}
                 </div>
 
                 {/* Content Section */}

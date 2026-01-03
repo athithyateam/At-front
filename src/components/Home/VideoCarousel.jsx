@@ -58,18 +58,18 @@ export default function VideoCarousel() {
                   }`}
               >
                 {/* Title */}
-                <h1 className="hero-main text-4xl md:text-7xl font-bold tracking-tight">
+                <h1 className="hero-main text-5xl md:text-7xl font-bold tracking-tight">
                   <span style={{ color: '#C59A2F' }}>"You Only Live Once"</span>
                 </h1>
 
                 {/* Subtitle */}
-                <p className="hero-tag text-white text-sm md:text-xl font-medium tracking-wide max-w-2xl mx-auto leading-relaxed">
+                <p className="hero-tag text-white text-base md:text-xl font-medium tracking-wide max-w-2xl mx-auto leading-relaxed">
                   If <span style={{ color: '#C59A2F' }}>travel</span>, <span style={{ color: '#C59A2F' }}>exploration</span> & meaningful <span style={{ color: '#C59A2F' }}>experiences</span> <br className="hidden md:block" />
                   make your heart race...
                 </p>
 
                 {/* Welcome Message */}
-                <div className="pt-4 text-2xl md:text-4xl font-bold text-white tracking-wide">
+                <div className="pt-4 text-3xl md:text-4xl font-bold text-white tracking-wide">
                   Athithya <span style={{ color: '#C59A2F' }}>welcomes</span> You!
                 </div>
               </div>

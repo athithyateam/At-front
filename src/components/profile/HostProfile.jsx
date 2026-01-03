@@ -90,6 +90,14 @@ export default function HostProfile({ posts = [], postStats = {}, reviewStats = 
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60" />
+
+                  {activeTab !== "posts" && (
+                    <div className="absolute top-4 left-4">
+                      <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-[10px] font-black uppercase tracking-widest text-gray-800 shadow-sm border border-white/50">
+                        {activeTab === "plans" ? "Plan" : p.postType}
+                      </span>
+                    </div>
+                  )}
                   <div className="absolute bottom-3 left-4 text-white">
                     <div className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-wide">
                       <FiMapPin className="text-yellow-400" />
