@@ -58,9 +58,10 @@ export default function VideoCarousel() {
                   }`}
               >
                 {/* Title */}
-                <h1 className="hero-main text-5xl md:text-7xl font-bold tracking-tight">
+                <h1 className="hero-main text-5xl md:text-7xl font-bold tracking-tight leading-tight">
                   <span style={{ color: '#C59A2F' }}>"You </span>
                   <span className="text-white">Only</span>
+                  <br className="md:hidden" />
                   <span style={{ color: '#C59A2F' }}> Live </span>
                   <span className="text-white">Once"</span>
                 </h1>
