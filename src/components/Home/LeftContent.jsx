@@ -104,23 +104,20 @@ export default function LeftContent({ scrollYProgress }) {
                 {item.subtitle}
               </motion.p>
 
-              {/* Explore Button for the last step */}
-              {isLast && (
-                <div className="mt-8 pointer-events-auto">
-                  <button
-                    onClick={handleExplore}
-                    className="
+              <div className="mt-8 pointer-events-auto">
+                <button
+                  onClick={handleExplore}
+                  className="
                       px-8 py-3 
                       bg-[#C59A2F] text-white 
                       rounded-full font-medium 
                       shadow-lg hover:bg-[#b0892a] 
                       transform transition-all active:scale-95
                     "
-                  >
-                    Explore
-                  </button>
-                </div>
-              )}
+                >
+                  Explore
+                </button>
+              </div>
             </motion.div>
           );
         })}
