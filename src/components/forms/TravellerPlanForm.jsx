@@ -1,6 +1,7 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
+import { useDropzone } from "react-dropzone";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiChevronDown, FiX } from "react-icons/fi";
+import { FiChevronDown, FiX, FiUpload } from "react-icons/fi";
 import { createItinerary, getItinerary, updateItinerary } from "../../api/itineraries";
 
 /* ---------------- CONSTANTS ---------------- */
@@ -389,6 +390,7 @@ export default function TravellerPlanForm({ editId }) {
         {/* ================= TOP ================= */}
         <Section title="Basic details">
           <input
+            className="input-lux rounded-lg px-3 py-2 w-full mb-3"
             placeholder="Plan name (optional)"
             value={planName}
             onChange={(e) => setPlanName(e.target.value)}

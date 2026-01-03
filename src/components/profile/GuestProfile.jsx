@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { FiMapPin, FiClock, FiGrid, FiLayers, FiArrowRight, FiBriefcase, FiEdit2, FiTrash2 } from "react-icons/fi";
+import { FiMapPin, FiClock, FiGrid, FiLayers, FiArrowRight, FiBriefcase, FiEdit2, FiTrash2, FiMoreVertical } from "react-icons/fi";
 import { deletePost } from "../../api/posts";
 
 const GUEST_TABS = [
@@ -11,6 +11,7 @@ const GUEST_TABS = [
 
 export default function GuestProfile({ posts = [], isOwner = false }) {
   const [activeTab, setActiveTab] = useState("posts");
+  const [openMenuId, setOpenMenuId] = useState(null);
   const navigate = useNavigate();
 
   const filteredPosts = useMemo(() => {
@@ -79,46 +80,81 @@ export default function GuestProfile({ posts = [], isOwner = false }) {
                     alt={p.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
-                  {/* Edit/Delete Actions */}
-                  {isOwner && (
-                    <div className="absolute top-4 right-4 flex gap-2">
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          const typeMap = { 'experience': 'post', 'plan': 'plan', 'service': 'service' };
-                          navigate(`/post?edit=${p._id}&type=${typeMap[p.postType] || 'post'}`);
-                        }}
-                        className="p-2 bg-white/90 backdrop-blur shadow-sm rounded-full text-blue-600 hover:bg-blue-600 hover:text-white transition-all transform hover:scale-110"
-                        title="Edit Moment"
-                      >
-                        <FiEdit2 size={14} />
-                      </button>
-                      <button
-                        onClick={async (e) => {
-                          e.stopPropagation();
-                          if (window.confirm("Are you sure you want to delete this? This action cannot be undone.")) {
-                            try {
-                              await deletePost(p._id, { token: localStorage.getItem("auth_token") });
-                              window.location.reload(); // Simple refresh for now
-                            } catch (err) {
-                              alert("Failed to delete: " + err.message);
-                            }
-                          }
-                        }}
-                        className="p-2 bg-white/90 backdrop-blur shadow-sm rounded-full text-red-600 hover:bg-red-600 hover:text-white transition-all transform hover:scale-110"
-                        title="Delete Moment"
-                      >
-                        <FiTrash2 size={14} />
-                      </button>
-                    </div>
-                  )}
+                  {/* Image only header */}
                 </div>
 
                 {/* Content Section */}
                 <div className="p-6">
-                  <h4 className="w-full text-lg font-bold text-gray-900 group-hover:text-[#C59A2F] transition-colors line-clamp-1 mb-2 text-left">
-                    {p.title}
-                  </h4>
+                  <div className="flex items-start justify-between gap-2 mb-2">
+                    <h4 className="flex-1 text-lg font-bold text-gray-900 group-hover:text-[#C59A2F] transition-colors line-clamp-1 text-left">
+                      {p.title}
+                    </h4>
+
+                    {isOwner && (
+                      <div className="relative">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setOpenMenuId(openMenuId === p._id ? null : p._id);
+                          }}
+                          className="p-1 hover:bg-gray-100 rounded-full transition-colors text-gray-400 hover:text-gray-900"
+                        >
+                          <FiMoreVertical size={18} />
+                        </button>
+
+                        <AnimatePresence>
+                          {openMenuId === p._id && (
+                            <>
+                              <div
+                                className="fixed inset-0 z-10"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setOpenMenuId(null);
+                                }}
+                              />
+                              <motion.div
+                                initial={{ opacity: 0, scale: 0.95, y: -10 }}
+                                animate={{ opacity: 1, scale: 1, y: 0 }}
+                                exit={{ opacity: 0, scale: 0.95, y: -10 }}
+                                className="absolute right-0 mt-1 w-32 bg-white rounded-xl shadow-xl border border-gray-100 py-1 z-20"
+                              >
+                                <button
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    const typeMap = { 'experience': 'post', 'plan': 'plan', 'service': 'service' };
+                                    navigate(`/post?edit=${p._id}&type=${typeMap[p.postType] || 'post'}`);
+                                    setOpenMenuId(null);
+                                  }}
+                                  className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+                                >
+                                  <FiEdit2 size={14} className="text-blue-500" />
+                                  Edit
+                                </button>
+                                <button
+                                  onClick={async (e) => {
+                                    e.stopPropagation();
+                                    if (window.confirm("Are you sure you want to delete this?")) {
+                                      try {
+                                        await deletePost(p._id, { token: localStorage.getItem("auth_token") });
+                                        window.location.reload();
+                                      } catch (err) {
+                                        alert("Failed: " + err.message);
+                                      }
+                                    }
+                                    setOpenMenuId(null);
+                                  }}
+                                  className="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 flex items-center gap-2"
+                                >
+                                  <FiTrash2 size={14} />
+                                  Delete
+                                </button>
+                              </motion.div>
+                            </>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    )}
+                  </div>
 
                   <div className="flex items-center gap-4 text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-4">
                     <span className="flex items-center gap-1.5">
