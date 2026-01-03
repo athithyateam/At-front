@@ -12,7 +12,6 @@ import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "../../context/AuthContext";
 import { ENDPOINTS } from "../../api/allApi";
-import { reactToPost } from "../../api/posts";
 import PremiumSelect from "../PremiumSelect";
 import { useNotifications } from "../../context/NotificationContext";
 
@@ -39,8 +38,11 @@ const ConnectPost = () => {
 
   const [raised, setRaised] = useState({});
   const [saved, setSaved] = useState({});
-  // allReactions removed, using post.reactions directly
-
+  // allReactions: { [postId]: { [userId]: emoji } }
+  const [allReactions, setAllReactions] = useState(() => {
+    const saved = localStorage.getItem("ath_global_reactions_posts");
+    return saved ? JSON.parse(saved) : {};
+  });
   const [openPicker, setOpenPicker] = useState(null); // postId
   const { addNotification } = useNotifications();
 
@@ -73,53 +75,49 @@ const ConnectPost = () => {
 
   /* ---------------- Actions ---------------- */
 
-  async function react(postId, emoji) {
+  function react(postId, emoji) {
     if (!user) return alert("Please login to react");
 
-    try {
-      const res = await reactToPost(postId, emoji, {
-        token: localStorage.getItem("auth_token"),
-      });
+    setAllReactions((prev) => {
+      const next = { ...prev };
+      if (!next[postId]) next[postId] = {};
 
-      if (res.success) {
-        setPosts((prev) =>
-          prev.map((p) => {
-            if (p._id === postId) {
-              // Update local post with new reactions from server
-              // If server returns full post, use it. But usually simpler to just update reactions array.
-              // My API implementation returns { success: true, reactions: [...] } or { ... post: { ... } }
-              // The implementation I wrote returns { success: true, message, reactions: [...] } 
-              // Wait, I should check my implementation in routes/posts.js
-              // It returns: return res.status(200).json({ success: true, message: "Reaction updated", reactions: post.reactions })
-              return { ...p, reactions: res.reactions };
-            }
-            return p;
-          })
-        );
+      const current = next[postId][user._id]; // Now expects object or undefined
+      // handle backward compat if string
+      const currentEmoji = typeof current === "string" ? current : current?.emoji;
+
+      if (currentEmoji === emoji) {
+        // Toggle off
+        delete next[postId][user._id];
+      } else {
+        // Set new with NAME and TIMESTAMP
+        next[postId][user._id] = {
+          emoji,
+          name: user.firstname || user.username || "User",
+          timestamp: Date.now()
+        };
       }
-    } catch (err) {
-      console.error(err);
-      alert("Failed to react");
-    }
+
+      localStorage.setItem("ath_global_reactions_posts", JSON.stringify(next));
+      return next;
+    });
     setOpenPicker(null);
   }
 
-  function getCounts(post) {
+  function getCounts(postId) {
+    const r = allReactions[postId] || {};
     const counts = {};
-    if (post.reactions) {
-      post.reactions.forEach((r) => {
-        counts[r.emoji] = (counts[r.emoji] || 0) + 1;
-      });
-    }
+    Object.values(r).forEach((val) => {
+      const e = typeof val === "string" ? val : val.emoji;
+      counts[e] = (counts[e] || 0) + 1;
+    });
     return counts;
   }
 
-  function getMyReaction(post) {
-    if (!user || !post.reactions) return null;
-    const r = post.reactions.find(
-      (react) => react.user === user._id || react.user?._id === user._id
-    );
-    return r ? r.emoji : null;
+  function getMyReaction(postId) {
+    if (!user) return null;
+    const val = allReactions[postId]?.[user._id];
+    return typeof val === "string" ? val : val?.emoji;
   }
 
   function toggleRaise(postId) {
@@ -227,8 +225,8 @@ const ConnectPost = () => {
 
                 {/* Reaction Counts */}
                 <div className="flex gap-3 text-sm min-h-[24px]">
-                  {Object.entries(getCounts(post)).length > 0 ? (
-                    Object.entries(getCounts(post)).map(([emoji, count]) => (
+                  {Object.entries(getCounts(post._id)).length > 0 ? (
+                    Object.entries(getCounts(post._id)).map(([emoji, count]) => (
                       <span key={emoji} className="bg-gray-50 px-2 py-0.5 rounded-full border border-gray-100 text-xs flex items-center gap-1">
                         <span>{emoji}</span>
                         <span className="font-semibold text-gray-700">{count}</span>
@@ -245,17 +243,17 @@ const ConnectPost = () => {
                       onClick={() =>
                         setOpenPicker(openPicker === post._id ? null : post._id)
                       }
-                      className={`flex items-center gap-2 text-sm transition ${getMyReaction(post) ? "text-yellow-600 font-medium" : "text-gray-600 hover:text-black"
+                      className={`flex items-center gap-2 text-sm transition ${getMyReaction(post._id) ? "text-yellow-600 font-medium" : "text-gray-600 hover:text-black"
                         }`}
                     >
-                      {getMyReaction(post) ? (
+                      {getMyReaction(post._id) ? (
                         <span className="text-lg leading-none">
-                          {getMyReaction(post)}
+                          {getMyReaction(post._id)}
                         </span>
                       ) : (
                         <FiSmile />
                       )}
-                      {getMyReaction(post) ? "Reacted" : "React"}
+                      {getMyReaction(post._id) ? "Reacted" : "React"}
                     </button>
                   </div>
 
