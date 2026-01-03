@@ -74,8 +74,7 @@ function AnimatedMetricSelect({ label, value, onChange, options }) {
                   setOpen(false);
                 }}
                 className={`px-4 py-2 text-sm cursor-pointer hover:bg-[#fbf6ea]
-                  ${
-                    o === value ? "text-[#C59D5F] font-medium" : "text-gray-600"
+                  ${o === value ? "text-[#C59D5F] font-medium" : "text-gray-600"
                   }`}
               >
                 {o}
@@ -681,11 +680,7 @@ export default function HostPlanForm({ onSaved }) {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3 rounded-xl font-medium"
-                style={{
-                  background: loading ? "#EDEDED" : GOLD,
-                  color: loading ? "#777" : "#fff",
-                }}
+                className="w-full GOLD-bg text-white py-3 rounded-xl font-medium btn-lux"
               >
                 {loading ? "Saving..." : "Save Plan"}
               </button>

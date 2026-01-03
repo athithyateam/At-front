@@ -119,9 +119,8 @@ function AnimatedSelect({ label, value, options, onChange }) {
                   onChange(o);
                   setOpen(false);
                 }}
-                className={`px-4 py-2 cursor-pointer hover:bg-[#fbf6ea] ${
-                  o === value ? "font-medium" : "text-gray-600"
-                }`}
+                className={`px-4 py-2 cursor-pointer hover:bg-[#fbf6ea] ${o === value ? "font-medium" : "text-gray-600"
+                  }`}
               >
                 {o}
               </li>
@@ -659,11 +658,7 @@ export default function HostServiceForm({ onSaved }) {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 rounded-xl text-white font-medium"
-              style={{
-                background: GOLD,
-                boxShadow: "0 8px 22px rgba(197,157,95,0.16)",
-              }}
+              className="w-full GOLD-bg text-white py-3 rounded-xl font-medium btn-lux"
             >
               {loading ? "Saving..." : "Save Service"}
             </button>
