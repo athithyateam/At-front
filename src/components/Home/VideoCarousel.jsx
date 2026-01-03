@@ -54,23 +54,18 @@ export default function VideoCarousel() {
             {/* Hero Text */}
             <div className="relative z-20 flex flex-col justify-center items-center text-center h-full">
               <div
-                className={`space-y-4 fade-sequence ${
-                  current === i ? "active-slide" : "inactive-slide"
-                }`}
+                className={`space-y-4 fade-sequence ${current === i ? "active-slide" : "inactive-slide"
+                  }`}
               >
-                <h2 className="hero-sub text-white/80 text-lg md:text-2xl tracking-wider font-light uppercase">
-                  Feel the Experience
-                </h2>
-
                 <h1 className="hero-main text-white text-4xl md:text-6xl font-extrabold leading-tight">
-                  Coz{" "}
                   <span className="text-gradient-gold italic px-2">
                     “You Only Live Once”
                   </span>
                 </h1>
 
-                <p className="hero-tag text-white/70 text-sm md:text-lg tracking-wide max-w-xl mx-auto">
-                  where You, Locals & Experiences blend stories.
+                <p className="hero-tag text-white/70 text-sm md:text-lg tracking-wide max-w-xl mx-auto mt-4">
+                  If travel, exploration, and meaningful experiences make your heart race, <br />
+                  <span className="text-white font-medium">Athithya welcomes You.</span>
                 </p>
               </div>
             </div>
@@ -84,11 +79,10 @@ export default function VideoCarousel() {
           <button
             key={idx}
             onClick={() => moveTo(idx)}
-            className={`w-3 h-3 rounded-full transition-transform transform ${
-              current === idx
+            className={`w-3 h-3 rounded-full transition-transform transform ${current === idx
                 ? "scale-125 bg-brandGold"
                 : "bg-white/50 hover:scale-110"
-            }`}
+              }`}
             aria-label={`Go to slide ${idx + 1}`}
           />
         ))}

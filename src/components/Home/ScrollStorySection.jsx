@@ -4,7 +4,7 @@ import LeftContent from "./LeftContent";
 import RightContent from "./RightContent";
 import '../../App.css'
 
-const STEPS = 4;
+const STEPS = 3;
 
 export default function ScrollStorySection() {
   const containerRef = useRef(null);
