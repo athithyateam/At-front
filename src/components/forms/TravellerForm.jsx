@@ -37,7 +37,7 @@ export default function TravellerForm() {
           className={`relative z-10 px-6 py-2 text-sm font-medium rounded-full transition ${type === "post" ? "text-white" : "text-gray-600"
             }`}
         >
-          Create Post
+          Create Momentos
         </button>
 
         <button

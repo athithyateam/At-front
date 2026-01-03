@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 import ConnectPost from "./ConnectPost";
 import ConnectPlan from "./ConnectPlan";
 
-const tabs = [
-  { key: "posts", label: "Momentos" },
-  { key: "plans", label: "Plans" },
-];
+import { ENDPOINTS } from "../../api/allApi";
 
 const Connect = () => {
+  const { user } = useAuth();
   const [searchParams, setSearchParams] = useSearchParams();
   const activeTab = searchParams.get("tab") || "posts";
+
+  const tabs = [
+    { key: "posts", label: "Momentos" },
+    { key: "plans", label: "Plans" },
+  ];
+
+  if (user?.role === "host") {
+    tabs.push({ key: "services", label: "Experiences" });
+  }
 
   const setActiveTab = (tab) => {
     setSearchParams({ tab });
@@ -66,8 +74,9 @@ const Connect = () => {
 
       {/* CONTENT */}
       <div className="max-w-2xl mx-auto px-4 py-6">
-        {activeTab === "posts" && <ConnectPost />}
+        {activeTab === "posts" && <ConnectPost endpoint={ENDPOINTS.POSTS} />}
         {activeTab === "plans" && <ConnectPlan />}
+        {activeTab === "services" && <ConnectPost endpoint={ENDPOINTS.ALL_SERVICES} />}
       </div>
     </div>
   );

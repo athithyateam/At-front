@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FiMapPin, FiClock, FiGrid, FiLayers, FiArrowRight, FiBriefcase } from "react-icons/fi";
 
 const GUEST_TABS = [
-  { key: "posts", label: "Posts", icon: <FiGrid className="w-4 h-4" /> },
+  { key: "posts", label: "Momentos", icon: <FiGrid className="w-4 h-4" /> },
   { key: "plans", label: "Plans", icon: <FiLayers className="w-4 h-4" /> },
 ];
 

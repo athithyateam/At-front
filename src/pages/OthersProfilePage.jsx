@@ -42,9 +42,8 @@ function ReactionBar({ initialCounts = {}, onChange }) {
             key={emoji}
             type="button"
             onClick={() => handleReact(emoji)}
-            className={`inline-flex items-center gap-1 rounded-full border px-3 py-1 text-sm transition shadow-sm hover:shadow ${
-              active ? "scale-[1.03]" : ""
-            }`}
+            className={`inline-flex items-center gap-1 rounded-full border px-3 py-1 text-sm transition shadow-sm hover:shadow ${active ? "scale-[1.03]" : ""
+              }`}
             style={{
               borderColor: active ? GOLD : `${GOLD}66`,
               backgroundColor: active ? GOLD : "white",
@@ -191,7 +190,7 @@ export default function ConnectPage({ user, posts }) {
         <div className="mx-3">
           <div className="mb-4 flex items-center justify-between">
             <h3 className="text-lg sm:text-3xl italic font-semibold" style={{ color: GOLD }}>
-              posts
+              Momentos
             </h3>
           </div>
 

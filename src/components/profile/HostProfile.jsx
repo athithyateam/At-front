@@ -3,9 +3,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FiMapPin, FiClock, FiStar, FiGrid, FiLayers, FiBriefcase, FiChevronRight } from "react-icons/fi";
 
 const HOST_TABS = [
-  { key: "posts", label: "Posts", icon: <FiGrid className="w-4 h-4" /> },
+  { key: "posts", label: "Momentos", icon: <FiGrid className="w-4 h-4" /> },
   { key: "plans", label: "Plans", icon: <FiLayers className="w-4 h-4" /> },
-  { key: "services", label: "Services", icon: <FiBriefcase className="w-4 h-4" /> },
+  { key: "services", label: "Experiences", icon: <FiBriefcase className="w-4 h-4" /> },
 ];
 
 export default function HostProfile({ posts = [], postStats = {}, reviewStats = {} }) {
@@ -30,7 +30,7 @@ export default function HostProfile({ posts = [], postStats = {}, reviewStats = 
       <div className="grid grid-cols-3 gap-4">
         {[
           { label: "Total", value: postStats?.total || 0, color: "text-blue-600", bg: "bg-blue-50" },
-          { label: "Services", value: postStats?.services || 0, color: "text-green-600", bg: "bg-green-50" },
+          { label: "Experiences", value: postStats?.services || 0, color: "text-green-600", bg: "bg-green-50" },
           { label: "Rating", value: `⭐ ${reviewStats?.averageRating || "0.0"}`, color: "text-yellow-600", bg: "bg-yellow-50" },
         ].map((stat, i) => (
           <div key={i} className={`${stat.bg} ${stat.color} p-4 rounded-2xl flex flex-col items-center justify-center border border-white/50 shadow-sm`}>

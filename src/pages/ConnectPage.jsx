@@ -146,7 +146,7 @@ function PostRow({ index, style, data }) {
 }
 
 export default function InstagramPlanPageOptimized() {
-  const [view, setView] = useState("posts");
+  const [view, setView] = useState("Momentos");
   const [likedposts, setLikedposts] = useState({});
   const listRef = useRef(null); // now a DOM scroll container ref
 
@@ -155,9 +155,8 @@ export default function InstagramPlanPageOptimized() {
     return {
       id: i + 1,
       user: ["rkive", "mansi", "tuktuk", "kashish"][i % 4],
-      caption: `Caption for post #${
-        i + 1
-      } — exploring places, vibes and travel tips.`,
+      caption: `Caption for post #${i + 1
+        } — exploring places, vibes and travel tips.`,
       mediaType: isVideo ? "video" : "image",
       media: isVideo ? VIDEOS[i % VIDEOS.length] : IMAGES[i % IMAGES.length],
       likes: Math.floor(1200 * (i + 1) * 3.14),
@@ -206,7 +205,7 @@ export default function InstagramPlanPageOptimized() {
 
   // scroll to top when switching to posts — now scroll container
   useEffect(() => {
-    if (view === "posts" && listRef.current) {
+    if (view === "Momentos" && listRef.current) {
       listRef.current.scrollTop = 0;
     }
   }, [view]);
@@ -228,22 +227,20 @@ export default function InstagramPlanPageOptimized() {
           <div className="flex items-center gap-3">
             <nav className="flex items-center gap-2 bg-white rounded-full p-1 shadow-sm">
               <button
-                onClick={() => setView("posts")}
-                className={`px-4 py-2 rounded-full text-sm font-medium ${
-                  view === "posts"
+                onClick={() => setView("Momentos")}
+                className={`px-4 py-2 rounded-full text-sm font-medium ${view === "Momentos"
                     ? "bg-linear-to-r from-yellow-400 to-yellow-300 text-white shadow"
                     : "text-gray-700"
-                }`}
+                  }`}
               >
-                posts
+                Momentos
               </button>
               <button
                 onClick={() => setView("Plan")}
-                className={`px-4 py-2 rounded-full text-sm font-medium ${
-                  view === "Plan"
+                className={`px-4 py-2 rounded-full text-sm font-medium ${view === "Plan"
                     ? "bg-linear-to-r from-yellow-400 to-yellow-300 text-white shadow"
                     : "text-gray-700"
-                }`}
+                  }`}
               >
                 Plan
               </button>
@@ -253,7 +250,7 @@ export default function InstagramPlanPageOptimized() {
 
         <main className="flex flex-col lg:flex-row gap-6 p-6">
           <section className="flex-1">
-            {view === "posts" ? (
+            {view === "Momentos" ? (
               // Scrollable container replacing react-window List
               <div
                 ref={listRef}

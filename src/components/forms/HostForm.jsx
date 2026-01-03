@@ -13,7 +13,7 @@ export default function HostForm() {
       {/* Header */}
       <div className="mb-6">
         <h2 className="text-2xl font-semibold GOLD">Host Dashboard</h2>
-        <p className="text-sm muted mt-1">Create a Momento, Plan (Trek) or Service</p>
+        <p className="text-sm muted mt-1">Create a Momentos, Plan (Trek) or Experience</p>
       </div>
 
       {/* Segment control */}
@@ -33,7 +33,7 @@ export default function HostForm() {
           className={`relative z-10 px-6 md:px-8 py-2 text-sm font-medium rounded-full transition ${type === "post" ? "text-white" : "text-gray-600"
             }`}
         >
-          Post
+          Momentos
         </button>
 
         <button
@@ -49,7 +49,7 @@ export default function HostForm() {
           className={`relative z-10 px-4 md:px-6 py-2 text-sm font-medium rounded-full transition ${type === "service" ? "text-white" : "text-gray-600"
             }`}
         >
-          Service
+          Experience
         </button>
       </div>
 

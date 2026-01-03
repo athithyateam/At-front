@@ -351,7 +351,7 @@ export default function HostServiceForm({ onSaved }) {
       });
 
       if (res?.success) {
-        alert("Service created successfully");
+        alert("Experience created successfully");
         // reset form to defaults
         setTitle("");
         setSummary("");
@@ -390,7 +390,7 @@ export default function HostServiceForm({ onSaved }) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <input
                 className="input-lux rounded-lg px-3 py-2 w-full"
-                placeholder="Service title"
+                placeholder="Experience title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 style={INPUT_STYLE}
@@ -660,7 +660,7 @@ export default function HostServiceForm({ onSaved }) {
               disabled={loading}
               className="w-full GOLD-bg text-white py-3 rounded-xl font-medium btn-lux"
             >
-              {loading ? "Saving..." : "Save Service"}
+              {loading ? "Saving..." : "Save Experience"}
             </button>
           </div>
         </div>

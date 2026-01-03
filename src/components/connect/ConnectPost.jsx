@@ -30,7 +30,7 @@ const cardVariants = {
 
 /* ---------------- Component ---------------- */
 
-const ConnectPost = () => {
+const ConnectPost = ({ endpoint = ENDPOINTS.POSTS }) => {
   const { user } = useAuth();
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -47,8 +47,8 @@ const ConnectPost = () => {
   useEffect(() => {
     async function fetchPosts() {
       try {
-        const res = await axios.get(ENDPOINTS.POSTS);
-        setPosts(res.data?.experiences || []);
+        const res = await axios.get(endpoint);
+        setPosts(res.data?.experiences || res.data?.services || []);
       } catch (err) {
         console.error("Fetch posts failed", err);
       } finally {
@@ -56,7 +56,7 @@ const ConnectPost = () => {
       }
     }
     fetchPosts();
-  }, []);
+  }, [endpoint]);
 
   const locations = useMemo(() => {
     const set = new Set(
