@@ -140,17 +140,17 @@ const ConnectPost = () => {
                 />
               </div>
 
-              <div className="p-5 space-y-4">
+              <div className="p-4 space-y-3">
                 {/* Host */}
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-yellow-400 text-white flex items-center justify-center font-semibold">
                     {post.user?.firstname?.[0] || "H"}
                   </div>
-                  <div>
+                  <div className="text-left">
                     <div className="text-sm font-semibold">
                       {post.user?.firstname} {post.user?.lastname}
                     </div>
-                    <div className="text-xs text-gray-500">Trek host</div>
+                    <div className="text-xs text-gray-600">Trek host</div>
                   </div>
                 </div>
 
@@ -207,7 +207,7 @@ const ConnectPost = () => {
                       ) : (
                         <FiSmile />
                       )}
-                      Like
+                      React
                     </button>
                   </div>
 
