@@ -9,7 +9,7 @@ export default function Footer() {
         {/* --- Top Grid Section --- */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {/* --- Column 1: Logo + Address + About --- */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 items-start text-left">
             <img
               src="/athithya-logo.png"
               alt="Athithya logo"
