@@ -78,17 +78,17 @@ export default function BaseTravelProfile({ user, isOwner, children }) {
           {/* Info */}
           <div className="flex-1">
             <div className="flex items-start justify-between gap-4">
-              <div>
-                <h2 className="text-2xl md:text-3xl font-semibold text-gray-900">
+              <div className="text-left">
+                <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 text-left">
                   {user.firstname} {user.lastname}
                 </h2>
-                <p className="text-sm text-gray-500 mt-1">
+                <p className="text-sm text-gray-500 mt-1 ml-0 pl-0 text-left">
                   {user.location?.city
                     ? `${user.location.city}, ${user.location.state}, ${user.location.country}`
                     : "India"}
                 </p>
                 {user.description && (
-                  <p className="mt-3 text-gray-600 text-sm max-w-3xl">
+                  <p className="mt-3 text-gray-600 text-sm max-w-3xl text-left">
                     {user.description}
                   </p>
                 )}

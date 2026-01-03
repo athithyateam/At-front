@@ -12,6 +12,7 @@ import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 import { ENDPOINTS } from "../../api/allApi";
 import PremiumSelect from "../PremiumSelect";
+import { useNotifications } from "../../context/NotificationContext";
 
 /* ---------------- Config ---------------- */
 
@@ -38,6 +39,7 @@ const ConnectPost = () => {
   const [reactions, setReactions] = useState({});
   const [userReactions, setUserReactions] = useState({});
   const [openPicker, setOpenPicker] = useState(null); // postId
+  const { addNotification } = useNotifications();
 
   useEffect(() => {
     async function fetchPosts() {
@@ -69,11 +71,19 @@ const ConnectPost = () => {
   /* ---------------- Actions ---------------- */
 
   function react(postId, emoji) {
+    const post = posts.find((p) => p._id === postId);
     setUserReactions((prev) => ({
       ...prev,
       [postId]: emoji,
     }));
     setOpenPicker(null);
+
+    if (post) {
+      addNotification({
+        title: "Reaction Sent",
+        message: `You reacted with ${emoji} to "${post.title}"`,
+      });
+    }
   }
 
   function toggleRaise(postId) {

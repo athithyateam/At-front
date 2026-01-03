@@ -8,14 +8,17 @@ import { createPortal } from "react-dom";
 
 import AuthModal from "../auth/AuthSection";
 import { useAuth } from "../../context/AuthContext";
+import { useNotifications } from "../../context/NotificationContext";
 
 export default function Navbar() {
   const { user, loading, logout } = useAuth();
+  const { notifications, unreadCount, markAsRead, markAllAsRead, clearNotifications } = useNotifications();
   const location = useLocation();
 
   const [scrolled, setScrolled] = useState(false);
   const [showAuth, setShowAuth] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [notificationOpen, setNotificationOpen] = useState(false);
 
   const threshold = 50;
   const isHome = location.pathname === "/";
@@ -33,6 +36,9 @@ export default function Navbar() {
     const close = (e) => {
       if (!e.target.closest(".profile-dropdown")) {
         setDropdownOpen(false);
+      }
+      if (!e.target.closest(".notification-dropdown")) {
+        setNotificationOpen(false);
       }
     };
     document.addEventListener("mousedown", close);
@@ -112,12 +118,76 @@ export default function Navbar() {
             {user ? (
               <>
                 {/* NOTIFICATIONS */}
-                <Link to="/notifications" className={`relative ${iconColor}`}>
-                  <FaBell size={20} />
-                  <span className="absolute -top-2 -right-1 text-[10px] bg-[#C59A2F] text-white rounded-full px-1">
-                    0
-                  </span>
-                </Link>
+                <div className="relative notification-dropdown">
+                  <button
+                    onClick={() => setNotificationOpen(!notificationOpen)}
+                    className={`relative ${iconColor} transition hover:scale-105`}
+                  >
+                    <FaBell size={20} />
+                    {unreadCount > 0 && (
+                      <span className="absolute -top-2 -right-1 text-[10px] bg-red-500 text-white rounded-full px-1.5 py-0.5 border border-white">
+                        {unreadCount}
+                      </span>
+                    )}
+                  </button>
+
+                  {/* Notification Dropdown */}
+                  {notificationOpen && (
+                    <div className="absolute right-0 mt-3 w-80 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden z-50">
+                      <div className="px-4 py-3 border-b flex items-center justify-between bg-gray-50">
+                        <h3 className="font-semibold text-gray-700">Notifications</h3>
+                        {notifications.length > 0 && (
+                          <button
+                            onClick={clearNotifications}
+                            className="text-xs text-red-500 hover:underline"
+                          >
+                            Clear all
+                          </button>
+                        )}
+                      </div>
+
+                      <div className="max-h-80 overflow-y-auto">
+                        {notifications.length === 0 ? (
+                          <div className="p-6 text-center text-gray-500 text-sm">
+                            No new notifications
+                          </div>
+                        ) : (
+                          notifications.map((n) => (
+                            <div
+                              key={n.id}
+                              onClick={() => markAsRead(n.id)}
+                              className={`px-4 py-3 border-b last:border-0 hover:bg-gray-50 cursor-pointer transition ${n.read ? "bg-white" : "bg-blue-50/40"
+                                }`}
+                            >
+                              <div className="flex justify-between items-start gap-2">
+                                <h4 className={`text-sm ${!n.read ? "font-semibold text-gray-900" : "text-gray-700"}`}>
+                                  {n.title}
+                                </h4>
+                                <span className="text-[10px] text-gray-400 whitespace-nowrap">
+                                  {new Date(n.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                </span>
+                              </div>
+                              <p className="text-xs text-gray-600 mt-1 line-clamp-2">
+                                {n.message}
+                              </p>
+                            </div>
+                          ))
+                        )}
+                      </div>
+
+                      {unreadCount > 0 && (
+                        <div className="p-2 border-t bg-gray-50 text-center">
+                          <button
+                            onClick={markAllAsRead}
+                            className="text-xs font-medium text-[#C59A2F] hover:underline"
+                          >
+                            Mark all as read
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
 
                 {/* CREATE POST */}
                 <Link

@@ -4,6 +4,7 @@ import { useDropzone } from "react-dropzone";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiChevronDown, FiX, FiUpload } from "react-icons/fi";
 import { createPost } from "../../api/posts";
+import { useNotifications } from "../../context/NotificationContext";
 
 /* ---------------- CONSTANT ---------------- */
 const POST_TYPE = "experience";
@@ -207,6 +208,7 @@ export default function TravellerPostForm() {
   const [maxPeople, setMaxPeople] = useState("");
   const [days, setDays] = useState("");
   const [nights, setNights] = useState("");
+  const { addNotification } = useNotifications();
 
   /* ---------------- Photos ---------------- */
   const onDropPhotos = useCallback((files) => {
@@ -280,6 +282,11 @@ export default function TravellerPostForm() {
         token: localStorage.getItem("auth_token"),
       });
       alert("Post created successfully");
+      addNotification({
+        title: "Post Created",
+        message: `Your post "${title}" has been published successfully.`,
+        type: "success"
+      });
 
       setTitle("");
       setDescription("");

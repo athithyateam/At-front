@@ -12,6 +12,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { listItineraries } from "../../api/itineraries";
 import PremiumSelect from "../PremiumSelect";
 import RatingStars from "../RatingStars";
+import { useNotifications } from "../../context/NotificationContext";
 
 /* ---------------- helpers ---------------- */
 
@@ -30,9 +31,7 @@ function getLookingFor(tags = []) {
   ).map((l) => l.label);
 }
 
-function handleMessage(plan) {
-  alert(`Messaging ${plan.user?.firstname}`);
-}
+
 
 /* ---------------- component ---------------- */
 
@@ -49,6 +48,7 @@ const ConnectPlan = () => {
   const [lookingFor, setLookingFor] = useState("all");
   const [sortBy, setSortBy] = useState("default"); // default | rating_desc | rating_asc
   const [topRatedOnly, setTopRatedOnly] = useState(false);
+  const { addNotification } = useNotifications();
 
   useEffect(() => {
     async function fetchPlans() {
@@ -76,11 +76,27 @@ const ConnectPlan = () => {
   }
 
   function react(postId, emoji) {
+    const plan = plans.find((p) => p._id === postId);
     setUserReactions((prev) => ({
       ...prev,
       [postId]: emoji,
     }));
     setOpenPicker(null);
+
+    if (plan) {
+      addNotification({
+        title: "Reaction Sent",
+        message: `You reacted with ${emoji} to plan "${plan.title}"`,
+      });
+    }
+  }
+
+  function handleMessage(plan) {
+    alert(`Messaging ${plan.user?.firstname}`);
+    addNotification({
+      title: "Message Sent",
+      message: `You started a conversation with ${plan.user?.firstname}`,
+    });
   }
 
   /* ---------------- FILTER + SORT ---------------- */
