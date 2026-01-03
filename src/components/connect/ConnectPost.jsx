@@ -82,6 +82,7 @@ const ConnectPost = () => {
       addNotification({
         title: "Reaction Sent",
         message: `You reacted with ${emoji} to "${post.title}"`,
+        link: "/connect?tab=posts"
       });
     }
   }

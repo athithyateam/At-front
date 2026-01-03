@@ -87,6 +87,7 @@ const ConnectPlan = () => {
       addNotification({
         title: "Reaction Sent",
         message: `You reacted with ${emoji} to plan "${plan.title}"`,
+        link: "/connect?tab=plans"
       });
     }
   }
@@ -96,6 +97,7 @@ const ConnectPlan = () => {
     addNotification({
       title: "Message Sent",
       message: `You started a conversation with ${plan.user?.firstname}`,
+      link: "/connect?tab=plans"
     });
   }
 

@@ -285,7 +285,8 @@ export default function TravellerPostForm() {
       addNotification({
         title: "Post Created",
         message: `Your post "${title}" has been published successfully.`,
-        type: "success"
+        type: "success",
+        link: "/connect?tab=posts"
       });
 
       setTitle("");

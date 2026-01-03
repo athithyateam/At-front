@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FiUser } from "react-icons/fi";
 import { FaBell } from "react-icons/fa";
 import { MdAdd } from "react-icons/md";
@@ -14,6 +14,7 @@ export default function Navbar() {
   const { user, loading, logout } = useAuth();
   const { notifications, unreadCount, markAsRead, markAllAsRead, clearNotifications } = useNotifications();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const [scrolled, setScrolled] = useState(false);
   const [showAuth, setShowAuth] = useState(false);
@@ -155,7 +156,13 @@ export default function Navbar() {
                           notifications.map((n) => (
                             <div
                               key={n.id}
-                              onClick={() => markAsRead(n.id)}
+                              onClick={() => {
+                                markAsRead(n.id);
+                                if (n.link) {
+                                  navigate(n.link);
+                                  setNotificationOpen(false);
+                                }
+                              }}
                               className={`px-4 py-3 border-b last:border-0 hover:bg-gray-50 cursor-pointer transition ${n.read ? "bg-white" : "bg-blue-50/40"
                                 }`}
                             >

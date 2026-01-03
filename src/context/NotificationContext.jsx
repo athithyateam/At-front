@@ -85,7 +85,8 @@ export function NotificationProvider({ children }) {
                             addNotification({
                                 title: "New Experience Posted",
                                 message: `${latestPost.user?.firstname} posted: "${latestPost.title}"`,
-                                type: "info"
+                                type: "info",
+                                link: "/connect?tab=posts"
                             });
                         }
                     }
@@ -101,7 +102,8 @@ export function NotificationProvider({ children }) {
                             addNotification({
                                 title: "New Plan Added",
                                 message: `${latestPlan.user?.firstname} added a plan: "${latestPlan.title}"`,
-                                type: "info"
+                                type: "info",
+                                link: "/connect?tab=plans"
                             });
                         }
                     }
