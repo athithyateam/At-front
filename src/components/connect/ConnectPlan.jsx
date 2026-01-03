@@ -41,7 +41,10 @@ const ConnectPlan = () => {
 
   const [raised, setRaised] = useState({});
   const [expanded, setExpanded] = useState({});
-  const [userReactions, setUserReactions] = useState({});
+  const [userReactions, setUserReactions] = useState(() => {
+    const saved = localStorage.getItem("ath_reactions_plans");
+    return saved ? JSON.parse(saved) : {};
+  });
   const [openPicker, setOpenPicker] = useState(null);
 
   /* filters */
@@ -77,10 +80,11 @@ const ConnectPlan = () => {
 
   function react(postId, emoji) {
     const plan = plans.find((p) => p._id === postId);
-    setUserReactions((prev) => ({
-      ...prev,
-      [postId]: emoji,
-    }));
+    setUserReactions((prev) => {
+      const next = { ...prev, [postId]: emoji };
+      localStorage.setItem("ath_reactions_plans", JSON.stringify(next));
+      return next;
+    });
     setOpenPicker(null);
   }
 

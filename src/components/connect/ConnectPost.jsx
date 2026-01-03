@@ -37,7 +37,10 @@ const ConnectPost = () => {
   const [raised, setRaised] = useState({});
   const [saved, setSaved] = useState({});
   const [reactions, setReactions] = useState({});
-  const [userReactions, setUserReactions] = useState({});
+  const [userReactions, setUserReactions] = useState(() => {
+    const saved = localStorage.getItem("ath_reactions_posts");
+    return saved ? JSON.parse(saved) : {};
+  });
   const [openPicker, setOpenPicker] = useState(null); // postId
   const { addNotification } = useNotifications();
 
@@ -72,10 +75,11 @@ const ConnectPost = () => {
 
   function react(postId, emoji) {
     const post = posts.find((p) => p._id === postId);
-    setUserReactions((prev) => ({
-      ...prev,
-      [postId]: emoji,
-    }));
+    setUserReactions((prev) => {
+      const next = { ...prev, [postId]: emoji };
+      localStorage.setItem("ath_reactions_posts", JSON.stringify(next));
+      return next;
+    });
     setOpenPicker(null);
   }
 
