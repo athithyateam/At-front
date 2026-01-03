@@ -10,6 +10,7 @@ import {
 } from "react-icons/fi";
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
+import { useAuth } from "../../context/AuthContext";
 import { ENDPOINTS } from "../../api/allApi";
 import PremiumSelect from "../PremiumSelect";
 import { useNotifications } from "../../context/NotificationContext";
@@ -29,6 +30,7 @@ const cardVariants = {
 /* ---------------- Component ---------------- */
 
 const ConnectPost = () => {
+  const { user } = useAuth();
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -36,9 +38,9 @@ const ConnectPost = () => {
 
   const [raised, setRaised] = useState({});
   const [saved, setSaved] = useState({});
-  const [reactions, setReactions] = useState({});
-  const [userReactions, setUserReactions] = useState(() => {
-    const saved = localStorage.getItem("ath_reactions_posts");
+  // allReactions: { [postId]: { [userId]: emoji } }
+  const [allReactions, setAllReactions] = useState(() => {
+    const saved = localStorage.getItem("ath_global_reactions_posts");
     return saved ? JSON.parse(saved) : {};
   });
   const [openPicker, setOpenPicker] = useState(null); // postId
@@ -74,13 +76,39 @@ const ConnectPost = () => {
   /* ---------------- Actions ---------------- */
 
   function react(postId, emoji) {
-    const post = posts.find((p) => p._id === postId);
-    setUserReactions((prev) => {
-      const next = { ...prev, [postId]: emoji };
-      localStorage.setItem("ath_reactions_posts", JSON.stringify(next));
+    if (!user) return alert("Please login to react");
+
+    setAllReactions((prev) => {
+      const next = { ...prev };
+      if (!next[postId]) next[postId] = {};
+
+      const current = next[postId][user._id];
+      if (current === emoji) {
+        // Toggle off (remove)
+        delete next[postId][user._id];
+      } else {
+        // Set new
+        next[postId][user._id] = emoji;
+      }
+
+      localStorage.setItem("ath_global_reactions_posts", JSON.stringify(next));
       return next;
     });
     setOpenPicker(null);
+  }
+
+  function getCounts(postId) {
+    const r = allReactions[postId] || {};
+    const counts = {};
+    Object.values(r).forEach((e) => {
+      counts[e] = (counts[e] || 0) + 1;
+    });
+    return counts;
+  }
+
+  function getMyReaction(postId) {
+    if (!user) return null;
+    return allReactions[postId]?.[user._id];
   }
 
   function toggleRaise(postId) {
@@ -186,16 +214,17 @@ const ConnectPost = () => {
                   {post.description}
                 </p>
 
-                {/* Existing reactions */}
-                {reactions[post._id] && (
-                  <div className="flex gap-3 text-sm">
-                    {Object.entries(reactions[post._id]).map(([e, c]) => (
-                      <span key={e}>
-                        {e} {c}
+                {/* Reaction Counts */}
+                <div className="flex gap-3 text-sm min-h-[24px]">
+                  {Object.entries(getCounts(post._id)).length > 0 ? (
+                    Object.entries(getCounts(post._id)).map(([emoji, count]) => (
+                      <span key={emoji} className="bg-gray-50 px-2 py-0.5 rounded-full border border-gray-100 text-xs flex items-center gap-1">
+                        <span>{emoji}</span>
+                        <span className="font-semibold text-gray-700">{count}</span>
                       </span>
-                    ))}
-                  </div>
-                )}
+                    ))
+                  ) : <div className="h-6"></div>}
+                </div>
 
                 {/* Footer */}
                 <div className="relative flex items-center justify-between pt-3 border-t border-gray-300">
@@ -205,16 +234,17 @@ const ConnectPost = () => {
                       onClick={() =>
                         setOpenPicker(openPicker === post._id ? null : post._id)
                       }
-                      className="flex items-center gap-2 text-sm text-gray-600 hover:text-black transition"
+                      className={`flex items-center gap-2 text-sm transition ${getMyReaction(post._id) ? "text-yellow-600 font-medium" : "text-gray-600 hover:text-black"
+                        }`}
                     >
-                      {userReactions[post._id] ? (
+                      {getMyReaction(post._id) ? (
                         <span className="text-lg leading-none">
-                          {userReactions[post._id]}
+                          {getMyReaction(post._id)}
                         </span>
                       ) : (
                         <FiSmile />
                       )}
-                      React
+                      {getMyReaction(post._id) ? "Reacted" : "React"}
                     </button>
                   </div>
 

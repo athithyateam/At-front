@@ -10,6 +10,7 @@ import {
 } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 import { listItineraries } from "../../api/itineraries";
+import { useAuth } from "../../context/AuthContext";
 import PremiumSelect from "../PremiumSelect";
 import RatingStars from "../RatingStars";
 import { useNotifications } from "../../context/NotificationContext";
@@ -36,13 +37,15 @@ function getLookingFor(tags = []) {
 /* ---------------- component ---------------- */
 
 const ConnectPlan = () => {
+  const { user } = useAuth();
   const [plans, setPlans] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const [raised, setRaised] = useState({});
   const [expanded, setExpanded] = useState({});
-  const [userReactions, setUserReactions] = useState(() => {
-    const saved = localStorage.getItem("ath_reactions_plans");
+  // allReactions: { [planId]: { [userId]: emoji } }
+  const [allReactions, setAllReactions] = useState(() => {
+    const saved = localStorage.getItem("ath_global_reactions_plans");
     return saved ? JSON.parse(saved) : {};
   });
   const [openPicker, setOpenPicker] = useState(null);
@@ -79,13 +82,37 @@ const ConnectPlan = () => {
   }
 
   function react(postId, emoji) {
-    const plan = plans.find((p) => p._id === postId);
-    setUserReactions((prev) => {
-      const next = { ...prev, [postId]: emoji };
-      localStorage.setItem("ath_reactions_plans", JSON.stringify(next));
+    if (!user) return alert("Please login to react");
+
+    setAllReactions((prev) => {
+      const next = { ...prev };
+      if (!next[postId]) next[postId] = {};
+
+      const current = next[postId][user._id];
+      if (current === emoji) {
+        delete next[postId][user._id];
+      } else {
+        next[postId][user._id] = emoji;
+      }
+
+      localStorage.setItem("ath_global_reactions_plans", JSON.stringify(next));
       return next;
     });
     setOpenPicker(null);
+  }
+
+  function getCounts(planId) {
+    const r = allReactions[planId] || {};
+    const counts = {};
+    Object.values(r).forEach((e) => {
+      counts[e] = (counts[e] || 0) + 1;
+    });
+    return counts;
+  }
+
+  function getMyReaction(planId) {
+    if (!user) return null;
+    return allReactions[planId]?.[user._id];
   }
 
   function handleMessage(plan) {
@@ -317,20 +344,29 @@ const ConnectPlan = () => {
 
             {/* FOOTER */}
             <div className="relative mt-6 flex items-center gap-4">
+              {/* Reaction Counts: Added inline with buttons or above? Let's put slightly above or left */}
+              {Object.entries(getCounts(plan._id)).map(([emoji, count]) => (
+                <span key={emoji} className="bg-gray-50 px-2 py-0.5 rounded-full border border-gray-100 text-xs flex items-center gap-1">
+                  <span>{emoji}</span>
+                  <span className="font-semibold text-gray-700">{count}</span>
+                </span>
+              ))}
+
               <button
                 onClick={() =>
                   setOpenPicker(openPicker === plan._id ? null : plan._id)
                 }
-                className="flex cursor-pointer items-center gap-2 text-sm text-gray-600 hover:text-black"
+                className={`flex cursor-pointer items-center gap-2 text-sm transition ${getMyReaction(plan._id) ? "text-yellow-600 font-medium" : "text-gray-600 hover:text-black"
+                  }`}
               >
-                {userReactions[plan._id] ? (
+                {getMyReaction(plan._id) ? (
                   <span className="text-lg leading-none">
-                    {userReactions[plan._id]}
+                    {getMyReaction(plan._id)}
                   </span>
                 ) : (
                   <FiSmile />
                 )}
-                React
+                {getMyReaction(plan._id) ? "Reacted" : "React"}
               </button>
 
               <AnimatePresence>
