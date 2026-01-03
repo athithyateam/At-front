@@ -77,14 +77,6 @@ const ConnectPost = () => {
       [postId]: emoji,
     }));
     setOpenPicker(null);
-
-    if (post) {
-      addNotification({
-        title: "Reaction Sent",
-        message: `You reacted with ${emoji} to "${post.title}"`,
-        link: "/connect?tab=posts"
-      });
-    }
   }
 
   function toggleRaise(postId) {

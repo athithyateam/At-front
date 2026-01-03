@@ -82,23 +82,10 @@ const ConnectPlan = () => {
       [postId]: emoji,
     }));
     setOpenPicker(null);
-
-    if (plan) {
-      addNotification({
-        title: "Reaction Sent",
-        message: `You reacted with ${emoji} to plan "${plan.title}"`,
-        link: "/connect?tab=plans"
-      });
-    }
   }
 
   function handleMessage(plan) {
     alert(`Messaging ${plan.user?.firstname}`);
-    addNotification({
-      title: "Message Sent",
-      message: `You started a conversation with ${plan.user?.firstname}`,
-      link: "/connect?tab=plans"
-    });
   }
 
   /* ---------------- FILTER + SORT ---------------- */

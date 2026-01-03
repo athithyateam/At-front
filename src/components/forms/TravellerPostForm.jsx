@@ -282,12 +282,6 @@ export default function TravellerPostForm() {
         token: localStorage.getItem("auth_token"),
       });
       alert("Post created successfully");
-      addNotification({
-        title: "Post Created",
-        message: `Your post "${title}" has been published successfully.`,
-        type: "success",
-        link: "/connect?tab=posts"
-      });
 
       setTitle("");
       setDescription("");
