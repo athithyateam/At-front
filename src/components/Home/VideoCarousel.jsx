@@ -59,7 +59,10 @@ export default function VideoCarousel() {
               >
                 {/* Title */}
                 <h1 className="hero-main text-5xl md:text-7xl font-bold tracking-tight">
-                  <span style={{ color: '#C59A2F' }}>"You Only Live Once"</span>
+                  <span style={{ color: '#C59A2F' }}>"You </span>
+                  <span className="text-white">Only</span>
+                  <span style={{ color: '#C59A2F' }}> Live </span>
+                  <span className="text-white">Once"</span>
                 </h1>
 
                 {/* Subtitle */}
