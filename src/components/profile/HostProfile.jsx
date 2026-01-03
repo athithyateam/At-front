@@ -1,8 +1,6 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useNavigate } from "react-router-dom";
-import { FiMapPin, FiClock, FiStar, FiGrid, FiLayers, FiBriefcase, FiChevronRight, FiEdit2, FiTrash2, FiMoreVertical } from "react-icons/fi";
-import { deletePost } from "../../api/posts";
+import { FiMapPin, FiClock, FiGrid, FiLayers, FiBriefcase, FiChevronRight } from "react-icons/fi";
 
 const HOST_TABS = [
   { key: "posts", label: "Momentos", icon: <FiGrid className="w-4 h-4" /> },
@@ -12,27 +10,19 @@ const HOST_TABS = [
 
 export default function HostProfile({ posts = [], postStats = {}, reviewStats = {}, isOwner = false }) {
   const [activeTab, setActiveTab] = useState("posts");
-  const [openMenuId, setOpenMenuId] = useState(null);
-  const [localPosts, setLocalPosts] = useState(posts);
-  const navigate = useNavigate();
-
-  // Sync localPosts if posts prop changes
-  useEffect(() => {
-    setLocalPosts(posts);
-  }, [posts]);
 
   const filteredPosts = useMemo(() => {
     if (activeTab === "posts")
-      return localPosts.filter((p) => p.postType === "experience");
+      return posts.filter((p) => p.postType === "experience");
 
     if (activeTab === "services")
-      return localPosts.filter((p) => p.postType === "service");
+      return posts.filter((p) => p.postType === "service");
 
     if (activeTab === "plans")
-      return localPosts.filter((p) => p.postType === "plan");
+      return posts.filter((p) => p.postType === "plan");
 
     return [];
-  }, [activeTab, localPosts]);
+  }, [activeTab, posts]);
 
   return (
     <div className="space-y-8 py-4">
@@ -101,8 +91,6 @@ export default function HostProfile({ posts = [], postStats = {}, reviewStats = 
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60" />
 
-                  {/* Info Overlay */}
-
                   {activeTab !== "posts" && (
                     <div className="absolute top-4 left-4">
                       <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-[10px] font-black uppercase tracking-widest text-gray-800 shadow-sm border border-white/50">
@@ -124,72 +112,6 @@ export default function HostProfile({ posts = [], postStats = {}, reviewStats = 
                     <h4 className="flex-1 font-bold text-gray-900 group-hover:text-[#C59A2F] transition-colors line-clamp-1 text-left">
                       {p.title}
                     </h4>
-
-                    {isOwner && (
-                      <div className="relative">
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setOpenMenuId(openMenuId === p._id ? null : p._id);
-                          }}
-                          className="p-1 hover:bg-gray-100 rounded-full transition-colors text-gray-400 hover:text-gray-900"
-                        >
-                          <FiMoreVertical size={18} />
-                        </button>
-
-                        <AnimatePresence>
-                          {openMenuId === p._id && (
-                            <>
-                              <div
-                                className="fixed inset-0 z-10"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  setOpenMenuId(null);
-                                }}
-                              />
-                              <motion.div
-                                initial={{ opacity: 0, scale: 0.95, y: -10 }}
-                                animate={{ opacity: 1, scale: 1, y: 0 }}
-                                exit={{ opacity: 0, scale: 0.95, y: -10 }}
-                                className="absolute right-0 mt-1 w-32 bg-white rounded-xl shadow-xl border border-gray-100 py-1 z-20"
-                              >
-                                <button
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    const typeMap = { 'experience': 'post', 'plan': 'plan', 'service': 'service' };
-                                    navigate(`/post?edit=${p._id}&type=${typeMap[p.postType] || 'post'}`);
-                                    setOpenMenuId(null);
-                                  }}
-                                  className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
-                                >
-                                  <FiEdit2 size={14} className="text-blue-500" />
-                                  Edit
-                                </button>
-                                <button
-                                  onClick={async (e) => {
-                                    e.stopPropagation();
-                                    if (window.confirm("Are you sure you want to delete this?")) {
-                                      try {
-                                        await deletePost(p._id, { token: localStorage.getItem("auth_token") });
-                                        // Update local state instead of reload
-                                        setLocalPosts(prev => prev.filter(item => item._id !== p._id));
-                                      } catch (err) {
-                                        alert("Failed: " + err.message);
-                                      }
-                                    }
-                                    setOpenMenuId(null);
-                                  }}
-                                  className="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 flex items-center gap-2"
-                                >
-                                  <FiTrash2 size={14} />
-                                  Delete
-                                </button>
-                              </motion.div>
-                            </>
-                          )}
-                        </AnimatePresence>
-                      </div>
-                    )}
                   </div>
 
                   <p className="w-full text-xs text-gray-500 line-clamp-2 min-h-[32px] mb-4 leading-relaxed text-left">
