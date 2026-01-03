@@ -2,7 +2,7 @@
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 
-const baseURL = import.meta.env.VITE_WEB_API;
+const baseURL = import.meta.env.VITE_WEB_API || "";
 
 const api = axios.create({
   baseURL,
