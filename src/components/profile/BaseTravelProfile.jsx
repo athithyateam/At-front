@@ -82,11 +82,11 @@ export default function BaseTravelProfile({ user, isOwner, children }) {
                 <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 text-left">
                   {user.firstname} {user.lastname}
                 </h2>
-                <p className="text-sm text-gray-500 mt-1 ml-0 pl-0 text-left">
-                  {user.location?.city
-                    ? `${user.location.city}, ${user.location.state}, ${user.location.country}`
-                    : "India"}
-                </p>
+                <div className="mt-1 flex items-center gap-2">
+                  <span className="text-[10px] uppercase tracking-widest font-bold px-2 py-0.5 rounded-full bg-[#C59A2F]/10 text-[#C59A2F] inline-block border border-[#C59A2F]/20">
+                    {user.role || 'guest'}
+                  </span>
+                </div>
                 {user.description && (
                   <p className="mt-3 text-gray-600 text-sm max-w-3xl text-left">
                     {user.description}

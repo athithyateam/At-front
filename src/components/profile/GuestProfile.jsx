@@ -5,7 +5,6 @@ import { FiMapPin, FiClock, FiGrid, FiLayers, FiArrowRight, FiBriefcase } from "
 const GUEST_TABS = [
   { key: "posts", label: "Posts", icon: <FiGrid className="w-4 h-4" /> },
   { key: "itineraries", label: "Itineraries", icon: <FiLayers className="w-4 h-4" /> },
-  { key: "services", label: "Services", icon: <FiBriefcase className="w-4 h-4" /> },
 ];
 
 export default function GuestProfile({ posts = [] }) {
