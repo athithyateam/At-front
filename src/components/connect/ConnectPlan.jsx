@@ -245,11 +245,14 @@ const ConnectPlan = () => {
           >
             {/* AUTHOR */}
             <div className="flex items-center gap-3 mb-3 text-left">
-              <div className="w-10 h-10 rounded-full bg-[#C59A2F] text-white flex items-center justify-center font-bold overflow-hidden">
+              <div className="w-10 h-10 rounded-full bg-[#C59A2F] text-white flex items-center justify-center font-bold overflow-hidden uppercase">
                 {user.avatar?.url ? (
                   <img src={user.avatar.url} alt="" className="w-full h-full object-cover" />
                 ) : (
-                  user.firstname?.[0] || "U"
+                  <>
+                    {user.firstname?.[0] || ""}
+                    {user.lastname?.[0] || (!user.firstname ? "U" : "")}
+                  </>
                 )}
               </div>
 

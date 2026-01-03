@@ -77,7 +77,7 @@ export default function BaseTravelProfile({ user: initialUser, isOwner, children
                   className="w-full h-full object-cover"
                 />
               ) : (
-                <div className="w-full h-full bg-[#C59A2F] flex items-center justify-center text-white text-3xl font-bold uppercase tracking-tighter">
+                <div className="w-full h-full bg-linear-to-br from-[#C59A2F] to-[#A07A1F] flex items-center justify-center text-white text-3xl font-black uppercase tracking-tighter shadow-inner">
                   {user?.firstname?.charAt(0) || ""}{user?.lastname?.charAt(0) || (user?.firstname ? "" : "U")}
                 </div>
               )}

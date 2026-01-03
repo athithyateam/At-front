@@ -102,8 +102,8 @@ export default function EditProfileModal({ user, onClose, onUpdate }) {
                                         className="w-full h-full object-cover"
                                     />
                                 ) : (
-                                    <div className="w-full h-full flex items-center justify-center text-gray-300">
-                                        <FiUser className="w-14 h-14" />
+                                    <div className="w-full h-full bg-[#C59A2F] flex items-center justify-center text-white text-3xl font-bold uppercase tracking-tighter">
+                                        {firstname?.charAt(0) || ""}{lastname?.charAt(0) || (!firstname ? "U" : "")}
                                     </div>
                                 )}
                             </div>

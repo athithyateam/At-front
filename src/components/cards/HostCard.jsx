@@ -9,12 +9,20 @@ const HostCard = ({ image, name, role, location, tripsHosted, rating }) => {
       transition={{ type: "spring", stiffness: 260, damping: 20 }}
       className="w-72 bg-white rounded-2xl overflow-hidden shadow-md shrink-0 border border-yellow-100 cursor-pointer"
     >
-      <div className="h-40 overflow-hidden">
-        <img
-          src={image}
-          alt={name}
-          className="w-full h-full object-cover"
-        />
+      <div className="h-40 overflow-hidden bg-[#C59A2F]/5 flex items-center justify-center relative">
+        {image && !image.includes("missing-image") ? (
+          <img
+            src={image}
+            alt={name}
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <div className="flex items-center justify-center w-full h-full bg-linear-to-br from-[#C59A2F]/20 to-[#C59A2F]/10">
+            <span className="text-4xl font-black text-[#6B5520]/30 uppercase tracking-tighter">
+              {name?.split(" ").map(n => n[0]).join("")}
+            </span>
+          </div>
+        )}
       </div>
       <div className="p-4 flex flex-col gap-1">
         <div className="flex items-center justify-between">
