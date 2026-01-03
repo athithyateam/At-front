@@ -79,11 +79,19 @@ export default function LeftContent({ scrollYProgress }) {
                 : [50, 0, 0, -50]
           );
 
-          // Dynamic z-index: visible section gets higher z-index
+          // Dynamic z-index based on scroll progress - each section gets priority during its window
           const zIndex = useTransform(
-            opacity,
-            [0, 0.5, 1],
-            [0, 10, 10]
+            scrollYProgress,
+            i === 0
+              ? [0, fadeOutStart, fadeOutEnd]
+              : i === SECTIONS.length - 1
+                ? [fadeInStart - 0.05, fadeInStart, 1]
+                : [fadeInStart - 0.05, fadeInStart, fadeOutStart, fadeOutEnd],
+            i === 0
+              ? [30, 30, 0]  // Step 1 starts with highest z-index
+              : i === SECTIONS.length - 1
+                ? [0, 30, 30]  // Step 3 gets highest when visible
+                : [0, 30, 30, 0]  // Step 2 gets highest in middle
           );
 
           return (
