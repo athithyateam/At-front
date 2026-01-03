@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { motion, useTransform } from "framer-motion";
+import { motion, useTransform, useMotionValueEvent } from "framer-motion";
+import { useState } from "react";
 
 const IMAGES = [
   "/images/travel-1.jpg",
@@ -8,57 +9,35 @@ const IMAGES = [
 ];
 
 export default function RightContent({ scrollYProgress }) {
-  const step = 1 / IMAGES.length;
+  const [activeIndex, setActiveIndex] = useState(0);
+  const total = IMAGES.length;
+
+  // 🔒 Convert scroll progress → step index (0,1,2,3)
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    const index = Math.min(
+      total - 1,
+      Math.floor(latest * total)
+    );
+    setActiveIndex(index);
+  });
+
+  // Only animate scale of the ACTIVE image
+  const scale = useTransform(scrollYProgress, [0, 1], [1.08, 1]);
 
   return (
     <div className="relative h-[35vh] md:h-[60vh] w-full rounded-2xl md:rounded-3xl overflow-hidden cinematic-grain">
-      {IMAGES.map((src, i) => {
-        const start = i * step;
-
-        const fadeInStart = start + step * 0.1;
-        const fadeInEnd = start + step * 0.25;
-        const fadeOutStart = start + step * 0.75;
-        const fadeOutEnd = start + step * 0.9;
-
-        const opacity = useTransform(
-          scrollYProgress,
-          i === 0
-            ? [0, fadeOutStart, fadeOutEnd]
-            : i === IMAGES.length - 1
-              ? [fadeInStart, 1]
-              : [fadeInStart, fadeInEnd, fadeOutStart, fadeOutEnd],
-          i === 0
-            ? [1, 1, 0]
-            : i === IMAGES.length - 1
-              ? [0, 1]
-              : [0, 1, 1, 0]
-        );
-
-        // Slide Up Animation (Syncs with Text)
-        const y = useTransform(
-          scrollYProgress,
-          i === 0
-            ? [0, fadeOutStart, fadeOutEnd]
-            : i === IMAGES.length - 1
-              ? [fadeInStart, fadeInEnd, 1]
-              : [fadeInStart, fadeInEnd, fadeOutStart, fadeOutEnd],
-          i === 0
-            ? [0, 0, -50]
-            : i === IMAGES.length - 1
-              ? [50, 0, 0]
-              : [50, 0, 0, -50]
-        );
-
-        return (
-          <motion.img
-            key={i}
-            src={src}
-            alt=""
-            style={{ opacity, y }}
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-        );
-      })}
+      {IMAGES.map((src, i) => (
+        <motion.img
+          key={i}
+          src={src}
+          alt=""
+          style={{
+            scale: i === activeIndex ? scale : 1,
+          }}
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${i === activeIndex ? "opacity-100" : "opacity-0"
+            }`}
+        />
+      ))}
 
       {/* Warm cinematic wash */}
       <div className="absolute inset-0 bg-[#2b2418]/15 pointer-events-none" />
