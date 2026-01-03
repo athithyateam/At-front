@@ -39,7 +39,7 @@ const Connect = () => {
     <div className="min-h-screen bg-white mt-16">
       {/* CONNECT TABS */}
       <div
-        className={`sticky top-16 z-20 bg-white transition-colors ${scrolled
+        className={`sticky top-0 z-20 bg-white transition-colors ${scrolled
           ? "border-b border-[#C59A2F]"
           : "border-b border-transparent"
           }`}
