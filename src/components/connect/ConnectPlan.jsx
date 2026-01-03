@@ -294,17 +294,48 @@ const ConnectPlan = () => {
             )}
 
             {/* FOOTER */}
-            <div className="mt-6 flex items-center gap-4">
+            <div className="relative mt-6 flex items-center gap-4">
               <button
-                onClick={() => toggleRaise(plan._id)}
-                className="flex cursor-pointer items-center gap-1 text-sm text-gray-600 hover:text-[#C59A2F]"
+                onClick={() =>
+                  setOpenPicker(openPicker === plan._id ? null : plan._id)
+                }
+                className="flex cursor-pointer items-center gap-2 text-sm text-gray-600 hover:text-black"
               >
-                <FiTrendingUp />
-                Raise {raised[plan._id] || 0}
+                {userReactions[plan._id] ? (
+                  <span className="text-lg leading-none">
+                    {userReactions[plan._id]}
+                  </span>
+                ) : (
+                  <FiSmile />
+                )}
+                React
               </button>
 
-              <button className="flex cursor-pointer items-center gap-1 text-sm text-gray-600 hover:text-gray-900"
-                onClick={() => handleMessage(plan)}>
+              <AnimatePresence>
+                {openPicker === plan._id && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="absolute bottom-12 left-0 bg-white border border-gray-300 rounded-xl shadow-lg px-3 py-2 flex gap-2 z-20"
+                  >
+                    {EMOJIS.map((e) => (
+                      <button
+                        key={e}
+                        onClick={() => react(plan._id, e)}
+                        className="text-xl hover:scale-125 transition"
+                      >
+                        {e}
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              <button
+                className="flex cursor-pointer items-center gap-1 text-sm text-gray-600 hover:text-gray-900"
+                onClick={() => handleMessage(plan)}
+              >
                 <FiMessageCircle />
                 Message
               </button>
