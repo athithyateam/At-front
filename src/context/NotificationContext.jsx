@@ -63,24 +63,46 @@ export function NotificationProvider({ children }) {
         setNotifications([]);
     }
 
-    // SIMULATION: Occasionally add a fake interaction from another user to demonstrate
+    // SIMULATION: Smart Ecosystem Events
     useEffect(() => {
         if (!user) return;
 
-        // Only run this once per session or very rarely
-        // const hasSimulated = sessionStorage.getItem("simulated_notif");
-        //if (hasSimulated) return;
+        // Helper to generate random notifications based on role
+        const triggerSimulation = () => {
+            const isHost = user.role === "host";
 
-        const timer = setTimeout(() => {
-            // addNotification({
-            //   title: "New Reaction",
-            //   message: "Aarav Mehta reacted key with ❤️ to your post",
-            //   type: "reaction",
-            // });
-            // sessionStorage.setItem("simulated_notif", "true");
-        }, 15000);
+            const hostEvents = [
+                { title: "New Reaction", message: "Aarav Mehta liked your Kedarkantha Plan ❤️", type: "info" },
+                { title: "Booking Inquiry", message: "Sarah requested dates for 'Valley of Flowers' 📅", type: "success" },
+                { title: "New Review", message: "You received a 5-star review from Rohan! ⭐", type: "success" },
+                { title: "Trending", message: "Your 'Winter Trek' is getting high traffic today 📈", type: "info" }
+            ];
 
-        return () => clearTimeout(timer);
+            const guestEvents = [
+                { title: "New Adventure", message: "Himalayan Explorers posted a new itinerary: 'Roopkund Trek' 🏔️", type: "info" },
+                { title: "Price Drop", message: "20% off on 'Rishikesh Rafting' for this weekend! 🏷️", type: "success" },
+                { title: "Community", message: "3 travelers are looking for partners for 'Spiti Valley' 👥", type: "info" },
+                { title: "Recommendation", message: "Based on your likes, check out 'Manali Backpacking' 🎒", type: "info" }
+            ];
+
+            const pool = isHost ? hostEvents : guestEvents;
+            const randomEvent = pool[Math.floor(Math.random() * pool.length)];
+
+            addNotification(randomEvent);
+        };
+
+        // Trigger one notification 5 seconds after login/load to wow the user
+        const initialTimer = setTimeout(triggerSimulation, 5000);
+
+        // Then trigger another one every 45-90 seconds randomly
+        const interval = setInterval(() => {
+            if (Math.random() > 0.5) triggerSimulation();
+        }, 45000);
+
+        return () => {
+            clearTimeout(initialTimer);
+            clearInterval(interval);
+        };
     }, [user]);
 
     return (
