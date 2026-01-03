@@ -8,7 +8,7 @@ export default function TravellerForm() {
   const [type, setType] = useState("post"); // post | plan
 
   return (
-    <div className="mx-auto p-6 bg-[#fffdf8] rounded-2xl soft-border soft-shadow mt-10">
+    <div className="mx-auto p-4 md:p-6 bg-[#fffdf8] rounded-2xl soft-border soft-shadow mt-10">
       {/* Header */}
       <div className="mb-6">
         <h2 className="text-2xl font-semibold GOLD">
@@ -34,20 +34,18 @@ export default function TravellerForm() {
 
         <button
           onClick={() => setType("post")}
-          className={`relative z-10 px-6 py-2 text-sm font-medium rounded-full transition ${
-            type === "post" ? "text-white" : "text-gray-600"
-          }`}
+          className={`relative z-10 px-6 py-2 text-sm font-medium rounded-full transition ${type === "post" ? "text-white" : "text-gray-600"
+            }`}
         >
           Create Post
         </button>
 
         <button
           onClick={() => setType("plan")}
-          className={`relative z-10 px-6 py-2 text-sm font-medium rounded-full transition ${
-            type === "plan" ? "text-white" : "text-gray-600"
-          }`}
+          className={`relative z-10 px-6 py-2 text-sm font-medium rounded-full transition ${type === "plan" ? "text-white" : "text-gray-600"
+            }`}
         >
-          Create Plan 
+          Create Plan
         </button>
       </div>
 
