@@ -87,6 +87,7 @@ export default function LeftContent({ scrollYProgress }) {
                 font-semibold
                 leading-tight
                 max-w-[520px]
+                text-left
               "
               >
                 {item.title}
@@ -99,12 +100,13 @@ export default function LeftContent({ scrollYProgress }) {
                 mt-5
                 text-base md:text-lg
                 max-w-[500px]
+                text-justify
               "
               >
                 {item.subtitle}
               </motion.p>
 
-              <div className="mt-8 pointer-events-auto">
+              <div className="mt-8 pointer-events-auto flex justify-start">
                 <button
                   onClick={handleExplore}
                   className="
