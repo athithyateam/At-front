@@ -33,8 +33,12 @@ export default function ScrollStorySection() {
             gap-6 md:gap-24
           "
         >
-          <LeftContent scrollYProgress={scrollYProgress} />
-          <RightContent scrollYProgress={scrollYProgress} />
+          <div className="order-2 md:order-1">
+            <LeftContent scrollYProgress={scrollYProgress} />
+          </div>
+          <div className="order-1 md:order-2">
+            <RightContent scrollYProgress={scrollYProgress} />
+          </div>
         </div>
       </div>
     </section>
