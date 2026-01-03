@@ -34,20 +34,20 @@ function InlineAdder({ placeholder, values = [], onAdd, onRemove }) {
 
   return (
     <div>
-      <div className="flex gap-2 mb-3">
+      <div className="flex flex-wrap sm:flex-nowrap gap-2 mb-3">
         <input
           ref={ref}
           value={value}
           onChange={(e) => setValue(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), commit())}
           placeholder={placeholder}
-          className="input-lux rounded-xl px-3 py-2 text-sm flex-1"
+          className="input-lux rounded-xl px-3 py-2 text-sm flex-1 min-w-[120px]"
           style={INPUT_STYLE}
         />
         <button
           type="button"
           onClick={commit}
-          className="btn-lux soft-border px-4"
+          className="GOLD-bg text-white px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap active:scale-95 transition"
           aria-label={`Add ${placeholder}`}
         >
           Add
@@ -147,20 +147,20 @@ function PolicyAdder({ policies = [], onAdd, onRemove }) {
 
   return (
     <div>
-      <div className="flex gap-2 mb-3">
+      <div className="flex flex-wrap sm:flex-nowrap gap-2 mb-3">
         <input
           ref={ref}
           value={value}
           onChange={(e) => setValue(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), commit())}
           placeholder="Type one policy sentence"
-          className="input-lux rounded-xl px-3 py-2 text-sm flex-1"
+          className="input-lux rounded-xl px-3 py-2 text-sm flex-1 min-w-[120px]"
           style={INPUT_STYLE}
         />
         <button
           type="button"
           onClick={commit}
-          className="btn-lux soft-border px-4"
+          className="GOLD-bg text-white px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap active:scale-95 transition"
         >
           Add
         </button>

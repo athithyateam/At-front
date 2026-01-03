@@ -52,9 +52,8 @@ function AnimatedSelect({ label, value, options, onChange }) {
                   onChange(opt);
                   setOpen(false);
                 }}
-                className={`px-4 py-2 cursor-pointer hover:bg-[#fbf6ea] ${
-                  opt === value ? "GOLD font-medium" : ""
-                }`}
+                className={`px-4 py-2 cursor-pointer hover:bg-[#fbf6ea] ${opt === value ? "GOLD font-medium" : ""
+                  }`}
               >
                 {opt}
               </li>
@@ -78,18 +77,18 @@ function InlineAdder({ placeholder, onAdd }) {
   }
 
   return (
-    <div className="flex gap-2">
+    <div className="flex flex-wrap sm:flex-nowrap gap-2 items-center w-full">
       <input
         value={value}
         onChange={(e) => setValue(e.target.value)}
         onKeyDown={(e) => e.key === "Enter" && commit()}
         placeholder={placeholder}
-        className="input-lux rounded-lg px-3 py-2 flex-1"
+        className="input-lux rounded-lg px-3 py-2 flex-1 min-w-[120px]"
       />
       <button
         type="button"
         onClick={commit}
-        className="btn-lux soft-border text-gray-500 cursor-pointer"
+        className="GOLD-bg text-white px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap active:scale-95 transition"
       >
         Add
       </button>
@@ -325,7 +324,7 @@ export default function TravellerPlanForm() {
                 onChange={(label) =>
                   setLookingFor(
                     LOOKING_FOR_OPTIONS.find((o) => o.label === label)?.value ||
-                      "anyone"
+                    "anyone"
                   )
                 }
               />
@@ -384,7 +383,7 @@ export default function TravellerPlanForm() {
                   How long & how many people?
                 </p>
 
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                   <div>
                     <label className="text-[11px] text-gray-500 block mb-1">
                       Days
@@ -394,7 +393,7 @@ export default function TravellerPlanForm() {
                       min={1}
                       value={days}
                       onChange={(e) => setDays(Number(e.target.value))}
-                      className="input-lux rounded-lg px-3 py-2"
+                      className="input-lux rounded-lg px-3 py-2 w-full"
                     />
                   </div>
 
@@ -407,7 +406,7 @@ export default function TravellerPlanForm() {
                       min={0}
                       value={nights}
                       onChange={(e) => setNights(Number(e.target.value))}
-                      className="input-lux rounded-lg px-3 py-2"
+                      className="input-lux rounded-lg px-3 py-2 w-full"
                     />
                   </div>
 
@@ -420,7 +419,7 @@ export default function TravellerPlanForm() {
                       min={1}
                       value={maxPeople}
                       onChange={(e) => setMaxPeople(Number(e.target.value))}
-                      className="input-lux rounded-lg px-3 py-2"
+                      className="input-lux rounded-lg px-3 py-2 w-full"
                     />
                   </div>
                 </div>

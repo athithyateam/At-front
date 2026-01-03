@@ -84,19 +84,19 @@ function InlineAdder({ placeholder, values, onAdd, onRemove }) {
 
   return (
     <div>
-      <div className="flex flex-col md:flex-row gap-2 mb-3">
+      <div className="flex flex-wrap sm:flex-nowrap gap-2 mb-3">
         <input
           ref={ref}
           value={value}
           onChange={(e) => setValue(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), commit())}
           placeholder={placeholder}
-          className="input-lux rounded-xl px-3 py-2 text-sm flex-1"
+          className="input-lux rounded-xl px-3 py-2 text-sm flex-1 min-w-[120px]"
         />
         <button
           type="button"
           onClick={commit}
-          className="btn-lux cursor-pointer soft-border px-4 text-gray-600 w-full md:w-auto"
+          className="GOLD-bg text-white px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap active:scale-95 transition"
         >
           Add
         </button>

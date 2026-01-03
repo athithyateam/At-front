@@ -154,14 +154,14 @@ function InlineAdder({ placeholder = "", addLabel = "Add", onAdd }) {
   }
 
   return (
-    <div className="flex gap-2 items-center">
+    <div className="flex flex-wrap sm:flex-nowrap gap-2 items-center w-full">
       <input
         ref={inputRef}
         value={value}
         onChange={(e) => setValue(e.target.value)}
         onKeyDown={handleKeyDown}
         placeholder={placeholder}
-        className="rounded-lg border px-3 py-2 text-sm flex-1"
+        className="rounded-lg border px-3 py-2 text-sm flex-1 min-w-[120px]"
         style={INPUT_STYLE}
         autoComplete="off"
         aria-label={placeholder}
@@ -170,8 +170,8 @@ function InlineAdder({ placeholder = "", addLabel = "Add", onAdd }) {
         type="button"
         onMouseDown={(e) => e.preventDefault()} // prevents blur when clicking
         onClick={handleAdd}
-        className="px-3 py-2 rounded-lg border text-sm"
-        style={{ borderColor: "#F0F0F0" }}
+        className="px-4 py-2 rounded-lg border text-sm GOLD-bg text-white font-medium whitespace-nowrap active:scale-95 transition"
+        style={{ borderColor: "#C59D5F" }}
       >
         {addLabel}
       </button>
@@ -448,7 +448,7 @@ export default function HostPlanForm({ onSaved }) {
                 />
               </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
                 <MetricInput
                   label="Days"
                   hint="Trip days"
@@ -467,17 +467,20 @@ export default function HostPlanForm({ onSaved }) {
                   value={capacity}
                   onChange={setCapacity}
                 />
-                <div>
+                <div className="flex flex-col">
                   <label className="text-xs text-gray-500 mb-1 block">
                     Price / person
                   </label>
-                  <input
-                    type="number"
-                    value={pricePerPerson}
-                    onChange={(e) => setPricePerPerson(e.target.value)}
-                    className="rounded-lg border px-3 py-2 w-full text-sm"
-                    style={INPUT_STYLE}
-                  />
+                  <div className="bg-[#fffdf8] rounded-xl p-3 soft-border flex-1 flex items-center">
+                    <input
+                      type="number"
+                      value={pricePerPerson}
+                      onChange={(e) => setPricePerPerson(e.target.value)}
+                      className="w-full bg-transparent text-lg focus:outline-none"
+                      placeholder="0"
+                    />
+                  </div>
+                  <p className="text-[11px] text-gray-400 mt-1">Cost per head</p>
                 </div>
               </div>
             </Section>
