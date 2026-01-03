@@ -52,21 +52,26 @@ export default function VideoCarousel() {
             <div className="absolute inset-0 z-10 bg-linear-to-b from-black/50 via-black/30 to-black/80" />
 
             {/* Hero Text */}
-            <div className="relative z-20 flex flex-col justify-center items-center text-center h-full">
+            <div className="relative z-20 flex flex-col justify-center items-center text-center h-full px-4">
               <div
-                className={`space-y-4 fade-sequence ${current === i ? "active-slide" : "inactive-slide"
+                className={`space-y-6 fade-sequence ${current === i ? "active-slide" : "inactive-slide"
                   }`}
               >
-                <h1 className="hero-main text-white text-4xl md:text-6xl font-extrabold leading-tight">
-                  <span className="text-gradient-gold italic px-2">
-                    “You Only Live Once”
-                  </span>
+                {/* Title */}
+                <h1 className="hero-main text-4xl md:text-7xl font-bold tracking-tight">
+                  <span style={{ color: '#C59A2F' }}>"You Only Live Once"</span>
                 </h1>
 
-                <p className="hero-tag text-white/70 text-sm md:text-lg tracking-wide max-w-xl mx-auto mt-4">
-                  If travel, exploration, and meaningful experiences make your heart race, <br />
-                  <span className="text-white font-medium">Athithya welcomes You.</span>
+                {/* Subtitle */}
+                <p className="hero-tag text-white text-sm md:text-xl font-medium tracking-wide max-w-2xl mx-auto leading-relaxed">
+                  If <span style={{ color: '#C59A2F' }}>travel</span>, <span style={{ color: '#C59A2F' }}>exploration</span> & meaningful <span style={{ color: '#C59A2F' }}>experiences</span> <br className="hidden md:block" />
+                  make your heart race...
                 </p>
+
+                {/* Welcome Message */}
+                <div className="pt-4 text-2xl md:text-4xl font-bold text-white tracking-wide">
+                  Athithya <span style={{ color: '#C59A2F' }}>welcomes</span> You!
+                </div>
               </div>
             </div>
           </div>
@@ -80,8 +85,8 @@ export default function VideoCarousel() {
             key={idx}
             onClick={() => moveTo(idx)}
             className={`w-3 h-3 rounded-full transition-transform transform ${current === idx
-                ? "scale-125 bg-brandGold"
-                : "bg-white/50 hover:scale-110"
+              ? "scale-125 bg-brandGold"
+              : "bg-white/50 hover:scale-110"
               }`}
             aria-label={`Go to slide ${idx + 1}`}
           />
