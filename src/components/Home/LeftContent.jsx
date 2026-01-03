@@ -62,12 +62,26 @@ export default function LeftContent({ scrollYProgress }) {
                 : [0, 1, 1, 0]
           );
 
+          const y = useTransform(
+            scrollYProgress,
+            i === 0
+              ? [0, fadeOutStart, fadeOutEnd]
+              : i === SECTIONS.length - 1
+                ? [fadeInStart, fadeInEnd, 1]
+                : [fadeInStart, fadeInEnd, fadeOutStart, fadeOutEnd],
+            i === 0
+              ? [0, 0, -50]
+              : i === SECTIONS.length - 1
+                ? [50, 0, 0]
+                : [50, 0, 0, -50]
+          );
+
           const isLast = i === SECTIONS.length - 1;
 
           return (
             <motion.div
               key={i}
-              style={{ opacity }}
+              style={{ opacity, y }}
               className={`absolute left-0 right-0 ${isLast ? "text-neutral-800" : "text-neutral-600"
                 }`}
             >
