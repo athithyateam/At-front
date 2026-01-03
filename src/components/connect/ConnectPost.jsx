@@ -36,6 +36,7 @@ const ConnectPost = () => {
   const [raised, setRaised] = useState({});
   const [saved, setSaved] = useState({});
   const [reactions, setReactions] = useState({});
+  const [userReactions, setUserReactions] = useState({});
   const [openPicker, setOpenPicker] = useState(null); // postId
 
   useEffect(() => {
@@ -68,12 +69,9 @@ const ConnectPost = () => {
   /* ---------------- Actions ---------------- */
 
   function react(postId, emoji) {
-    setReactions((prev) => ({
+    setUserReactions((prev) => ({
       ...prev,
-      [postId]: {
-        ...(prev[postId] || {}),
-        [emoji]: (prev[postId]?.[emoji] || 0) + 1,
-      },
+      [postId]: emoji,
     }));
     setOpenPicker(null);
   }
@@ -156,7 +154,7 @@ const ConnectPost = () => {
                   </div>
                 </div>
 
-                <h3 className="font-semibold text-lg">{post.title}</h3>
+                <h3 className="font-semibold text-lg text-left">{post.title}</h3>
 
                 <div className="flex gap-4 text-sm text-gray-600">
                   <span className="flex items-center gap-1">
@@ -177,7 +175,7 @@ const ConnectPost = () => {
                   </span>
                 </div>
 
-                <p className="text-sm text-gray-700 line-clamp-3">
+                <p className="text-sm text-gray-700 line-clamp-3 text-justify">
                   {post.description}
                 </p>
 
@@ -194,33 +192,22 @@ const ConnectPost = () => {
 
                 {/* Footer */}
                 <div className="relative flex items-center justify-between pt-3 border-t border-gray-300">
-                  {/* LEFT: Raise + React */}
+                  {/* LEFT: Like */}
                   <div className="flex items-center gap-4">
-                    {/* Raise */}
-                    <motion.button
-                      whileTap={{ scale: 0.9 }}
-                      onClick={() => toggleRaise(post._id)}
-                      className="flex items-center gap-1 text-sm px-3 py-1.5 rounded-full border  border-gray-300
-                 hover:bg-gray-50 transition"
-                    >
-                      <FiTrendingUp />
-                      Raise
-                      {raised[post._id] && (
-                        <span className="ml-1 font-semibold">
-                          {raised[post._id]}
-                        </span>
-                      )}
-                    </motion.button>
-
-                    {/* React */}
                     <button
                       onClick={() =>
                         setOpenPicker(openPicker === post._id ? null : post._id)
                       }
-                      className="flex items-center gap-1 text-sm text-gray-600 hover:text-black"
+                      className="flex items-center gap-2 text-sm text-gray-600 hover:text-black transition"
                     >
-                      <FiSmile />
-                      React
+                      {userReactions[post._id] ? (
+                        <span className="text-lg leading-none">
+                          {userReactions[post._id]}
+                        </span>
+                      ) : (
+                        <FiSmile />
+                      )}
+                      Like
                     </button>
                   </div>
 
@@ -252,9 +239,8 @@ const ConnectPost = () => {
                       onClick={() =>
                         setSaved((s) => ({ ...s, [post._id]: !s[post._id] }))
                       }
-                      className={`text-lg ${
-                        saved[post._id] ? "text-yellow-500" : "text-gray-500"
-                      }`}
+                      className={`text-lg ${saved[post._id] ? "text-yellow-500" : "text-gray-500"
+                        }`}
                       title="Save"
                     >
                       <FiBookmark />
