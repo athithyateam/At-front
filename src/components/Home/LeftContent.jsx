@@ -42,7 +42,7 @@ export default function LeftContent({ scrollYProgress }) {
 
   return (
     <>
-      <div className="relative h-[40vh] md:h-[60vh] flex items-center">
+      <div className="relative h-[45vh] md:h-[60vh] flex items-center w-full">
         {SECTIONS.map((item, i) => {
           const start = i * step;
 
@@ -59,7 +59,7 @@ export default function LeftContent({ scrollYProgress }) {
                 ? [fadeInStart, 1]
                 : [fadeInStart, fadeInEnd, fadeOutStart, fadeOutEnd],
             i === 0
-              ? [1, 1, 0]
+              ? [1, i === SECTIONS.length - 1 ? 1 : 1, 0]
               : i === SECTIONS.length - 1
                 ? [0, 1]
                 : [0, 1, 1, 0]
@@ -83,13 +83,16 @@ export default function LeftContent({ scrollYProgress }) {
             <motion.div
               key={i}
               style={{ opacity, y }}
-              className="absolute left-0 right-0 text-gray-900"
+              className="absolute inset-0 flex flex-col justify-center text-gray-900 px-1 md:px-0"
             >
               {/* Step indicator */}
-              <div className="flex items-center gap-4 mb-4 md:mb-8 font-serif">
-                <div className="w-1.5 h-8 md:h-10 bg-[#C59A2F] rounded-full" />
-                <span className="text-lg md:text-3xl font-bold uppercase tracking-widest text-[#C59A2F]">
-                  Step {i + 1}
+              <div className="flex items-center gap-3 md:gap-5 mb-4 md:mb-10 font-serif">
+                <div className="w-1.5 h-12 md:h-16 bg-[#C59A2F] rounded-full" />
+                <span className="flex items-center gap-2 md:gap-3 text-[#C59A2F]">
+                  <span className="text-base md:text-xl font-bold uppercase tracking-[0.3em]">Step</span>
+                  <span className="text-5xl md:text-7xl font-black tabular-nums leading-none">
+                    {i + 1}
+                  </span>
                 </span>
               </div>
 
@@ -98,9 +101,10 @@ export default function LeftContent({ scrollYProgress }) {
                 className="
                 story-title
                 text-3xl md:text-6xl
-                font-bold
-                leading-tight
-                max-w-[520px]
+                font-extrabold
+                leading-[1.1]
+                max-w-full
+                md:max-w-[550px]
                 text-left
                 text-black
               "
@@ -109,12 +113,13 @@ export default function LeftContent({ scrollYProgress }) {
               </motion.h2>
 
               {/* Subline container */}
-              <div className="mt-4 md:mt-8 space-y-4 md:space-y-6">
+              <div className="mt-4 md:mt-8 space-y-3 md:space-y-6">
                 <motion.p
                   className="
                     text-base md:text-2xl
                     text-gray-800
-                    max-w-[500px]
+                    max-w-full
+                    md:max-w-[500px]
                     text-left
                     leading-relaxed
                   "
@@ -125,24 +130,26 @@ export default function LeftContent({ scrollYProgress }) {
                 <motion.p
                   className="
                     text-base md:text-2xl
-                    font-medium
+                    font-semibold
                     text-gray-900
-                    max-w-[520px]
+                    max-w-full
+                    md:max-w-[520px]
                     text-left
+                    leading-snug
                   "
                 >
                   At <span className="text-[#C59A2F] font-bold">Athithya</span>, {item.highlight}
                 </motion.p>
               </div>
 
-              <div className="mt-8 md:mt-12 pointer-events-auto flex justify-start">
+              <div className="mt-6 md:mt-12 pointer-events-auto flex justify-start">
                 <button
                   onClick={handleExplore}
                   className="
                       px-8 py-3 md:px-12 md:py-4 
                       bg-[#C59A2F] text-white 
                       rounded-full font-bold
-                      text-lg
+                      text-base md:text-xl
                       shadow-xl hover:bg-[#b0892a] 
                       transform transition-all active:scale-95
                     "
