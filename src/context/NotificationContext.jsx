@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useAuth } from "./AuthContext";
+import { listPosts } from "../api/posts";
+import { listItineraries } from "../api/itineraries";
 
 const NotificationContext = createContext();
 
@@ -63,46 +65,62 @@ export function NotificationProvider({ children }) {
         setNotifications([]);
     }
 
-    // SIMULATION: Smart Ecosystem Events
+    // REAL-TIME POLLING: Check for new content from other users
     useEffect(() => {
         if (!user) return;
 
-        // Helper to generate random notifications based on role
-        const triggerSimulation = () => {
-            const isHost = user.role === "host";
+        let lastPostId = null;
+        let lastPlanId = null;
+        let isFirstRun = true;
 
-            const hostEvents = [
-                { title: "New Reaction", message: "Aarav Mehta liked your Kedarkantha Plan ❤️", type: "info" },
-                { title: "Booking Inquiry", message: "Sarah requested dates for 'Valley of Flowers' 📅", type: "success" },
-                { title: "New Review", message: "You received a 5-star review from Rohan! ⭐", type: "success" },
-                { title: "Trending", message: "Your 'Winter Trek' is getting high traffic today 📈", type: "info" }
-            ];
+        const checkNewContent = async () => {
+            try {
+                // Check Posts
+                const postsRes = await listPosts({ limit: 1 });
+                if (postsRes?.experiences?.length > 0) {
+                    const latestPost = postsRes.experiences[0];
+                    if (!isFirstRun && lastPostId && latestPost._id !== lastPostId) {
+                        // Only notify if author is NOT me
+                        if (latestPost.user?._id !== user._id) {
+                            addNotification({
+                                title: "New Experience Posted",
+                                message: `${latestPost.user?.firstname} posted: "${latestPost.title}"`,
+                                type: "info"
+                            });
+                        }
+                    }
+                    lastPostId = latestPost._id;
+                }
 
-            const guestEvents = [
-                { title: "New Adventure", message: "Himalayan Explorers posted a new itinerary: 'Roopkund Trek' 🏔️", type: "info" },
-                { title: "Price Drop", message: "20% off on 'Rishikesh Rafting' for this weekend! 🏷️", type: "success" },
-                { title: "Community", message: "3 travelers are looking for partners for 'Spiti Valley' 👥", type: "info" },
-                { title: "Recommendation", message: "Based on your likes, check out 'Manali Backpacking' 🎒", type: "info" }
-            ];
+                // Check Plans
+                const plansRes = await listItineraries({ limit: 1 });
+                if (plansRes?.itineraries?.length > 0) {
+                    const latestPlan = plansRes.itineraries[0];
+                    if (!isFirstRun && lastPlanId && latestPlan._id !== lastPlanId) {
+                        if (latestPlan.user?._id !== user._id) {
+                            addNotification({
+                                title: "New Plan Added",
+                                message: `${latestPlan.user?.firstname} added a plan: "${latestPlan.title}"`,
+                                type: "info"
+                            });
+                        }
+                    }
+                    lastPlanId = latestPlan._id;
+                }
 
-            const pool = isHost ? hostEvents : guestEvents;
-            const randomEvent = pool[Math.floor(Math.random() * pool.length)];
+                isFirstRun = false;
 
-            addNotification(randomEvent);
+            } catch (err) {
+                console.error("Notification polling failed", err);
+            }
         };
 
-        // Trigger one notification 5 seconds after login/load to wow the user
-        const initialTimer = setTimeout(triggerSimulation, 5000);
+        // Initial check
+        checkNewContent();
 
-        // Then trigger another one every 45-90 seconds randomly
-        const interval = setInterval(() => {
-            if (Math.random() > 0.5) triggerSimulation();
-        }, 45000);
-
-        return () => {
-            clearTimeout(initialTimer);
-            clearInterval(interval);
-        };
+        // Poll every 30 seconds
+        const interval = setInterval(checkNewContent, 30000);
+        return () => clearInterval(interval);
     }, [user]);
 
     return (
