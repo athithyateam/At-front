@@ -24,7 +24,7 @@ export default function PostForm() {
   const effectiveRole = devOverride || role;
 
   return (
-    <div className="mx-0 md:mx-8 p-4 pt-12">
+    <div className="mx-0 md:mx-8 p-4 pt-12 mb-20 md:mb-0">
       <div className="flex items-center justify-between mb-4"></div>
 
       {loading ? (
