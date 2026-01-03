@@ -144,65 +144,7 @@ export function NotificationProvider({ children }) {
         return () => clearInterval(interval);
     }, [user]);
 
-    // REAL-TIME REACTION POLLING (Local Storage Simulation for Cross-User)
-    useEffect(() => {
-        if (!user) return;
 
-        let lastSnapshot = localStorage.getItem("ath_global_reactions_posts");
-
-        const checkReactions = async () => {
-            const currentRaw = localStorage.getItem("ath_global_reactions_posts");
-            if (currentRaw === lastSnapshot) return;
-
-            // Something changed!
-            const current = currentRaw ? JSON.parse(currentRaw) : {};
-            const previous = lastSnapshot ? JSON.parse(lastSnapshot) : {};
-
-            try {
-                const res = await listPosts();
-                const myPosts = res.experiences.filter(p => p.user?._id === user._id);
-                const myPostIds = new Set(myPosts.map(p => p._id));
-
-                // Check for new reactions on MY posts
-                Object.keys(current).forEach(postId => {
-                    if (!myPostIds.has(postId)) return;
-
-                    const newReactions = current[postId] || {};
-                    const oldReactions = previous[postId] || {};
-
-                    // Check for added user IDs
-                    Object.keys(newReactions).forEach(reactorId => {
-                        // If I reacted to myself, ignore
-                        if (reactorId === user._id) return;
-
-                        // If this specific reaction didn't exist before
-                        if (!oldReactions[reactorId]) {
-                            const reactionData = newReactions[reactorId];
-                            const emoji = typeof reactionData === "string" ? reactionData : reactionData.emoji;
-                            const reactorName = typeof reactionData === "string" ? "Someone" : reactionData.name;
-
-                            const postTitle = myPosts.find(p => p._id === postId)?.title || "your post";
-
-                            addNotification({
-                                title: "New Reaction",
-                                message: `${reactorName} reacted with ${emoji} to "${postTitle}"`,
-                                type: "success",
-                                link: "/connect?tab=posts"
-                            });
-                        }
-                    });
-                });
-
-            } catch (e) {
-                console.error("Reaction poll error", e);
-            }
-
-            lastSnapshot = currentRaw;
-        };
-
-        const interval = setInterval(checkReactions, 3000); // Check every 3 seconds for fast feedback
-        return () => clearInterval(interval);
-    }, [user]);
 
     return (
         <NotificationContext.Provider

@@ -90,8 +90,12 @@ const ConnectPost = () => {
         // Toggle off
         delete next[postId][user._id];
       } else {
-        // Set new with NAME
-        next[postId][user._id] = { emoji, name: user.firstname || user.username || "User" };
+        // Set new with NAME and TIMESTAMP
+        next[postId][user._id] = {
+          emoji,
+          name: user.firstname || user.username || "User",
+          timestamp: Date.now()
+        };
       }
 
       localStorage.setItem("ath_global_reactions_posts", JSON.stringify(next));

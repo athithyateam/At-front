@@ -94,7 +94,11 @@ const ConnectPlan = () => {
       if (currentEmoji === emoji) {
         delete next[postId][user._id];
       } else {
-        next[postId][user._id] = { emoji, name: user.firstname || user.username || "User" };
+        next[postId][user._id] = {
+          emoji,
+          name: user.firstname || user.username || "User",
+          timestamp: Date.now()
+        };
       }
 
       localStorage.setItem("ath_global_reactions_plans", JSON.stringify(next));
