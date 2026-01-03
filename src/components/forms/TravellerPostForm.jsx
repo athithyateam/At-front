@@ -519,7 +519,7 @@ export default function TravellerPostForm() {
       </Section>
 
       {/* ================= SUBMIT ================= */}
-      <div className="flex justify-end">
+      <div className="flex justify-center md:justify-end">
         <button
           disabled={loading}
           className="GOLD-bg text-white px-6 py-2.5 rounded-lg font-medium btn-lux"
