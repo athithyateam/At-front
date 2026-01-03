@@ -30,7 +30,7 @@ export default function ScrollStorySection() {
             grid
             grid-cols-1
             md:grid-cols-2
-            gap-14 md:gap-24
+            gap-4 md:gap-24
           "
         >
           <LeftContent scrollYProgress={scrollYProgress} />
