@@ -83,7 +83,7 @@ export default function LeftContent({ scrollYProgress }) {
             <motion.div
               key={i}
               style={{ opacity, y }}
-              className="absolute inset-0 flex flex-col justify-center text-gray-900 px-1 md:px-0"
+              className="absolute inset-0 flex flex-col justify-center text-gray-900 px-1 md:px-0 pointer-events-none"
             >
               {/* Step indicator */}
               <div className="flex items-center gap-3 md:gap-4 mb-4 md:mb-8 font-serif">
