@@ -189,8 +189,8 @@ const ConnectPost = ({ endpoint = ENDPOINTS.POSTS }) => {
                 {/* Host */}
                 <div className="flex items-center gap-3 mb-3 text-left">
                   <div className="w-10 h-10 rounded-full bg-[#C59A2F] text-white flex items-center justify-center font-bold overflow-hidden uppercase">
-                    {post.user?.avatar?.url ? (
-                      <img src={post.user.avatar.url} alt="" className="w-full h-full object-cover" />
+                    {(post.user?.avatar?.url || (typeof post.user?.avatar === 'string' ? post.user.avatar : null)) ? (
+                      <img src={post.user?.avatar?.url || post.user?.avatar} alt="" className="w-full h-full object-cover" />
                     ) : (
                       <>
                         {post.user?.firstname?.[0] || ""}

@@ -9,7 +9,9 @@ export default function EditProfileModal({ user, onClose, onUpdate }) {
     const [description, setDescription] = useState(user.description || "");
     const [avatar, setAvatar] = useState(null);
     const [removeAvatar, setRemoveAvatar] = useState(false);
-    const [preview, setPreview] = useState(user.avatar?.url || user.avatar || "");
+    const [preview, setPreview] = useState(
+        (typeof user.avatar === "string" ? user.avatar : user.avatar?.url) || ""
+    );
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 

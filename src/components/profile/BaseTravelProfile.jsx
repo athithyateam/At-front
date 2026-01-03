@@ -45,7 +45,7 @@ export default function BaseTravelProfile({ user: initialUser, isOwner, children
     }
   };
 
-  const avatarUrl = user?.avatar?.url || user?.avatar || "";
+  const avatarUrl = (typeof user?.avatar === "string" ? user.avatar : user?.avatar?.url) || "";
 
   return (
     <div className="min-h-screen bg-white text-gray-800">
