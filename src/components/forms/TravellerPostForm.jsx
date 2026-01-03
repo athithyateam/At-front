@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiChevronDown, FiX, FiUpload } from "react-icons/fi";
-import { createPost } from "../../api/posts";
+import { createPost, getPost, updatePost } from "../../api/posts";
 import { useNotifications } from "../../context/NotificationContext";
 
 /* ---------------- CONSTANT ---------------- */
@@ -218,7 +218,7 @@ export default function TravellerPostForm({ editId }) {
         try {
           const res = await getPost(editId);
           if (res.success) {
-            const p = res.post;
+            const p = res.experience || res.post;
             setTitle(p.title || "");
             setDescription(p.description || "");
             setCategories(p.categories || []);

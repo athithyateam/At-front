@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiChevronDown, FiX } from "react-icons/fi";
-import { createItinerary } from "../../api/itineraries";
+import { createItinerary, getItinerary, updateItinerary } from "../../api/itineraries";
 
 /* ---------------- CONSTANTS ---------------- */
 const POST_TYPE = "plan";
@@ -199,7 +199,7 @@ export default function TravellerPlanForm({ editId }) {
         try {
           const res = await getItinerary(editId);
           if (res.success) {
-            const i = res.post; // backend returns post object
+            const i = res.itinerary || res.post; // backend returns itinerary or post object
             setTitle(i.title || "");
             setDescription(i.description || "");
             setPlanName(i.plan?.name || "");

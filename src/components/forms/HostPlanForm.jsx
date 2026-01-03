@@ -227,7 +227,7 @@ export default function HostPlanForm({ editId, onSaved }) {
         try {
           const res = await getItinerary(editId);
           if (res.success) {
-            const i = res.post;
+            const i = res.itinerary || res.post;
             setTitle(i.title || "");
             setLongDesc(i.description || "");
             setCity(i.location?.city || "");

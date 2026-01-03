@@ -234,7 +234,7 @@ export default function HostServiceForm({ editId, onSaved }) {
         try {
           const res = await ServicesAPI.getService(editId);
           if (res.success) {
-            const s = res.post;
+            const s = res.service || res.post;
             setTitle(s.title || "");
             setSummary(s.summary || "");
             setDescription(s.description || "");
