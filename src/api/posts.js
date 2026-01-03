@@ -99,13 +99,39 @@ export async function updatePost(id, formData, { token } = {}) {
 
 export async function deletePost(id, { token } = {}) {
   try {
-    const res = await axiosInstance.delete(ENDPOINTS.GET_POST(id), {
+    const res = await axiosInstance.delete(ENDPOINTS.DELETE_POST(id), {
       headers: token ? { Authorization: `Bearer ${token}` } : {},
     });
     return res.data;
   } catch (err) {
     const message = err?.response?.data?.message || err?.message || "Failed to delete post";
     console.error("deletePost error:", message, err);
+    throw { success: false, message, original: err };
+  }
+}
+
+export async function deleteItinerary(id, { token } = {}) {
+  try {
+    const res = await axiosInstance.delete(ENDPOINTS.DELETE_ITINERARY(id), {
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    });
+    return res.data;
+  } catch (err) {
+    const message = err?.response?.data?.message || err?.message || "Failed to delete itinerary";
+    console.error("deleteItinerary error:", message, err);
+    throw { success: false, message, original: err };
+  }
+}
+
+export async function deleteService(id, { token } = {}) {
+  try {
+    const res = await axiosInstance.delete(ENDPOINTS.DELETE_SERVICE(id), {
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    });
+    return res.data;
+  } catch (err) {
+    const message = err?.response?.data?.message || err?.message || "Failed to delete service";
+    console.error("deleteService error:", message, err);
     throw { success: false, message, original: err };
   }
 }
@@ -118,4 +144,6 @@ export default {
   reactToPost,
   updatePost,
   deletePost,
+  deleteItinerary,
+  deleteService,
 };

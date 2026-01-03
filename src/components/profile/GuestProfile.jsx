@@ -1,6 +1,8 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiMapPin, FiClock, FiGrid, FiLayers, FiArrowRight } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
+import { FiMapPin, FiClock, FiGrid, FiLayers, FiArrowRight, FiEdit2, FiTrash2, FiMoreVertical } from "react-icons/fi";
+import { deletePost, deleteItinerary } from "../../api/posts";
 
 const GUEST_TABS = [
   { key: "posts", label: "Momentos", icon: <FiGrid className="w-4 h-4" /> },
@@ -9,16 +11,47 @@ const GUEST_TABS = [
 
 export default function GuestProfile({ posts = [], isOwner = false }) {
   const [activeTab, setActiveTab] = useState("posts");
+  const [openMenuId, setOpenMenuId] = useState(null);
+  const [localPosts, setLocalPosts] = useState(posts);
+  const navigate = useNavigate();
+
+  // Sync localPosts if posts prop changes
+  useEffect(() => {
+    setLocalPosts(posts);
+  }, [posts]);
 
   const filteredPosts = useMemo(() => {
     if (activeTab === "posts")
-      return posts.filter((p) => p.postType === "experience");
+      return localPosts.filter((p) => p.postType === "experience");
 
     if (activeTab === "plans")
-      return posts.filter((p) => p.postType === "plan");
+      return localPosts.filter((p) => p.postType === "plan");
 
     return [];
-  }, [activeTab, posts]);
+  }, [activeTab, localPosts]);
+
+  const handleDelete = async (postId, postType) => {
+    if (!window.confirm("Are you sure you want to delete this?")) return;
+
+    try {
+      const token = localStorage.getItem("auth_token");
+      if (postType === 'plan') {
+        await deleteItinerary(postId, { token });
+      } else {
+        await deletePost(postId, { token });
+      }
+      setLocalPosts(prev => prev.filter(p => p._id !== postId));
+      setOpenMenuId(null);
+    } catch (err) {
+      alert("Delete failed: " + (err.message || "Unknown error"));
+    }
+  };
+
+  const handleEdit = (postId, postType) => {
+    const typeMap = { 'experience': 'post', 'plan': 'plan' };
+    navigate(`/post?edit=${postId}&type=${typeMap[postType] || 'post'}`);
+    setOpenMenuId(null);
+  };
 
   return (
     <div className="space-y-8 py-2">
@@ -51,7 +84,7 @@ export default function GuestProfile({ posts = [], isOwner = false }) {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="col-span-full py-24 text-center bg-gray-50/50 rounded-[2rem] border-2 border-dashed border-gray-100 flex flex-col items-center justify-center"
+              className="col-span-full py-24 text-center bg-gray-50/50 rounded-[2rem] border-2 border-dashed border-gray-101 flex flex-col items-center justify-center"
             >
               <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center text-gray-200 mb-4">
                 <FiLayers className="w-8 h-8" />
@@ -66,7 +99,7 @@ export default function GuestProfile({ posts = [], isOwner = false }) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: idx * 0.05 }}
-                className="group bg-white border border-gray-200/60 shadow-sm rounded-[2rem] overflow-hidden hover:shadow-2xl hover:shadow-yellow-500/5 hover:border-yellow-100 transition-all duration-500"
+                className="group bg-white border border-gray-200/60 shadow-sm rounded-[2rem] overflow-hidden hover:shadow-2xl hover:shadow-yellow-500/5 hover:border-yellow-101 transition-all duration-500"
               >
                 {/* Visual Header */}
                 <div className="relative h-44 overflow-hidden">
@@ -83,6 +116,61 @@ export default function GuestProfile({ posts = [], isOwner = false }) {
                     <h4 className="flex-1 text-lg font-bold text-gray-900 group-hover:text-[#C59A2F] transition-colors line-clamp-1 text-left">
                       {p.title}
                     </h4>
+
+                    {isOwner && (
+                      <div className="relative">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setOpenMenuId(openMenuId === p._id ? null : p._id);
+                          }}
+                          className="p-1 hover:bg-gray-100 rounded-full transition-colors text-gray-400 hover:text-gray-900"
+                        >
+                          <FiMoreVertical size={18} />
+                        </button>
+
+                        <AnimatePresence>
+                          {openMenuId === p._id && (
+                            <>
+                              <div
+                                className="fixed inset-0 z-10"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setOpenMenuId(null);
+                                }}
+                              />
+                              <motion.div
+                                initial={{ opacity: 0, scale: 0.95, y: -10 }}
+                                animate={{ opacity: 1, scale: 1, y: 0 }}
+                                exit={{ opacity: 0, scale: 0.95, y: -10 }}
+                                className="absolute right-0 mt-1 w-32 bg-white rounded-xl shadow-xl border border-gray-100 py-1 z-20"
+                              >
+                                <button
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleEdit(p._id, p.postType);
+                                  }}
+                                  className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+                                >
+                                  <FiEdit2 size={14} className="text-blue-500" />
+                                  Edit
+                                </button>
+                                <button
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleDelete(p._id, p.postType);
+                                  }}
+                                  className="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 flex items-center gap-2"
+                                >
+                                  <FiTrash2 size={14} />
+                                  Delete
+                                </button>
+                              </motion.div>
+                            </>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    )}
                   </div>
 
                   <div className="flex items-center gap-4 text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-4">
