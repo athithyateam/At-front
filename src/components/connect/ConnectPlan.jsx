@@ -42,6 +42,8 @@ const ConnectPlan = () => {
 
   const [raised, setRaised] = useState({});
   const [expanded, setExpanded] = useState({});
+  const [userReactions, setUserReactions] = useState({});
+  const [openPicker, setOpenPicker] = useState(null);
 
   /* filters */
   const [lookingFor, setLookingFor] = useState("all");
@@ -71,6 +73,14 @@ const ConnectPlan = () => {
 
   function toggleExpand(id) {
     setExpanded((e) => ({ ...e, [id]: !e[id] }));
+  }
+
+  function react(postId, emoji) {
+    setUserReactions((prev) => ({
+      ...prev,
+      [postId]: emoji,
+    }));
+    setOpenPicker(null);
   }
 
   /* ---------------- FILTER + SORT ---------------- */
