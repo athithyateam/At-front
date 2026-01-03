@@ -244,6 +244,7 @@ export default function TravellerPostForm() {
     const fd = new FormData();
     fd.append("title", title);
     fd.append("description", description);
+    fd.append("postType", POST_TYPE);
     fd.append("categories", JSON.stringify(categories));
     fd.append("amenities", JSON.stringify(amenities));
 

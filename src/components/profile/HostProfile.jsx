@@ -4,7 +4,7 @@ import { FiMapPin, FiClock, FiStar, FiGrid, FiLayers, FiBriefcase, FiChevronRigh
 
 const HOST_TABS = [
   { key: "posts", label: "Posts", icon: <FiGrid className="w-4 h-4" /> },
-  { key: "itineraries", label: "Itineraries", icon: <FiLayers className="w-4 h-4" /> },
+  { key: "plans", label: "Plans", icon: <FiLayers className="w-4 h-4" /> },
   { key: "services", label: "Services", icon: <FiBriefcase className="w-4 h-4" /> },
 ];
 
@@ -18,8 +18,8 @@ export default function HostProfile({ posts = [], postStats = {}, reviewStats = 
     if (activeTab === "services")
       return posts.filter((p) => p.postType === "service");
 
-    if (activeTab === "itineraries")
-      return posts.filter((p) => p.postType === "itinerary");
+    if (activeTab === "plans")
+      return posts.filter((p) => p.postType === "plan");
 
     return [];
   }, [activeTab, posts]);
