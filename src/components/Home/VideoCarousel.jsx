@@ -8,7 +8,7 @@ const slides = [
   {
     id: 1,
     video:
-      "https://res.cloudinary.com/dvjqisuve/video/upload/v1762853369/WhatsApp_Video_2025-11-08_at_15.06.10_40747acb_kpycbi.mp4",
+      "https://res.cloudinary.com/dvjqisuve/video/upload/v1767534067/download_20260104_190934_0000_lvrr7p.mp4",
   },
 ];
 
