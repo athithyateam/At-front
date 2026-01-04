@@ -155,6 +155,11 @@ export default function CreatorsPage() {
               className="p-8 md:p-12 rounded-2xl bg-[#fffcf5] border text-center md:text-left h-full flex flex-col justify-center"
               style={{ borderColor: `${GOLD}33` }}
             >
+              {/* Spotlight Badge (Restored) */}
+              <div className="mb-4 inline-block px-3 py-1 rounded-md bg-yellow-50 border border-yellow-200 text-xs font-semibold uppercase tracking-wider text-[#b8860b] self-center md:self-start">
+                Spotlight: Want to be featured?
+              </div>
+
               <h3 className="text-2xl font-bold mb-4" style={{ color: GOLD }}>Join our Growing Community</h3>
               <p className="mb-8 font-medium" style={{ color: TEXT_SECONDARY }}>
                 Share your journey with the world. Let’s collaborate and craft something truly inspiring together.
