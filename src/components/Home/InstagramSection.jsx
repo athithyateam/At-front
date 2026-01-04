@@ -10,9 +10,10 @@ import {
 import { FaInstagram } from "react-icons/fa";
 
 const videos = [
-  "https://res.cloudinary.com/dvjqisuve/video/upload/v1762853268/VID-20251108-WA0014_ohtvtr.mp4",
-  "https://res.cloudinary.com/dvjqisuve/video/upload/v1762853247/VID-20251108-WA0022_cahvgb.mp4",
-  "https://res.cloudinary.com/dvjqisuve/video/upload/v1762853116/Deepak-11_oampjk.mp4",
+  "/videos/vid-1.mp4",
+  "/videos/vid-2.mp4",
+  "/videos/vid-3.mp4",
+  "/videos/vid-4.mp4",
 ];
 
 export default function InstagramSection() {
