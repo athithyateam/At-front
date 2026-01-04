@@ -20,13 +20,11 @@ export default function InstagramSection() {
   const [index, setIndex] = useState(0);
   const autoRef = useRef(null);
   const containerRef = useRef(null);
-  const isInView = useInView(containerRef, { amount: 0.2 });
+  const isInView = useInView(containerRef, { amount: 0.2, once: true });
 
   useEffect(() => {
     if (isInView) {
       startAuto();
-    } else {
-      stopAuto();
     }
     return stopAuto;
   }, [index, isInView]);
