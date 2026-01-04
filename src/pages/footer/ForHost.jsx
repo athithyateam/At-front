@@ -59,9 +59,14 @@ export default function ForHost() {
           Become a Host
         </div>
         <h1 className="text-4xl md:text-6xl font-bold text-[#b8860b] mb-6 tracking-tight">Turn Your Passion Into Income</h1>
-        <p className="max-w-3xl mx-auto text-lg text-gray-600 leading-relaxed">
+        <p className="max-w-4xl mx-auto text-lg text-gray-600 leading-relaxed">
           At Athithya, we believe every local has a story, a skill, or a space
-          that can inspire a traveller’s journey. Turn what you love into memorable experiences with zero investment.
+          that can inspire a traveller’s journey. Whether you’re a homestay
+          owner, have a spare room, cook authentic local dishes, guide treks,
+          run adventure activities, create cultural experiences, host events,
+          or simply know your place better than Google Maps — Athithya welcomes
+          you to turn what you love into memorable experiences while earning
+          income with zero investment.
         </p>
       </section>
 
@@ -124,22 +129,26 @@ export default function ForHost() {
             <p className="text-gray-500 mt-2">If it’s authentic and adds value, you can host it.</p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
             <CategoryItem
               title="Local Stays"
               items={['Homestays', 'Village stays', 'Farm stays', 'Unique accommodations']}
             />
             <CategoryItem
               title="Experiences"
-              items={['Cooking classes', 'Cultural walks', 'Workshops, art & music', 'Local traditions']}
+              items={['Cooking classes', 'Cultural walks', 'Workshops, art & music']}
             />
             <CategoryItem
               title="Adventures"
               items={['Trekking & Camping', 'Rafting', 'Nature trails', 'Paragliding, kayaking']}
             />
             <CategoryItem
-              title="Services"
-              items={['Commute & pick-up drops', 'Bike rentals', 'Custom travel trips', 'Guided tours']}
+              title="Guided Tours"
+              items={['City tours', 'Heritage walks', 'Nature trails']}
+            />
+            <CategoryItem
+              title="Local Services"
+              items={['Commute & pick-up drops', 'Bike rentals', 'Custom travel trips']}
             />
           </div>
 
