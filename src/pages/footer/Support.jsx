@@ -9,7 +9,7 @@ const GOLD = {
 };
 
 const USER_CONTACT = {
-  label: "For Users",
+  label: "",
   name: "Surya",
   whatsapp: "+91 9389860637",
   email: "teamsathithya@gmail.com",
@@ -19,9 +19,8 @@ const USER_CONTACT = {
 const SUPPORT_HOURS = "10:00 AM – 5:00 PM IST";
 const makeWaLink = (num, prefill = "") => {
   const cleaned = num.replace(/[^0-9]/g, "");
-  return `https://wa.me/${cleaned}${
-    prefill ? `?text=${encodeURIComponent(prefill)}` : ""
-  }`;
+  return `https://wa.me/${cleaned}${prefill ? `?text=${encodeURIComponent(prefill)}` : ""
+    }`;
 };
 
 function ContactCard({ label, person }) {

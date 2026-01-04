@@ -4,8 +4,8 @@ import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
 import OtpModal from "./OtpModal";
 
-export default function AuthSection({ onClose }) {
-  const [screen, setScreen] = useState("login");
+export default function AuthSection({ onClose, initialScreen, initialRole }) {
+  const [screen, setScreen] = useState(initialScreen || "login");
   const [regData, setRegData] = useState(null);
   const navigate = useNavigate();
 
@@ -13,6 +13,7 @@ export default function AuthSection({ onClose }) {
     return (
       <RegisterModal
         onClose={onClose}
+        initialRole={initialRole}
         onSwitchToLogin={() => setScreen("login")}
         onProceedOTP={(data) => {
           setRegData(data);

@@ -118,7 +118,7 @@ export default function Safety() {
         </Section>
 
         <div className="mt-12 text-center text-xs text-gray-500">
-          Safety is a shared responsibility. Travel responsibly with Athithya.
+          Safety is a shared responsibility.
         </div>
       </div>
     </div>

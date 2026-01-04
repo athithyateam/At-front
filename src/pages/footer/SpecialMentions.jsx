@@ -29,25 +29,18 @@ const team = [
       "Crafts human-centered interfaces and visual systems that scale across devices.",
   },
   {
-    name: "Priyanshu",
-    role: "Video Editor",
+    name: "Suraj",
+    role: "Frontend Developer",
     img: fallbackImg,
     bio:
-      "Turns raw footage into compelling stories that amplify creators' voices.",
+      "Builds responsive, user-friendly interfaces with a focus on seamless experiences.",
   },
   {
-    name: "Vansh",
-    role: "Marketing",
-    img: "/members/vansh-photo.jpg",
+    name: "Anivesh",
+    role: "Marketing & Management",
+    img: fallbackImg,
     bio:
       "Builds campaigns that connect the right audiences with the right experiences.",
-  },
-  {
-    name: "Shreya",
-    role: "Marketing",
-    img: fallbackImg,
-    bio:
-      "Leads partnerships and social poststelling with data-informed strategy.",
   },
   {
     name: "Yuvraj",
@@ -240,19 +233,12 @@ export default function SpecialMentionsPage() {
           </div>
 
           {/* Right column: stacked photo cards */}
-          <div className="lg:col-span-1 grid grid-rows-2 gap-6">
+          <div className="lg:col-span-1">
             <div className="border border-[#f1d18a] rounded-xl p-4 bg-white shadow-lg flex items-center justify-center">
               <img
-                src={fallbackImg}
+                src="/travel-1.jpg"
                 alt="Team moment"
-                className="w-full h-40 object-cover rounded-lg"
-              />
-            </div>
-            <div className="border border-[#f1d18a] rounded-xl p-4 bg-white shadow-lg flex items-center justify-center">
-              <img
-                src={fallbackImg}
-                alt="Celebration"
-                className="w-full h-40 object-cover rounded-lg"
+                className="w-full h-auto object-cover rounded-lg"
               />
             </div>
           </div>

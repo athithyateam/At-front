@@ -20,6 +20,7 @@ export default function Navbar() {
   const [showAuth, setShowAuth] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [notificationOpen, setNotificationOpen] = useState(false);
+  const [authProps, setAuthProps] = useState({});
 
   const threshold = 50;
   const isHome = location.pathname === "/";
@@ -50,6 +51,32 @@ export default function Navbar() {
   useEffect(() => {
     if (user) setShowAuth(false);
   }, [user]);
+
+  /* ---------------- Open auth from URL params ---------------- */
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const authType = params.get("auth"); // 'login' or 'signup'
+    const role = params.get("role");
+
+    if (authType) {
+      setAuthProps({
+        initialScreen: authType === "signup" ? "register" : "login",
+        initialRole: role || "guest",
+      });
+      setShowAuth(true);
+
+      // Clean URL
+      const newSearch = new URLSearchParams(location.search);
+      newSearch.delete("auth");
+      newSearch.delete("role");
+      const newString = newSearch.toString();
+
+      navigate(
+        { pathname: location.pathname, search: newString },
+        { replace: true }
+      );
+    }
+  }, [location.search, navigate]);
 
   const navBase = "absolute inset-x-0 top-0 z-50 transition-all duration-300";
   const heroNav = scrolled
@@ -271,7 +298,13 @@ export default function Navbar() {
       {/* AUTH MODAL */}
       {showAuth &&
         createPortal(
-          <AuthModal onClose={() => setShowAuth(false)} />,
+          <AuthModal
+            onClose={() => {
+              setShowAuth(false);
+              setAuthProps({});
+            }}
+            {...authProps}
+          />,
           document.body
         )}
     </>

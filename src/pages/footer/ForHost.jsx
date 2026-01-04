@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import {
   FiHome,
   FiDollarSign,
@@ -28,6 +29,7 @@ const Section = ({ icon: Icon, title, children }) => (
 );
 
 export default function ForHost() {
+  const navigate = useNavigate();
   return (
     <div className="bg-white min-h-screen px-4 py-10 mt-12">
       <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-md border border-gray-100 p-8 sm:p-12">
@@ -159,7 +161,12 @@ export default function ForHost() {
         {/* CTA */}
         <div className="mt-16 text-center text-sm font-medium text-[#C9A24D]">
           Still thinking? <br />
-          Be a Local Host at Athithya.
+          <span
+            onClick={() => navigate("?auth=signup&role=host")}
+            className="font-bold underline cursor-pointer hover:text-[#b08d42]"
+          >
+            Be a Local Host at Athithya.
+          </span>
         </div>
 
         {/* Footer */}

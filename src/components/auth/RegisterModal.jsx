@@ -12,12 +12,12 @@ const ROLE_TABS = [
   // { value: "admin", label: "Admin" },
 ];
 
-export default function RegisterModal({ onClose, onSwitchToLogin, onProceedOTP }) {
+export default function RegisterModal({ onClose, onSwitchToLogin, onProceedOTP, initialRole }) {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
-  const [role, setRole] = useState("guest");
+  const [role, setRole] = useState(initialRole || "guest");
   const [showPwd, setShowPwd] = useState(false);
   const [err, setErr] = useState("");
   const [loading, setLoading] = useState(false);
