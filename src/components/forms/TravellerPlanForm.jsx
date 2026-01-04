@@ -320,8 +320,8 @@ export default function TravellerPlanForm({ editId }) {
     fd.append("description", description);
     fd.append("planName", planName);
     fd.append("location", JSON.stringify(location));
-    fd.append("duration", JSON.stringify({ days, nights }));
-    fd.append("capacity", JSON.stringify({ maxPeople }));
+    fd.append("duration", JSON.stringify({ days: Number(days || 1), nights: Number(nights || 0) }));
+    fd.append("capacity", JSON.stringify({ maxPeople: Number(maxPeople || 1) }));
     fd.append(
       "price",
       JSON.stringify({
@@ -344,6 +344,15 @@ export default function TravellerPlanForm({ editId }) {
         })),
       })
     );
+
+    fd.append("status", "active");
+    fd.append("userRole", "guest");
+    fd.append("isFeatured", JSON.stringify(false));
+
+    // Flatten location fields for safety
+    if (location.city) fd.append("city", location.city);
+    if (location.state) fd.append("state", location.state);
+    if (location.country) fd.append("country", location.country);
 
     // Photos
     photos.forEach(p => fd.append("photos", p.file));
@@ -740,7 +749,7 @@ export default function TravellerPlanForm({ editId }) {
                 disabled={loading}
                 className="w-full GOLD-bg text-white py-3 rounded-xl"
               >
-                {loading ? (editId ? "Updating..." : "Creating...") : (editId ? "Update Itinerary" : "Create Itinerary")}
+                {loading ? (editId ? "Updating..." : "Creating...") : (editId ? "Update Plans" : "Create Plans")}
               </button>
             </div>
           </div>
