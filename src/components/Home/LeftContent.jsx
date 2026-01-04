@@ -46,10 +46,10 @@ export default function LeftContent({ scrollYProgress }) {
         {SECTIONS.map((item, i) => {
           const start = i * step;
 
-          const fadeInStart = start + step * 0.1;
-          const fadeInEnd = start + step * 0.25;
-          const fadeOutStart = start + step * 0.75;
-          const fadeOutEnd = start + step * 0.9;
+          const fadeInStart = start - step * 0.15;
+          const fadeInEnd = start + step * 0.15;
+          const fadeOutStart = start + step * 0.85;
+          const fadeOutEnd = start + step * 1.15;
 
           const opacity = useTransform(
             scrollYProgress,
