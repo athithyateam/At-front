@@ -56,10 +56,10 @@ export default function LeftContent({ scrollYProgress }) {
             i === 0
               ? [0, fadeOutStart, fadeOutEnd]
               : i === SECTIONS.length - 1
-                ? [fadeInStart, 1]
+                ? [fadeInStart, fadeInEnd]
                 : [fadeInStart, fadeInEnd, fadeOutStart, fadeOutEnd],
             i === 0
-              ? [1, i === SECTIONS.length - 1 ? 1 : 1, 0]
+              ? [1, 1, 0]
               : i === SECTIONS.length - 1
                 ? [0, 1]
                 : [0, 1, 1, 0]
