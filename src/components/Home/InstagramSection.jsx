@@ -10,10 +10,9 @@ import {
 import { FaInstagram } from "react-icons/fa";
 
 const videos = [
-  "https://res.cloudinary.com/dvjqisuve/video/upload/v1767498305/VID_20251230_214829_526_ikpjq1.mp4",
-  "https://res.cloudinary.com/dvjqisuve/video/upload/v1767498291/VID_20251230_215130_987_whwlii.mp4",
-  "https://res.cloudinary.com/dvjqisuve/video/upload/v1767498383/VID_20251230_214409_788_brfdrg.mp4",
-  "https://res.cloudinary.com/dvjqisuve/video/upload/v1767498309/VID_20251230_215217_616_ey2flb.mp4",
+  "https://res.cloudinary.com/dvjqisuve/video/upload/v1762853268/VID-20251108-WA0014_ohtvtr.mp4",
+  "https://res.cloudinary.com/dvjqisuve/video/upload/v1762853247/VID-20251108-WA0022_cahvgb.mp4",
+  "https://res.cloudinary.com/dvjqisuve/video/upload/v1762853116/Deepak-11_oampjk.mp4",
 ];
 
 export default function InstagramSection() {
