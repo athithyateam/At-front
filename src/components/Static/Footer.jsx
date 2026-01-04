@@ -119,14 +119,15 @@ export default function Footer() {
         <div className="border-t border-gray-200 mt-12 mb-8"></div>
 
         {/* --- Bottom Copyright --- */}
-        <div className="flex flex-col md:flex-row items-center justify-between text-xs text-gray-400 gap-2">
+        {/* --- Bottom Copyright --- */}
+        <div className="flex flex-col md:flex-row items-center justify-between text-sm text-gray-600 gap-2">
           <div className="flex items-center gap-1">
-            <FaRegCopyright size={10} />
+            <FaRegCopyright size={12} />
             <span>2025 Athithya Brands. All Rights Reserved.</span>
           </div>
-          <div className="flex items-center gap-1 opacity-70 hover:opacity-100 transition-opacity">
+          <div className="flex items-center gap-1">
             <span>Designed with</span>
-            <span className="text-red-400">♥</span>
+            <span className="text-red-500 animate-pulse">♥</span>
             <span>in India</span>
           </div>
         </div>
