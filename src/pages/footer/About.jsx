@@ -144,11 +144,9 @@ export default function AboutUs() {
             For our hosts, we aim to create a platform that celebrates India’s
             spirit of hospitality — <strong>“Atithi Devo Bhava”</strong> —
             giving locals the opportunity to showcase their warmth, culture,
-            traditions, and roots to the world.
-          </p>
-          <p>
-            Our goal isn’t just tourism. It’s human connection — built through
-            shared stories and the people we meet along the way.
+            traditions, and roots to the world. Our goal isn’t just tourism.
+            It’s human connection — built through shared stories and the people
+            we meet along the way.
           </p>
           <p>
             We envision a future where anyone can explore India not as a visitor
