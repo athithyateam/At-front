@@ -22,7 +22,7 @@ export default function Footer() {
               />
             </Link>
 
-            <address className="not-italic text-sm leading-relaxed text-gray-500 font-normal">
+            <address className="not-italic text-sm leading-relaxed text-gray-500 font-normal border-l-2 border-[#d4af37] pl-4">
               <span className="font-bold text-[#b8860b] uppercase tracking-wide text-xs mb-1 block">Registered Address</span>
               Athithya Brands<br />
               Clement Town<br />
