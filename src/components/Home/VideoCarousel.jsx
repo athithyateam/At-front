@@ -58,22 +58,21 @@ export default function VideoCarousel() {
                   }`}
               >
                 {/* Title */}
-                <h1 className="hero-main text-5xl md:text-7xl font-bold tracking-tight leading-tight">
+                <h1 className="hero-main text-3xl sm:text-4xl md:text-7xl font-bold tracking-tight leading-tight whitespace-nowrap">
                   <span style={{ color: '#C59A2F' }}>"You </span>
-                  <span className="text-white">Only</span>
-                  <br className="md:hidden" />
-                  <span style={{ color: '#C59A2F' }}> Live </span>
+                  <span className="text-white">Only </span>
+                  <span style={{ color: '#C59A2F' }}>Live </span>
                   <span className="text-white">Once"</span>
                 </h1>
 
                 {/* Subtitle */}
-                <p className="hero-tag text-white text-base md:text-xl font-medium tracking-wide max-w-2xl mx-auto leading-relaxed">
+                <p className="hero-tag text-white text-xs sm:text-sm md:text-xl font-medium tracking-wide max-w-2xl mx-auto leading-relaxed px-2">
                   If <span style={{ color: '#C59A2F' }}>travel</span>, <span style={{ color: '#C59A2F' }}>exploration</span> & meaningful <span style={{ color: '#C59A2F' }}>experiences</span> <br className="hidden md:block" />
                   make your heart race...
                 </p>
 
                 {/* Welcome Message */}
-                <div className="pt-4 text-3xl md:text-4xl font-bold text-white tracking-wide">
+                <div className="pt-2 md:pt-4 text-xl sm:text-2xl md:text-4xl font-bold text-white tracking-wide">
                   Athithya <span style={{ color: '#C59A2F' }}>welcomes</span> You!
                 </div>
               </div>
