@@ -23,17 +23,10 @@ export default function Footer() {
                 className="w-36 brightness-0 invert opacity-90"
               />
             </Link>
-            <p className="text-gray-400 text-sm leading-relaxed mb-6 pr-4">
+            <p className="text-gray-400 text-sm leading-relaxed mb-6 pr-4 text-justify">
               Connecting travellers with local hosts for authentic stays, cuisines, and experiences.
               Discover the real India through its people.
             </p>
-
-            <address className="not-italic text-sm leading-relaxed text-gray-500 border-l-2 border-[#d4af37] pl-4">
-              <span className="font-semibold text-[#d4af37] block mb-1">Registered Address</span>
-              Athithya Brands<br />
-              Clement Town<br />
-              Dehradun, Uttarakhand — 248001
-            </address>
           </div>
 
           {/* --- Column 2: Explore (Span 2) --- */}
@@ -101,7 +94,7 @@ export default function Footer() {
               Join our community for the latest updates and stories.
             </p>
             {/* --- Social Icons --- */}
-            <div className="flex gap-3">
+            <div className="flex gap-3 mb-8">
               <a
                 href="https://www.instagram.com/athithya.in"
                 target="_blank"
@@ -137,6 +130,13 @@ export default function Footer() {
                 <MdOutlineMail size={20} />
               </a>
             </div>
+
+            <address className="not-italic text-sm leading-relaxed text-gray-500 border-l-2 border-[#d4af37] pl-4">
+              <span className="font-semibold text-[#d4af37] block mb-1">Registered Address</span>
+              Athithya Brands<br />
+              Clement Town<br />
+              Dehradun, Uttarakhand — 248001
+            </address>
           </div>
         </div>
 
