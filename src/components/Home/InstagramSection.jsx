@@ -21,8 +21,8 @@ export default function InstagramSection() {
   const autoRef = useRef(null);
   const containerRef = useRef(null);
 
-  // Safe Lazy Load: Triggers once when 100px away, then stays true forever.
-  const isInView = useInView(containerRef, { once: true, margin: "-100px" });
+  // Safe Lazy Load: Triggers once when 20% of the element is visible.
+  const isInView = useInView(containerRef, { once: true, amount: 0.2 });
 
   useEffect(() => {
     startAuto();
