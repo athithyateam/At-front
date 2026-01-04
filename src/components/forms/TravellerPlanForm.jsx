@@ -345,6 +345,14 @@ export default function TravellerPlanForm({ editId }) {
       })
     );
 
+    fd.append("status", "active");
+    fd.append("userRole", "traveller");
+
+    // Flatten location fields for safety
+    if (location.city) fd.append("city", location.city);
+    if (location.state) fd.append("state", location.state);
+    if (location.country) fd.append("country", location.country);
+
     // Photos
     photos.forEach(p => fd.append("photos", p.file));
     fd.append("existingPhotos", JSON.stringify(existingPhotos));
@@ -740,7 +748,7 @@ export default function TravellerPlanForm({ editId }) {
                 disabled={loading}
                 className="w-full GOLD-bg text-white py-3 rounded-xl"
               >
-                {loading ? (editId ? "Updating..." : "Creating...") : (editId ? "Update Itinerary" : "Create Itinerary")}
+                {loading ? (editId ? "Updating..." : "Creating...") : (editId ? "Update Plans" : "Create Plans")}
               </button>
             </div>
           </div>
