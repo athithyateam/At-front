@@ -88,13 +88,20 @@ export default function Footer() {
           </div>
 
           {/* --- Column 4: Stay Connected (Span 3) --- */}
-          <div className="md:col-span-3">
+          <div className="md:col-span-3 flex flex-col items-start text-left">
             <h4 className="font-bold text-white tracking-wide uppercase text-sm mb-6 border-b border-white/10 pb-2 inline-block">Connect With Us</h4>
+
+            <address className="not-italic text-sm leading-snug text-gray-500 mb-6 border-l-2 border-[#d4af37] pl-4">
+              <span className="font-semibold text-[#b8860b]">Registered Address:</span> Athithya Brands, Clement Town,<br />
+              Dehradun, Uttarakhand — 248001
+            </address>
+
             <p className="text-gray-400 text-sm mb-4">
               Join our community for the latest updates and stories.
             </p>
+
             {/* --- Social Icons --- */}
-            <div className="flex gap-3 mb-8">
+            <div className="flex gap-3">
               <a
                 href="https://www.instagram.com/athithya.in"
                 target="_blank"
@@ -130,13 +137,6 @@ export default function Footer() {
                 <MdOutlineMail size={20} />
               </a>
             </div>
-
-            <address className="not-italic text-sm leading-relaxed text-gray-500 border-l-2 border-[#d4af37] pl-4">
-              <span className="font-semibold text-[#d4af37] block mb-1">Registered Address</span>
-              Athithya Brands<br />
-              Clement Town<br />
-              Dehradun, Uttarakhand — 248001
-            </address>
           </div>
         </div>
 
