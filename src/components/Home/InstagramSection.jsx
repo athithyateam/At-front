@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   FiChevronUp,
   FiChevronDown,
@@ -10,24 +10,19 @@ import {
 import { FaInstagram } from "react-icons/fa";
 
 const videos = [
-  "/videos/vid-1.mp4",
-  "/videos/vid-2.mp4",
-  "/videos/vid-3.mp4",
-  "/videos/vid-4.mp4",
+  "https://res.cloudinary.com/dvjqisuve/video/upload/v1762853268/VID-20251108-WA0014_ohtvtr.mp4",
+  "https://res.cloudinary.com/dvjqisuve/video/upload/v1762853247/VID-20251108-WA0022_cahvgb.mp4",
+  "https://res.cloudinary.com/dvjqisuve/video/upload/v1762853116/Deepak-11_oampjk.mp4",
 ];
 
 export default function InstagramSection() {
   const [index, setIndex] = useState(0);
   const autoRef = useRef(null);
-  const containerRef = useRef(null);
-  const isInView = useInView(containerRef, { amount: 0.2, once: true });
 
   useEffect(() => {
-    if (isInView) {
-      startAuto();
-    }
+    startAuto();
     return stopAuto;
-  }, [index, isInView]);
+  }, [index]);
 
   const startAuto = () => {
     stopAuto();
@@ -113,51 +108,48 @@ export default function InstagramSection() {
         {/* LEFT: Phone */}
         <div className="flex justify-center w-full md:w-2/5">
           <div
-            ref={containerRef}
             className="relative rounded-[28px] bg-black shadow-xl"
             style={{
               width: "clamp(240px, 70vw, 300px)",
               height: "clamp(460px, 85vw, 580px)",
             }}
             onMouseEnter={stopAuto}
-            onMouseLeave={() => isInView && startAuto()}
+            onMouseLeave={startAuto}
           >
             {/* Notch */}
             <div className="absolute top-2 left-1/2 -translate-x-1/2 w-20 h-2 rounded-full bg-gray-800/60 z-20" />
 
             {/* Screen */}
-            <div className="absolute inset-1.5 rounded-[22px] bg-black overflow-hidden relative">
+            <div className="absolute inset-1.5 rounded-[22px] bg-black overflow-hidden">
               <AnimatePresence initial={false} mode="popLayout">
-                {isInView && (
-                  <motion.video
-                    key={index}
-                    src={videos[index]}
-                    playsInline
-                    autoPlay
-                    muted
-                    loop
-                    className="absolute inset-0 w-full h-full object-cover"
-                    initial={{ y: "100%" }}
-                    animate={{ y: "0%" }}
-                    exit={{ y: "-100%" }}
-                    transition={{
-                      duration: 0.5,
-                      ease: [0.25, 0.8, 0.25, 1],
-                    }}
-                  />
-                )}
+                <motion.video
+                  key={index}
+                  src={videos[index]}
+                  playsInline
+                  autoPlay
+                  muted
+                  loop
+                  className="absolute inset-0 w-full h-full object-cover"
+                  initial={{ y: "100%" }}
+                  animate={{ y: "0%" }}
+                  exit={{ y: "-100%" }}
+                  transition={{
+                    duration: 0.5,
+                    ease: [0.25, 0.8, 0.25, 1],
+                  }}
+                />
               </AnimatePresence>
 
               {/* up/down buttons */}
               <button
                 onClick={prev}
-                className="absolute left-2 top-[20%] bg-white/90 hover:bg-white text-gray-800 rounded-full p-1.5 shadow z-10"
+                className="absolute left-2 top-[20%] bg-white/90 hover:bg-white text-gray-800 rounded-full p-1.5 shadow"
               >
                 <FiChevronUp size={14} />
               </button>
               <button
                 onClick={next}
-                className="absolute left-2 top-[30%] bg-white/90 hover:bg-white text-gray-800 rounded-full p-1.5 shadow z-10"
+                className="absolute left-2 top-[30%] bg-white/90 hover:bg-white text-gray-800 rounded-full p-1.5 shadow"
               >
                 <FiChevronDown size={14} />
               </button>
@@ -176,7 +168,7 @@ export default function InstagramSection() {
               </div>
 
               {/* dots */}
-              <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 z-30">
+              <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
                 {videos.map((_, i) => (
                   <button
                     key={i}
@@ -196,7 +188,6 @@ export default function InstagramSection() {
             <img
               src="/images/insta-bg.jpg"
               alt="Pointing to Instagram phone"
-              loading="lazy"
               className="w-full h-auto max-h-[520px] object-contain"
             />
 
@@ -219,7 +210,6 @@ export default function InstagramSection() {
                   <img
                     src={m.img}
                     alt={`marker-${m.id}`}
-                    loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
                   />
                 </div>
