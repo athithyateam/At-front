@@ -103,11 +103,17 @@ export default function GuestProfile({ posts = [], isOwner = false }) {
               >
                 {/* Visual Header */}
                 <div className="relative h-44 overflow-hidden">
-                  <img
-                    src={p.photos?.[0]?.url || "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1470&auto=format&fit=crop"}
-                    alt={p.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
+                  {p.photos?.[0]?.url ? (
+                    <img
+                      src={p.photos[0].url}
+                      alt={p.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gray-100 flex items-center justify-center">
+                      <FiLayers className="w-8 h-8 text-gray-300" />
+                    </div>
+                  )}
                 </div>
 
                 {/* Content Section */}
