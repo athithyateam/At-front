@@ -199,17 +199,7 @@ export default function AboutUs() {
         </ContentRow>
 
         {/* Footer Text */}
-        <div className="mt-12 md:mt-24 text-center space-y-6 relative py-12 border-t border-[#f2e3b6]">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-[#d4af37] rounded-b-full opacity-50"></div>
-          <h3
-            className="text-2xl md:text-3xl font-serif italic text-[#b8860b]"
-          >
-            "Come. Connect. Experience travel the Athithya way."
-          </h3>
-          <p className="text-sm font-medium text-gray-500 uppercase tracking-widest">
-            © Athithya — Connecting travellers & locals through stories.
-          </p>
-        </div>
+        {/* Footer Text removed */}
 
       </div>
     </main>
