@@ -135,163 +135,163 @@ export default function SpecialMentionsPage() {
 
   return (
     <main className="min-h-screen bg-linear-to-b from-white via-[#fffaf3] to-white text-gray-800">
-      {/* HERO / CAROUSEL */}
-      <section className="w-full relative">
-        <div className="w-full mx-auto">
-          <Carousel />
-          {/* soft gold vignette */}
-          <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-transparent via-transparent to-[#fff6dc]/50" />
+
+      {/* HEADER SECTION */}
+      <section className="pt-20 pb-10 text-center relative overflow-hidden">
+        {/* Decorative background element */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#fff6dc] rounded-full blur-3xl -z-10 opacity-60"></div>
+
+        <div className="inline-block px-6 py-2 mb-6 rounded-full bg-white text-sm font-semibold tracking-wider uppercase shadow-md border border-[#d4af37] text-[#b8860b]">
+          Atithya Community
         </div>
+        <h1 className="text-4xl md:text-5xl font-bold text-[#b8860b] mb-4 tracking-tight">Special Mentions</h1>
+        <p className="max-w-2xl mx-auto text-gray-600 px-4">
+          Celebrating the people and moments that make our journey extraordinary.
+        </p>
       </section>
 
-      {/* CONTENT */}
-      <section className="mx-auto px-4 md:px-6 lg:px-12 py-12">
-        {/* Section tag */}
-        <div className="flex justify-center mb-10">
-          <div className="px-6 py-2 rounded-full bg-white text-sm font-semibold tracking-wider uppercase shadow-md border border-[#d4af37] text-[#b8860b]">
-            Special Mentions
-          </div>
-        </div>
+      {/* CONTENT CONTAINER */}
+      <div className="max-w-6xl mx-auto px-4 md:px-6 lg:px-12 pb-24 space-y-16">
 
-        {/* Top row */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
-          <div className="md:col-span-1 flex justify-center md:justify-start">
-            <div className="border border-[#f1d18a] rounded-xl p-4 bg-white shadow-lg w-full max-w-xs hover:shadow-2xl transition">
-              <img
-                src={fallbackImg}
-                alt="Special moment"
-                className="w-full h-44 object-cover rounded-lg"
-              />
+        {/* SECTION 1: HEARTFELT THANKS */}
+        {/* Split layout: Image Left, Text Right (on desktop) */}
+        <section className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div className="order-1 md:order-1 flex justify-center md:justify-start">
+            <div className="relative group">
+              <div className="absolute -inset-2 bg-gradient-to-r from-[#f1d18a] to-[#d4af37] rounded-xl opacity-20 group-hover:opacity-40 blur transition duration-500"></div>
+              <div className="relative border border-[#f1d18a] rounded-xl p-3 bg-white shadow-xl rotate-[-2deg] hover:rotate-0 transition duration-300">
+                <img
+                  src="/images/special-mention-1.jpeg"
+                  alt="Special moment"
+                  className="w-full max-w-sm md:max-w-md h-64 md:h-80 object-cover rounded-lg"
+                />
+              </div>
             </div>
           </div>
 
-          <div className="md:col-span-2">
-            <div className="border border-[#f2e3b6] rounded-xl p-6 bg-white shadow-md">
-              <p className="text-sm leading-relaxed text-gray-700">
-                We extend heartfelt thanks to all our Users and Hosts for placing your trust in us.
+          <div className="order-2 md:order-2 md:pl-8">
+            <div className="bg-white/50 backdrop-blur-sm border-l-4 border-[#d4af37] p-6 rounded-r-xl shadow-sm">
+              <h2 className="text-2xl font-semibold mb-4 text-[#8a6d1f]">To Our Community</h2>
+              <p className="text-lg leading-relaxed text-gray-700 italic">
+                "We extend heartfelt thanks to all our Users and Hosts for placing your trust in us.
                 Your confidence fuels our passion, and we are committed to safeguarding this trust
-                for years to come.
+                for years to come."
               </p>
             </div>
           </div>
-        </div>
+        </section>
 
-        {/* Middle row */}
-        <div className="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-          <div className="lg:col-span-2">
-            <div className="border border-[#f2e3b6] rounded-2xl p-6 bg-white shadow-md">
-              <h3 className="font-semibold mb-3 text-[#b8860b] text-lg">
+        {/* SECTION 2: SPECIAL NOTE OF THANKS (TEAM) */}
+        {/* Split layout: Content Left (wider), Image Right */}
+        <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div className="lg:col-span-8">
+            <div className="border border-[#f2e3b6] rounded-2xl p-8 bg-white shadow-lg relative overflow-hidden">
+              {/* Watermark/Texture */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-[#fff6dc] rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
+
+              <h3 className="font-semibold mb-3 text-[#b8860b] text-2xl relative z-10">
                 A special note of thanks
               </h3>
-              <p className="text-sm leading-relaxed mb-5 text-gray-700">
+              <p className="text-base leading-relaxed mb-8 text-gray-700 max-w-3xl relative z-10">
                 To our incredible teammates for their dedication and passion in ensuring Athithya
                 stays true to its values, standards, and exceptional service. Your work helps us
                 continually evolve.
               </p>
 
-              {/* Team list as elegant chips/cards */}
-              <ul className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {/* Team list */}
+              <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 relative z-10">
                 {team.map((m) => (
                   <li key={m.name}>
                     <button
                       onClick={() => setActive(m)}
-                      className="group cursor-pointer w-full text-left rounded-xl border border-[#f2e3b6] bg-white/80 hover:bg-[#fffaf0] transition shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#d4af37]"
+                      className="group w-full text-left rounded-xl border border-[#f2e3b6] bg-white hover:bg-[#fffaf0] transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-1"
                     >
-                      <div className="flex items-center gap-3 p-3 ">
-                        <div className="h-10 w-10 rounded-full overflow-hidden ring-1 ring-[#f1d18a] flex-shrink-0">
-                          <img
-                            src={m.img || fallbackImg}
-                            alt={`${m.name} avatar`}
-                            className="h-full w-full object-cover"
-                          />
+                      <div className="flex items-center gap-3 p-3">
+                        <div className="relative">
+                          <div className="h-12 w-12 rounded-full overflow-hidden ring-2 ring-[#f1d18a] flex-shrink-0">
+                            <img
+                              src={m.img || fallbackImg}
+                              alt={`${m.name} avatar`}
+                              className="h-full w-full object-cover"
+                            />
+                          </div>
                         </div>
-                        <div className="min-w-0">
-                          <div className="font-medium text-gray-900 truncate">
+                        <div className="min-w-0 flex-1">
+                          <div className="font-bold text-gray-900 truncate">
                             {m.name}
                           </div>
-                          <div className="text-xs text-gray-600 truncate">
+                          <div className="text-xs text-[#b8860b] truncate uppercase tracking-wider">
                             {m.role}
                           </div>
                         </div>
-                        <span className="ml-auto text-[10px] tracking-widest uppercase text-[#b8860b] hidden sm:block">
-                          View
-                        </span>
-                      </div>
-                      <div className="border-t border-[#f8ecc7]" />
-                      <div className="px-3 py-2 text-[12px] text-gray-600 line-clamp-2">
-                        {m.bio}
                       </div>
                     </button>
                   </li>
                 ))}
               </ul>
 
-              <p className="text-sm mt-5 text-gray-600">
-                Together, as a team, let’s keep the great work going.
-              </p>
-            </div>
-          </div>
-
-          {/* Right column: stacked photo cards */}
-          <div className="lg:col-span-1">
-            <div className="border border-[#f1d18a] rounded-xl p-4 bg-white shadow-lg flex items-center justify-center">
-              <img
-                src="/images/travel-6.jpg"
-                alt="Team moment"
-                className="w-full h-auto object-cover rounded-lg"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom row */}
-        <div className="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-          <div className="lg:col-span-2 flex justify-start">
-            <div className="border border-[#f2e3b6] rounded-xl p-4 bg-white shadow-md w-full max-w-sm">
-              <img
-                src={fallbackImg}
-                alt="Community"
-                className="w-full h-44 object-cover rounded-lg"
-              />
-            </div>
-          </div>
-
-          <div className="lg:col-span-1">
-            <div className="h-full border border-[#f2e3b6] bg-white p-6 rounded-2xl shadow-md">
-              <p className="text-sm leading-relaxed mb-5 text-gray-700">
-                We’re always looking for passionate individuals to join our team. If you share our
-                love for making travel and experiences easier and more enjoyable, we’d love to hear
-                from you.
-              </p>
-              <div className="mt-4 text-sm space-y-3">
-                <p className="flex items-center gap-2 text-gray-700">
-                  <FiPhone className="text-[#b8860b]" /> <span>+91-9389860637</span>
-                </p>
-                <p className="flex items-center gap-2 text-gray-700">
-                  <FiMail className="text-[#b8860b]" />
-                  <a
-                    className="hover:underline"
-                    href="mailto:teamsathithya@gmail.com"
-                  >
-                    teamsathithya@gmail.com
-                  </a>
+              <div className="mt-8 pt-6 border-t border-[#f2e3b6] text-center sm:text-left">
+                <p className="text-sm font-medium text-gray-500">
+                  Together, as a team, let’s keep the great work going.
                 </p>
               </div>
+            </div>
+          </div>
 
-              <div className="mt-6">
-                <a
-                  href="mailto:teamsathithya@gmail.com"
-                  className="inline-block rounded-md px-5 py-2 text-white font-medium shadow transition
-                             bg-gradient-to-r from-[#b8860b] to-[#d4af37]
-                             hover:from-[#a67c00] hover:to-[#caa233] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#d4af37]"
-                >
-                  Join Our Team
+          <div className="lg:col-span-4 flex items-center justify-center h-full">
+            <div className="sticky top-8 w-full max-w-sm">
+              <div className="border border-[#f1d18a] rounded-xl p-4 bg-white shadow-lg rotate-2 hover:rotate-0 transition duration-500">
+                <img
+                  src="/images/special-mention-2.jpeg"
+                  alt="Team moment"
+                  className="w-full h-auto object-cover rounded-lg aspect-[3/4]"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION 3: JOIN OUR TEAM */}
+        {/* Full width centered banner */}
+        <section className="flex justify-center">
+          <div className="w-full max-w-4xl bg-linear-to-r from-[#fffaf3] to-white border border-[#f2e3b6] rounded-2xl p-8 md:p-12 shadow-lg text-center relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#d4af37] to-transparent"></div>
+
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">Join Our Journey</h3>
+            <p className="text-gray-700 max-w-2xl mx-auto mb-8 leading-relaxed">
+              We’re always looking for passionate individuals to join our team. If you share our
+              love for making travel and experiences easier and more enjoyable, we’d love to hear
+              from you.
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-sm text-gray-600 mb-8">
+              <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm border border-gray-100">
+                <FiPhone className="text-[#b8860b]" />
+                <span>+91-9389860637</span>
+              </div>
+              <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm border border-gray-100">
+                <FiMail className="text-[#b8860b]" />
+                <a href="mailto:teamsathithya@gmail.com" className="hover:text-[#b8860b] transition">
+                  teamsathithya@gmail.com
                 </a>
               </div>
             </div>
+
+            <div>
+              <a
+                href="mailto:teamsathithya@gmail.com"
+                className="inline-flex items-center gap-2 rounded-full px-8 py-3 text-white font-semibold shadow-lg shadow-[#d4af37]/20 transition transform hover:-translate-y-1 hover:shadow-xl
+                                bg-gradient-to-r from-[#b8860b] to-[#d4af37]
+                                hover:from-[#a67c00] hover:to-[#caa233]"
+              >
+                <span>Send us an Email</span>
+                <FiMail />
+              </a>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+
+      </div>
 
       {/* Profile Modal */}
       <Modal
@@ -300,20 +300,24 @@ export default function SpecialMentionsPage() {
         title={active ? `${active.name} – ${active.role}` : "Profile"}
       >
         {active && (
-          <div className="grid grid-cols-1 sm:grid-cols-[140px_1fr] gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-[160px_1fr] gap-6">
             <div className="w-full">
-              <img
-                src={active.img || fallbackImg}
-                alt={`${active.name} portrait`}
-                className="w-36 h-36 object-cover rounded-lg mx-auto sm:mx-0 ring-2 ring-[#f1d18a]"
-              />
+              <div className="relative rounded-xl overflow-hidden shadow-md ring-4 ring-[#f1d18a]/30">
+                <img
+                  src={active.img || fallbackImg}
+                  alt={`${active.name} portrait`}
+                  className="w-full h-auto object-cover aspect-square"
+                />
+              </div>
             </div>
-            <div>
-              <h4 className="text-xl font-semibold text-[#b8860b]">
+            <div className="flex flex-col justify-center">
+              <h4 className="text-2xl font-bold text-[#b8860b] mb-1">
                 {active.name}
               </h4>
-              <div className="text-sm text-gray-600 mb-3">{active.role}</div>
-              <p className="text-sm leading-relaxed text-gray-700">{active.bio}</p>
+              <div className="text-sm font-medium text-gray-500 uppercase tracking-widest mb-4 border-b border-[#f2e3b6] pb-2 inline-block">
+                {active.role}
+              </div>
+              <p className="text-base leading-relaxed text-gray-700">{active.bio}</p>
             </div>
           </div>
         )}
