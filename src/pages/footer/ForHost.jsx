@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import {
   FiHome,
@@ -8,172 +7,180 @@ import {
   FiShield,
   FiTrendingUp,
   FiStar,
+  FiCheckCircle,
+  FiMapPin,
+  FiActivity,
+  FiGlobe
 } from "react-icons/fi";
 
-const Section = ({ icon: Icon, title, children }) => (
-  <motion.section
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.4 }}
-    viewport={{ once: true }}
-    className="mb-10 text-left"
-  >
-    <h2 className="flex items-center gap-3 text-xl font-semibold text-[#C9A24D] mb-4 text-left">
-      <Icon className="text-[#C9A24D]" />
-      {title}
-    </h2>
-    <div className="text-gray-700 leading-relaxed text-sm space-y-4 text-left">
+/* --- Reusable Feature Card --- */
+const FeatureCard = ({ icon: Icon, title, children }) => (
+  <div className="bg-white p-6 rounded-2xl border border-[#f2e3b6] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 h-full flex flex-col items-start text-left group">
+    <div className="p-3 rounded-xl bg-[#fff9e6] text-[#b8860b] mb-4 group-hover:bg-[#b8860b] group-hover:text-white transition-colors">
+      <Icon size={24} />
+    </div>
+    <h3 className="text-xl font-bold text-[#b8860b] mb-3">{title}</h3>
+    <div className="text-gray-600 leading-relaxed text-sm flex-grow">
       {children}
     </div>
-  </motion.section>
+  </div>
+);
+
+/* --- Category List Item --- */
+const CategoryItem = ({ title, items }) => (
+  <div className="bg-white/60 backdrop-blur-md rounded-2xl p-6 border border-[#f2e3b6] shadow-sm hover:shadow-md transition duration-300">
+    <h4 className="font-bold text-lg text-[#b8860b] mb-4 flex items-center gap-2">
+      <FiCheckCircle className="shrink-0" />
+      {title}
+    </h4>
+    <ul className="space-y-3">
+      {items.map((item, idx) => (
+        <li key={idx} className="flex items-start text-sm text-gray-700">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#d4af37] mt-1.5 mr-2 shrink-0"></span>
+          {item}
+        </li>
+      ))}
+    </ul>
+  </div>
 );
 
 export default function ForHost() {
   const navigate = useNavigate();
+
   return (
-    <div className="bg-white min-h-screen px-4 py-10 mt-12">
-      <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-md border border-gray-100 p-8 sm:p-12">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="mb-10 border-b pb-6"
-        >
-          <div className="flex justify-between items-start flex-wrap gap-4">
-            <h1 className="text-3xl font-bold text-[#C9A24D]">
-              For Hosts
-            </h1>
+    <main className="min-h-screen bg-linear-to-b from-white via-[#fffaf3] to-white text-gray-800">
+
+      {/* HEADER SPLASH */}
+      <section className="pt-24 pb-12 text-center relative overflow-hidden px-4">
+        {/* Decorative background element */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#fff6dc] rounded-full blur-3xl -z-10 opacity-60"></div>
+
+        <div className="inline-block px-6 py-2 mb-6 rounded-full bg-white text-sm font-semibold tracking-wider uppercase shadow-md border border-[#d4af37] text-[#b8860b]">
+          Become a Host
+        </div>
+        <h1 className="text-4xl md:text-6xl font-bold text-[#b8860b] mb-6 tracking-tight">Turn Your Passion Into Income</h1>
+        <p className="max-w-3xl mx-auto text-lg text-gray-600 leading-relaxed">
+          At Athithya, we believe every local has a story, a skill, or a space
+          that can inspire a traveller’s journey. Turn what you love into memorable experiences with zero investment.
+        </p>
+      </section>
+
+      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-12 py-10 space-y-20 pb-24">
+
+        {/* SECTION 1: WHY HOST (Grid Layout) */}
+        <section>
+          <h2 className="text-3xl font-bold text-center text-[#5F5646] mb-12">Why Host on Athithya?</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <FeatureCard icon={FiDollarSign} title="Zero Investment">
+              Athithya empowers locals to earn from what they already have — their
+              space, skills, culture, and local knowledge — without investment or
+              the need to build an audience.
+            </FeatureCard>
+
+            <FeatureCard icon={FiHome} title="Monetize Your Assets">
+              From a spare room to a unique skill, local cuisine, adventure
+              expertise, or cultural knowledge — you can transform your local
+              strengths into a source of income without spending money or running ads.
+            </FeatureCard>
+
+            <FeatureCard icon={FiSettings} title="You Control Everything">
+              <ul className="space-y-1 mb-2 font-medium">
+                <li>• Your price</li>
+                <li>• Your timings</li>
+                <li>• Your rules</li>
+              </ul>
+              No boss. No targets. No pressure. Host full-time, part-time,
+              weekends-only, or seasonally — completely on your terms.
+            </FeatureCard>
+
+            <FeatureCard icon={FiShield} title="Secure & Verified">
+              Athithya ensures secure payments, identity verification, and
+              transparent processes so you can focus on hosting — not worrying.
+            </FeatureCard>
+
+            <FeatureCard icon={FiTrendingUp} title="Free Marketing">
+              We bring travellers to you. You don’t need to spend a single rupee on
+              advertising — Athithya handles discovery, visibility, and reach.
+            </FeatureCard>
+
+            <FeatureCard icon={FiStar} title="Easy to Start">
+              <ul className="space-y-1 mb-2 font-medium">
+                <li>• List your stay or experience in minutes</li>
+                <li>• No contracts</li>
+                <li>• No investment</li>
+                <li>• No complexity</li>
+              </ul>
+              Start earning as travellers accept your invitations.
+            </FeatureCard>
           </div>
-          <p className="text-gray-700 text-sm mt-6">
-            At Athithya, we believe every local has a story, a skill, or a space
-            that can inspire a traveller’s journey. Whether you’re a homestay
-            owner, have a spare room, cook authentic local dishes, guide treks,
-            run adventure activities, create cultural experiences, host events,
-            or simply know your place better than Google Maps — Athithya welcomes
-            you to turn what you love into memorable experiences while earning
-            income with zero investment.
-          </p>
-        </motion.div>
+        </section>
 
-        {/* Why Host */}
-        <Section icon={FiDollarSign} title="Why Host on Athithya?">
-          <p>
-            Athithya empowers locals to earn from what they already have — their
-            space, skills, culture, and local knowledge — without investment or
-            the need to build an audience.
-          </p>
-        </Section>
+        {/* SECTION 2: WHAT CAN YOU HOST */}
+        <section className="relative">
+          <div className="absolute inset-0 bg-[#fff9e6] -skew-y-1 -z-10 rounded-3xl transform scale-105 opacity-50"></div>
 
-        <Section icon={FiHome} title="Earn From What You Already Have">
-          <p>
-            From a spare room to a unique skill, local cuisine, adventure
-            expertise, or cultural knowledge — you can transform your local
-            strengths into a source of income without spending money or running
-            ads.
-          </p>
-        </Section>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-[#5F5646]">What Can You Host?</h2>
+            <p className="text-gray-500 mt-2">If it’s authentic and adds value, you can host it.</p>
+          </div>
 
-        <Section icon={FiSettings} title="You Control Everything">
-          <ul className="list-disc pl-5 space-y-1">
-            <li>Your price</li>
-            <li>Your timings</li>
-            <li>Your rules</li>
-          </ul>
-          <p>
-            No boss. No targets. No pressure. Host full-time, part-time,
-            weekends-only, or seasonally — completely on your terms.
-          </p>
-        </Section>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <CategoryItem
+              title="Local Stays"
+              items={['Homestays', 'Village stays', 'Farm stays', 'Unique accommodations']}
+            />
+            <CategoryItem
+              title="Experiences"
+              items={['Cooking classes', 'Cultural walks', 'Workshops, art & music', 'Local traditions']}
+            />
+            <CategoryItem
+              title="Adventures"
+              items={['Trekking & Camping', 'Rafting', 'Nature trails', 'Paragliding, kayaking']}
+            />
+            <CategoryItem
+              title="Services"
+              items={['Commute & pick-up drops', 'Bike rentals', 'Custom travel trips', 'Guided tours']}
+            />
+          </div>
 
-        <Section icon={FiShield} title="Secure Payments & Verified Guests">
-          <p>
-            Athithya ensures secure payments, identity verification, and
-            transparent processes so you can focus on hosting — not worrying.
-          </p>
-        </Section>
+          <div className="mt-8 text-center">
+            <p className="inline-block px-6 py-2 bg-white rounded-full border border-[#d4af37] text-[#b8860b] font-medium text-sm shadow-sm">
+              <FiGlobe className="inline mr-2 mb-0.5" />
+              Anything authentic & local that adds value to a traveller’s journey.
+            </p>
+          </div>
+        </section>
 
-        <Section icon={FiTrendingUp} title="Free Marketing & Exposure">
-          <p>
-            We bring travellers to you. You don’t need to spend a single rupee on
-            advertising — Athithya handles discovery, visibility, and reach.
-          </p>
-        </Section>
+        {/* SECTION 3: CTA */}
+        <section className="text-center">
+          <div className="bg-gradient-to-br from-[#b8860b] to-[#d4af37] rounded-3xl p-10 md:p-16 text-white shadow-xl relative overflow-hidden">
+            {/* Texture bubbles */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-white opacity-10 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2"></div>
 
-        <Section icon={FiStar} title="Start Earning Now">
-          <ul className="list-disc pl-5 space-y-1">
-            <li>List your stay or experience in minutes</li>
-            <li>Start earning as travellers accept your invitations</li>
-            <li>No contracts</li>
-            <li>No investment</li>
-            <li>No complexity</li>
-          </ul>
-        </Section>
+            <div className="relative z-10">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Start Your Journey?</h2>
+              <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
+                You pick the price. You decide when to host. You keep the earnings.<br />
+                Join the community of locals shaping the future of travel.
+              </p>
 
-        {/* What Can You Host */}
-        <Section icon={FiHome} title="What Can You Host?">
-          <p><strong>Local Stays:</strong></p>
-          <ul className="list-disc pl-5 space-y-1">
-            <li>Homestays</li>
-            <li>Village stays</li>
-            <li>Farm stays</li>
-            <li>Unique accommodations</li>
-          </ul>
+              <button
+                onClick={() => navigate("?auth=signup&role=host")}
+                className="inline-flex items-center gap-2 bg-white text-[#b8860b] px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl hover:bg-gray-50 transform hover:-translate-y-1 transition-all duration-300"
+              >
+                <span>Be a Local Host</span>
+                <FiCheckCircle />
+              </button>
 
-          <p><strong>Experiences:</strong></p>
-          <ul className="list-disc pl-5 space-y-1">
-            <li>Cooking classes</li>
-            <li>Cultural walks</li>
-            <li>Workshops, art & music</li>
-          </ul>
+              <p className="mt-6 text-sm opacity-70">
+                Empowering locals. Creating meaningful travel experiences.
+              </p>
+            </div>
+          </div>
+        </section>
 
-          <p><strong>Adventure Activities:</strong></p>
-          <ul className="list-disc pl-5 space-y-1">
-            <li>Trekking</li>
-            <li>Rafting</li>
-            <li>Camping</li>
-            <li>Paragliding, kayaking, bungee jumping</li>
-          </ul>
-
-          <p><strong>Guided Experiences:</strong></p>
-          <ul className="list-disc pl-5 space-y-1">
-            <li>City tours</li>
-            <li>Heritage walks</li>
-            <li>Nature trails</li>
-          </ul>
-
-          <p><strong>Local Services:</strong></p>
-          <ul className="list-disc pl-5 space-y-1">
-            <li>Commute & pick-up drops</li>
-            <li>Bike rentals</li>
-            <li>Custom travel trips</li>
-          </ul>
-
-          <p>
-            <strong>Anything authentic & local:</strong>
-            If it’s genuine and adds value to a traveller’s journey, you can host it.
-          </p>
-
-          <p>
-            You pick the price. You decide when to host. You keep the earnings.
-          </p>
-        </Section>
-
-        {/* CTA */}
-        <div className="mt-16 text-center text-sm font-medium text-[#C9A24D]">
-          Still thinking? <br />
-          <span
-            onClick={() => navigate("?auth=signup&role=host")}
-            className="font-bold underline cursor-pointer hover:text-[#b08d42]"
-          >
-            Be a Local Host at Athithya.
-          </span>
-        </div>
-
-        {/* Footer */}
-        <div className="mt-6 text-center text-xs text-gray-500">
-          Empowering locals. Creating meaningful travel experiences.
-        </div>
       </div>
-    </div>
+    </main>
   );
 }
