@@ -120,7 +120,7 @@ export default function HelpSupportPage() {
 
         {/* Single contact card (For Users only) */}
         <div className="mx-auto mb-10">
-          <ContactCard label="For Users" person={USER_CONTACT} />
+          <ContactCard label="" person={USER_CONTACT} />
         </div>
 
         <div

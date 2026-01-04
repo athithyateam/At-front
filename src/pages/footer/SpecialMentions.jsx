@@ -236,7 +236,7 @@ export default function SpecialMentionsPage() {
           <div className="lg:col-span-1">
             <div className="border border-[#f1d18a] rounded-xl p-4 bg-white shadow-lg flex items-center justify-center">
               <img
-                src="/travel-1.jpg"
+                src="/images/travel-1.jpg"
                 alt="Team moment"
                 className="w-full h-auto object-cover rounded-lg"
               />
