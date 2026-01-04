@@ -11,9 +11,9 @@ import { FaInstagram } from "react-icons/fa";
 
 const videos = [
   "/videos/vid-1.mp4",
-  "/videos/vid-2.mp4",
-  "/videos/vid-3.mp4",
   "/videos/vid-4.mp4",
+  "/videos/vid-3.mp4",
+  "/videos/vid-2.mp4",
 ];
 
 export default function InstagramSection() {
