@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   FiChevronUp,
   FiChevronDown,
@@ -10,19 +10,15 @@ import {
 import { FaInstagram } from "react-icons/fa";
 
 const videos = [
-  "/videos/vid-1.mp4",
-  "/videos/vid-4.mp4",
-  "/videos/vid-3.mp4",
-  "/videos/vid-2.mp4",
+  "https://res.cloudinary.com/dvjqisuve/video/upload/v1767498305/VID_20251230_214829_526_ikpjq1.mp4",
+  "https://res.cloudinary.com/dvjqisuve/video/upload/v1767498291/VID_20251230_215130_987_whwlii.mp4",
+  "https://res.cloudinary.com/dvjqisuve/video/upload/v1767498383/VID_20251230_214409_788_brfdrg.mp4",
+  "https://res.cloudinary.com/dvjqisuve/video/upload/v1767498309/VID_20251230_215217_616_ey2flb.mp4",
 ];
 
 export default function InstagramSection() {
   const [index, setIndex] = useState(0);
   const autoRef = useRef(null);
-  const containerRef = useRef(null);
-
-  // Safe Lazy Load: Triggers once when 20% of the element is visible.
-  const isInView = useInView(containerRef, { once: true, amount: 0.2 });
 
   useEffect(() => {
     startAuto();
@@ -113,7 +109,6 @@ export default function InstagramSection() {
         {/* LEFT: Phone */}
         <div className="flex justify-center w-full md:w-2/5">
           <div
-            ref={containerRef}
             className="relative rounded-[28px] bg-black shadow-xl"
             style={{
               width: "clamp(240px, 70vw, 300px)",
@@ -128,24 +123,22 @@ export default function InstagramSection() {
             {/* Screen */}
             <div className="absolute inset-1.5 rounded-[22px] bg-black overflow-hidden">
               <AnimatePresence initial={false} mode="popLayout">
-                {isInView && (
-                  <motion.video
-                    key={index}
-                    src={videos[index]}
-                    playsInline
-                    autoPlay
-                    muted
-                    loop
-                    className="absolute inset-0 w-full h-full object-cover"
-                    initial={{ y: "100%" }}
-                    animate={{ y: "0%" }}
-                    exit={{ y: "-100%" }}
-                    transition={{
-                      duration: 0.5,
-                      ease: [0.25, 0.8, 0.25, 1],
-                    }}
-                  />
-                )}
+                <motion.video
+                  key={index}
+                  src={videos[index]}
+                  playsInline
+                  autoPlay
+                  muted
+                  loop
+                  className="absolute inset-0 w-full h-full object-cover"
+                  initial={{ y: "100%" }}
+                  animate={{ y: "0%" }}
+                  exit={{ y: "-100%" }}
+                  transition={{
+                    duration: 0.5,
+                    ease: [0.25, 0.8, 0.25, 1],
+                  }}
+                />
               </AnimatePresence>
 
               {/* up/down buttons */}
@@ -196,7 +189,6 @@ export default function InstagramSection() {
             <img
               src="/images/insta-bg.jpg"
               alt="Pointing to Instagram phone"
-              loading="lazy"
               className="w-full h-auto max-h-[520px] object-contain"
             />
 
@@ -219,7 +211,6 @@ export default function InstagramSection() {
                   <img
                     src={m.img}
                     alt={`marker-${m.id}`}
-                    loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
                   />
                 </div>
