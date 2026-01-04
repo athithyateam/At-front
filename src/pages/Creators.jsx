@@ -55,7 +55,7 @@ export default function CreatorsPage() {
               <img
                 src={creator1}
                 alt="Creator 1"
-                className="w-full h-[350px] object-cover rounded-xl grayscale hover:grayscale-0 transition-all duration-500"
+                className="w-full h-[350px] object-cover rounded-xl filter grayscale-0 hover:grayscale transition-all duration-500"
               />
             </div>
           </motion.div>
@@ -95,7 +95,7 @@ export default function CreatorsPage() {
               <img
                 src={creator2}
                 alt="Creator 2"
-                className="w-full h-[350px] object-cover rounded-xl grayscale hover:grayscale-0 transition-all duration-500"
+                className="w-full h-[350px] object-cover rounded-xl filter grayscale-0 hover:grayscale transition-all duration-500"
               />
             </div>
           </motion.div>
@@ -138,7 +138,7 @@ export default function CreatorsPage() {
               <img
                 src={creator3}
                 alt="Creator 3"
-                className="w-full h-full min-h-[300px] md:min-h-[400px] object-cover rounded-xl grayscale hover:grayscale-0 transition-all duration-500"
+                className="w-full h-full min-h-[300px] md:min-h-[400px] object-cover rounded-xl filter grayscale-0 hover:grayscale transition-all duration-500"
               />
             </div>
           </motion.div>
