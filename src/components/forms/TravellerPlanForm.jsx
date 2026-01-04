@@ -320,8 +320,8 @@ export default function TravellerPlanForm({ editId }) {
     fd.append("description", description);
     fd.append("planName", planName);
     fd.append("location", JSON.stringify(location));
-    fd.append("duration", JSON.stringify({ days, nights }));
-    fd.append("capacity", JSON.stringify({ maxPeople }));
+    fd.append("duration", JSON.stringify({ days: Number(days || 1), nights: Number(nights || 0) }));
+    fd.append("capacity", JSON.stringify({ maxPeople: Number(maxPeople || 1) }));
     fd.append(
       "price",
       JSON.stringify({
@@ -346,7 +346,8 @@ export default function TravellerPlanForm({ editId }) {
     );
 
     fd.append("status", "active");
-    fd.append("userRole", "traveller");
+    fd.append("userRole", "guest");
+    fd.append("isFeatured", JSON.stringify(false));
 
     // Flatten location fields for safety
     if (location.city) fd.append("city", location.city);
