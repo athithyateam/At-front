@@ -55,7 +55,7 @@ export default function InstagramSection() {
       top: "30%",
       left: "31.5%",
       img: "https://res.cloudinary.com/dvjqisuve/image/upload/v1762853288/IMG-20251108-WA0038_kcm8vg.jpg",
-      link: "https://www.instagram.com/p/DQ_vDbskyUU/?img_index=2",
+      link: "https://www.instagram.com/reel/DP8_y7EEhke/?igsh=MTFqaW95cjdveXV3eQ==",
       size: 250,
     },
     {
@@ -63,7 +63,7 @@ export default function InstagramSection() {
       top: "14.3%",
       left: "73.5%",
       img: "https://res.cloudinary.com/dvjqisuve/image/upload/v1762853138/24b96e84-d874-43e6-8022-3dd5d8ff8052_odf2lg.jpg",
-      link: "https://www.instagram.com/p/DQJj4diEpcz/?img_index=6",
+      link: "https://www.instagram.com/reel/DPZUrgzAL0P/?igsh=NTN1a3kzZmJ2Y2F6",
       size: 200,
     },
     {
@@ -71,7 +71,7 @@ export default function InstagramSection() {
       top: "85.7%",
       left: "43%",
       img: "https://res.cloudinary.com/dvjqisuve/image/upload/v1762853301/IMG-20251108-WA0029_f93xn9.jpg",
-      link: "https://www.instagram.com/p/DQb_GFbEyoV/",
+      link: "https://www.instagram.com/reel/DQmSTh0CHpQ/?igsh=bTBvZTgwNGZydHM=",
       size: 170,
     },
     {
@@ -79,7 +79,7 @@ export default function InstagramSection() {
       top: "65.6%",
       left: "85%",
       img: "https://res.cloudinary.com/dvjqisuve/image/upload/v1762853151/c5a0b2f2-2382-47d4-98fc-1dd2e3d63051_vpfetu.jpg",
-      link: "https://www.instagram.com/p/DRCCxU-kiDS/",
+      link: "https://www.instagram.com/reel/DSXleUlkkpl/?igsh=YXZkYWc5eXR4eDY0",
       size: 190,
     },
   ];
