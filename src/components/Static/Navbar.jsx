@@ -248,13 +248,29 @@ export default function Navbar() {
                 </button>
               </>
             ) : (
-              <button
-                onClick={() => setShowAuth(true)}
-                className="cursor-pointer flex items-center gap-2 px-5 py-2 bg-[#C59A2F] text-white rounded shadow-lg"
-              >
-                <FiUser />
-                Login / Sign up
-              </button>
+              <>
+                {/* Desktop: Login Button */}
+                <button
+                  onClick={() => setShowAuth(true)}
+                  className="hidden md:flex cursor-pointer items-center gap-2 px-5 py-2 bg-[#C59A2F] text-white rounded shadow-lg"
+                >
+                  <FiUser />
+                  Login / Sign up
+                </button>
+
+                {/* Mobile: Hamburger Menu */}
+                <button
+                  onClick={() => setSidebarOpen(true)}
+                  className={`md:hidden w-9 h-9 rounded-full flex items-center justify-center transition ${isHome
+                    ? scrolled
+                      ? "border border-[#C59A2F] text-[#C59A2F]"
+                      : "border border-white/80 text-white"
+                    : "border border-[#C59A2F] text-[#C59A2F]"
+                    }`}
+                >
+                  <RxHamburgerMenu size={18} />
+                </button>
+              </>
             )}
           </div>
         </div>

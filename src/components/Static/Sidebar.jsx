@@ -59,37 +59,39 @@ export default function Sidebar({ isOpen, onClose }) {
                             )}
 
                             <nav className="flex flex-col space-y-1">
-                                {/* Main Features */}
-                                <SidebarLink
-                                    to="/explore"
-                                    label="Explore"
-                                    icon={<MdExplore size={20} />}
-                                    onClose={onClose}
-                                />
-                                <SidebarLink
-                                    to="/connect"
-                                    label="Connect"
-                                    icon={<FaUserFriends size={20} />}
-                                    onClose={onClose}
-                                />
-                                <SidebarLink
-                                    to="/chat"
-                                    label="Messages"
-                                    icon={<MdMessage size={20} />}
-                                    onClose={onClose}
-                                />
+                                {/* Main Features - Only for Logged In Users */}
                                 {user && (
-                                    <SidebarLink
-                                        to={`/profile/${user._id}`}
-                                        label="Profile"
-                                        icon={<MdPerson size={20} />}
-                                        onClose={onClose}
-                                    />
+                                    <>
+                                        <SidebarLink
+                                            to="/explore"
+                                            label="Explore"
+                                            icon={<MdExplore size={20} />}
+                                            onClose={onClose}
+                                        />
+                                        <SidebarLink
+                                            to="/connect"
+                                            label="Connect"
+                                            icon={<FaUserFriends size={20} />}
+                                            onClose={onClose}
+                                        />
+                                        <SidebarLink
+                                            to="/chat"
+                                            label="Messages"
+                                            icon={<MdMessage size={20} />}
+                                            onClose={onClose}
+                                        />
+                                        <SidebarLink
+                                            to={`/profile/${user._id}`}
+                                            label="Profile"
+                                            icon={<MdPerson size={20} />}
+                                            onClose={onClose}
+                                        />
+
+                                    </>
                                 )}
 
                                 {/* Secondary Links - Visible only on mobile where Navbar links are hidden */}
                                 <div className="md:hidden">
-                                    <div className="my-2 border-t border-gray-100" />
                                     <SidebarLink to="/host" label="For Host" onClose={onClose} />
                                     <SidebarLink to="/creators" label="For Creators" onClose={onClose} />
                                     <SidebarLink to="/about" label="About Us" onClose={onClose} />
