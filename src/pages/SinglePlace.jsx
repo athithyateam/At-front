@@ -181,7 +181,7 @@ export default function SinglePlace() {
                   >
                     {/* Title + stars */}
                     <h1
-                      className="text-3xl md:text-4xl font-bold mb-3 italic"
+                      className="text-3xl md:text-4xl font-bold mb-3"
                       style={{ color: COLORS.text }}
                     >
                       {place.name} — {place.tagline}
@@ -202,7 +202,7 @@ export default function SinglePlace() {
 
                     {/* Description */}
                     <p
-                      className="text-base leading-relaxed mb-6 italic"
+                      className="text-base leading-relaxed mb-6"
                       style={{ color: COLORS.text }}
                     >
                       {place.description}
