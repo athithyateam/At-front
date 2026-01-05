@@ -1,7 +1,7 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
-import { MdClose, MdLogout, MdExplore, MdMessage, MdPerson, MdGroups } from "react-icons/md";
+import { MdClose, MdLogout, MdExplore, MdMessage, MdPerson, MdGroups, MdInfo, MdSecurity, MdHelp, MdBusiness } from "react-icons/md";
 import { FaUserFriends } from "react-icons/fa";
 import { useAuth } from "../../context/AuthContext";
 
@@ -103,6 +103,41 @@ export default function Sidebar({ isOpen, onClose }) {
                                         />
 
 
+                                    </>
+                                )}
+
+                                {!user && (
+                                    <>
+                                        <SidebarLink
+                                            to="/about"
+                                            label="About Us"
+                                            icon={<MdInfo size={20} />}
+                                            onClose={onClose}
+                                        />
+                                        <SidebarLink
+                                            to="/host"
+                                            label="For Host"
+                                            icon={<MdBusiness size={20} />}
+                                            onClose={onClose}
+                                        />
+                                        <SidebarLink
+                                            to="/creators"
+                                            label="For Creator"
+                                            icon={<MdGroups size={20} />}
+                                            onClose={onClose}
+                                        />
+                                        <SidebarLink
+                                            to="/safety"
+                                            label="Safety"
+                                            icon={<MdSecurity size={20} />}
+                                            onClose={onClose}
+                                        />
+                                        <SidebarLink
+                                            to="/support"
+                                            label="Help & Support"
+                                            icon={<MdHelp size={20} />}
+                                            onClose={onClose}
+                                        />
                                     </>
                                 )}
 

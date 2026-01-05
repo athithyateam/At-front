@@ -251,7 +251,7 @@ export default function Navbar() {
                 {/* Mobile: Hamburger Menu */}
                 <button
                   onClick={() => setSidebarOpen(true)}
-                  className={`md:hidden w-9 h-9 rounded-full flex items-center justify-center transition ${isHome
+                  className={`w-9 h-9 rounded-full flex items-center justify-center transition ${isHome
                     ? scrolled
                       ? "border border-[#C59A2F] text-[#C59A2F]"
                       : "border border-white/80 text-white"
