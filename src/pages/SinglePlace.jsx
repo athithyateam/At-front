@@ -350,16 +350,16 @@ export default function SinglePlace() {
                       safe, authentic and memorable.
                     </p>
 
-                    <div className="flex gap-4 overflow-x-auto pb-2 -mx-1 px-1">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {HOSTS.map((host) => (
                         <div
                           key={host.name}
-                          className="min-w-[230px] max-w-[260px] rounded-lg border bg-white shadow-sm p-4 flex flex-col justify-between"
+                          className="rounded-lg border bg-white shadow-sm p-4 flex flex-col justify-between text-left"
                           style={{ borderColor: COLORS.border }}
                         >
                           <div>
                             <div className="flex items-center justify-between mb-2">
-                              <h3 className="font-semibold text-base">
+                              <h3 className="font-semibold text-base text-left">
                                 {host.name}
                               </h3>
                               <span
@@ -373,19 +373,19 @@ export default function SinglePlace() {
                               </span>
                             </div>
                             <p
-                              className="text-xs mb-1"
+                              className="text-xs mb-1 text-left"
                               style={{ color: COLORS.muted }}
                             >
                               {host.role}
                             </p>
                             <p
-                              className="text-xs mb-2"
+                              className="text-xs mb-2 text-left"
                               style={{ color: COLORS.muted }}
                             >
                               {host.location}
                             </p>
                             <p
-                              className="text-xs"
+                              className="text-xs text-left"
                               style={{ color: COLORS.muted }}
                             >
                               {host.experience}
