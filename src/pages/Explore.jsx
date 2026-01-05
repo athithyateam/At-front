@@ -34,6 +34,8 @@ const Explore = () => {
     id: slug,
   }));
 
+  console.log("Explore locations:", locations);
+
   const staysNear = [
     {
       image:
