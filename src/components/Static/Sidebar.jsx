@@ -56,20 +56,24 @@ export default function Sidebar({ isOpen, onClose }) {
                                     className="flex items-center gap-3 px-6 mb-6 p-2 rounded-xl hover:bg-gray-50 transition-colors group"
                                 >
                                     {/* Avatar Placeholder / Image */}
-                                    <div className="w-10 h-10 rounded-full bg-[#fae8b4] text-[#C59A2F] flex items-center justify-center font-bold text-lg border border-[#C59A2F]/30 shrink-0">
-                                        {user.avatar ? (
-                                            <img src={user.avatar} alt="avatar" className="w-full h-full object-cover rounded-full" />
+                                    <div className="w-10 h-10 rounded-full bg-[#fae8b4] text-[#C59A2F] flex items-center justify-center font-bold text-lg border border-[#C59A2F]/30 shrink-0 overflow-hidden">
+                                        {(typeof user.avatar === "string" ? user.avatar : user.avatar?.url) ? (
+                                            <img
+                                                src={typeof user.avatar === "string" ? user.avatar : user.avatar?.url}
+                                                alt="avatar"
+                                                className="w-full h-full object-cover"
+                                            />
                                         ) : (
-                                            (user.name?.charAt(0) || user.username?.charAt(0) || "U").toUpperCase()
+                                            (user.firstname?.charAt(0) || "U").toUpperCase()
                                         )}
                                     </div>
 
                                     <div className="overflow-hidden">
-                                        <div className="font-bold text-gray-900 truncate group-hover:text-[#C59A2F] transition-colors">
-                                            {user.name || user.username || "Traveler"}
+                                        <div className="font-bold text-gray-900 truncate group-hover:text-[#C59A2F] transition-colors capitalize">
+                                            {user.firstname} {user.lastname}
                                         </div>
-                                        <div className="text-xs text-gray-500 truncate font-medium">
-                                            {user.email || "View Profile"}
+                                        <div className="text-xs text-gray-500 truncate font-medium uppercase tracking-wider">
+                                            {user.role || "Traveler"}
                                         </div>
                                     </div>
                                 </Link>
