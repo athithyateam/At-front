@@ -27,11 +27,11 @@ import { placesData } from "../data/places";
 const Explore = () => {
   const navigate = useNavigate();
 
-  // Convert placesData object to an array for the top locations carousel
+  // Transform data for the carousel
   const locations = Object.entries(placesData).map(([slug, data]) => ({
     city: data.name,
     image: data.bannerImage,
-    id: slug, // use slug for navigation
+    id: slug,
   }));
 
   const staysNear = [

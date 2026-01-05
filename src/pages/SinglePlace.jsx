@@ -25,7 +25,6 @@ const COLORS = {
     "linear-gradient(180deg, rgba(212,160,23,0.95), rgba(212,160,23,0.9))",
 };
 
-// Removed "Reviews" from tabs as requested
 const TABS = [
   { key: "detail", label: "Detail" },
   { key: "photos", label: "Photos" },
@@ -34,7 +33,7 @@ const TABS = [
   { key: "hosts", label: "Hosts" },
 ];
 
-// Simple host data for the Hosts carousel (Static for now)
+// Initial static host data passed to the carousel
 const HOSTS = [
   {
     name: "Aditi Rawat",
@@ -63,14 +62,10 @@ export default function SinglePlace() {
   const { city } = useParams(); // Get ID from URL
   const [active, setActive] = useState(TABS[0].key);
 
-  // Find the place object from the JSON data
-  // Fallback to "chopta" if ID not found, or could show a "Not Found" component
+  // Retrieve location data based on URL parameter
   const place = placesData[city] || placesData["chopta"];
 
-  // If valid place found, use its data. If not found (and no fallback), we might want to return null/error.
-  // Proceeding with place (or fallback) for now.
-
-  // underline moving logic
+  // Logic for the animated tab underline
   const navRef = useRef(null);
   const [underline, setUnderline] = useState({ left: 0, width: 0 });
 
@@ -332,7 +327,7 @@ export default function SinglePlace() {
                   </motion.div>
                 )}
 
-                {/* ✅ HOSTS TAB: replaces FAQ, shows horizontal "carousel" of hosts */}
+                {/* Hosts Tab */}
                 {active === "hosts" && (
                   <motion.div
                     key="hosts"
