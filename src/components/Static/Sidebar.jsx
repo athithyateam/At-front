@@ -107,25 +107,21 @@ export default function Sidebar({ isOpen, onClose }) {
                                 )}
 
                                 {/* Secondary Links */}
+                                {/* Secondary Links - REMOVED */
+                                /* 
                                 <SidebarLink to="/host" label="For Host" onClose={onClose} />
                                 <SidebarLink to="/creators" label="For Creators" onClose={onClose} />
                                 <SidebarLink to="/about" label="About Us" onClose={onClose} />
-
                                 <SidebarLink to="/safety" label="Safety" onClose={onClose} />
-                                <SidebarLink to="/support" label="Help & Support" onClose={onClose} />
+                                <SidebarLink to="/support" label="Help & Support" onClose={onClose} /> 
+                                */}
                             </nav>
                         </div>
 
                         {/* Footer / Logout */}
                         {user ? (
                             <div className="p-5 border-t border-gray-100">
-                                <button
-                                    onClick={handleLogout}
-                                    className="flex items-center gap-3 w-full px-4 py-3 text-red-600 hover:bg-red-50 rounded-xl transition-all font-medium"
-                                >
-                                    <MdLogout size={20} />
-                                    Logout
-                                </button>
+                                {/* Logout Removed */}
                             </div>
                         ) : (
                             <div className="p-5 border-t border-gray-100">

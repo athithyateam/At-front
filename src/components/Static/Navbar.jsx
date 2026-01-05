@@ -126,18 +126,8 @@ export default function Navbar() {
             />
           </Link>
 
-          {/* CENTER LINKS (hidden on small screens) */}
-          <div className="hidden md:flex items-center gap-8">
-            <Link to="/host" className={centerLinkStyle("/host")}>
-              For Host
-            </Link>
-            <Link to="/creators" className={centerLinkStyle("/creators")}>
-              For Creators
-            </Link>
-            <Link to="/about" className={centerLinkStyle("/about")}>
-              About Us
-            </Link>
-          </div>
+          {/* CENTER LINKS (hidden on small screens) - REMOVED */
+          /* <div className="hidden md:flex items-center gap-8"> ... </div> */}
 
           {/* RIGHT ACTIONS */}
           <div className="flex items-center gap-5">
