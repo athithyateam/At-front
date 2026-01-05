@@ -407,7 +407,7 @@ export default function SinglePlace() {
 
             {/* RIGHT - sticky sidebar (unchanged from your latest version) */}
             <aside className="relative">
-              <div className="lg:sticky top-28 space-y-4 -mt-16">
+              <div className="lg:sticky top-28 space-y-4">
                 <div
                   style={{
                     backgroundColor: COLORS.white,
