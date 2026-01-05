@@ -68,11 +68,11 @@ export default function Sidebar({ isOpen, onClose }) {
                                         )}
                                     </div>
 
-                                    <div className="overflow-hidden flex flex-col justify-center">
+                                    <div className="overflow-hidden flex flex-col justify-center items-start text-left">
                                         <div className="font-bold text-gray-900 truncate group-hover:text-[#C59A2F] transition-colors capitalize leading-tight">
                                             {user.firstname} {user.lastname}
                                         </div>
-                                        <div className="text-[10px] font-bold text-[#C59A2F] uppercase tracking-wider mt-0.5">
+                                        <div className="text-[10px] font-bold text-[#C59A2F] uppercase tracking-wider mt-0.5 text-left">
                                             {user.role || "Traveler"}
                                         </div>
                                     </div>
@@ -106,12 +106,10 @@ export default function Sidebar({ isOpen, onClose }) {
                                     </>
                                 )}
 
-                                {/* Secondary Links - Visible only on mobile where Navbar links are hidden */}
-                                <div className="md:hidden">
-                                    <SidebarLink to="/host" label="For Host" onClose={onClose} />
-                                    <SidebarLink to="/creators" label="For Creators" onClose={onClose} />
-                                    <SidebarLink to="/about" label="About Us" onClose={onClose} />
-                                </div>
+                                {/* Secondary Links */}
+                                <SidebarLink to="/host" label="For Host" onClose={onClose} />
+                                <SidebarLink to="/creators" label="For Creators" onClose={onClose} />
+                                <SidebarLink to="/about" label="About Us" onClose={onClose} />
 
                                 <SidebarLink to="/safety" label="Safety" onClose={onClose} />
                                 <SidebarLink to="/support" label="Help & Support" onClose={onClose} />
