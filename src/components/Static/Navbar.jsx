@@ -239,14 +239,7 @@ export default function Navbar() {
               </>
             ) : (
               <>
-                {/* Desktop: Login Button */}
-                <button
-                  onClick={() => setShowAuth(true)}
-                  className="hidden md:flex cursor-pointer items-center gap-2 px-5 py-2 bg-[#C59A2F] text-white rounded shadow-lg"
-                >
-                  <FiUser />
-                  Login / Sign up
-                </button>
+
 
                 {/* Mobile: Hamburger Menu */}
                 <button
