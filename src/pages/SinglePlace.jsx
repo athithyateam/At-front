@@ -449,7 +449,7 @@ export default function SinglePlace() {
                   >
                     <h4
                       style={{ color: COLORS.text }}
-                      className="font-semibold text-lg"
+                      className="font-semibold text-lg text-left"
                     >
                       Why Choose Athithya?
                     </h4>
