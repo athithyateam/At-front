@@ -63,7 +63,7 @@ export default function SinglePlace() {
   const [active, setActive] = useState(TABS[0].key);
 
   // Retrieve location data based on URL parameter
-  const place = placesData[city] || placesData["chopta"];
+  const place = placesData.find((p) => p.id === city) || placesData[0];
 
   // Logic for the animated tab underline
   const navRef = useRef(null);

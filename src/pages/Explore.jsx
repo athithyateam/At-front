@@ -28,10 +28,11 @@ const Explore = () => {
   const navigate = useNavigate();
 
   // Transform data for the carousel
-  const locations = Object.entries(placesData).map(([slug, data]) => ({
+  // Transform data for the carousel
+  const locations = placesData.map((data) => ({
     city: data.name,
     image: data.bannerImage,
-    id: slug,
+    id: data.id,
   }));
 
   console.log("Explore locations:", locations);
