@@ -5,7 +5,7 @@ export const placesData = {
         description:
             "Chopta is a picturesque hamlet which is still unexplored by travelers. It is famous for its meadows and evergreen forest area which is part of Kedarnath wildlife sanctuary not to be confused with Chopta village. It is the base for trekking to Tungnath, the third temple of Panch Kedar, which lies 3.5 km away.",
         bannerImage:
-            "https://images.unsplash.com/photo-1626084478175-1c39a8596ac0?q=80&w=2070&auto=format&fit=crop",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Chopta_Meadows.jpg/1280px-Chopta_Meadows.jpg",
         highlights: [
             "Trek to Tungnath (World's Highest Shiva Temple)",
             "Chandrashila Summit View",
@@ -15,9 +15,9 @@ export const placesData = {
         importantInfo:
             "Electricity is limited in Chopta. Carry power banks. ATMs are available only in Ukhimath (30km away).",
         photos: [
-            "https://images.unsplash.com/photo-1626084478175-1c39a8596ac0?q=80&w=2070&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1662973163765-5c12030d9272?q=80&w=2070&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1599596147684-2a13cc7f3479?q=80&w=2070&auto=format&fit=crop",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Chopta_Meadows.jpg/1280px-Chopta_Meadows.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Tungnath_Temple.jpg/1280px-Tungnath_Temple.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Chandrashila_Summit.jpg/1280px-Chandrashila_Summit.jpg",
         ],
         plans: [
             "Arrival at Sari Village / Chopta Base Camp.",
@@ -34,7 +34,7 @@ export const placesData = {
         description:
             "Kedarnath is one of the most sacred pilgrimages of Lord Shiva situated in Rudraprayag district of Garhwal region in Uttarakhand. Kedarnath is one of the Char Dhams in the Himalayas and is flanked by breathtaking snow-clad peaks.",
         bannerImage:
-            "https://images.unsplash.com/photo-1599596147684-2a13cc7f3479?q=80&w=2070&auto=format&fit=crop",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Kedarnath_Temple_in_Rainy_season.jpg/1280px-Kedarnath_Temple_in_Rainy_season.jpg",
         highlights: [
             "Kedarnath Temple Darshan",
             "Bhairavnath Temple",
@@ -44,9 +44,9 @@ export const placesData = {
         importantInfo:
             "Biometric registration is mandatory. Carry warm woolen clothes even in summer. Medical fitness certificate may be required.",
         photos: [
-            "https://images.unsplash.com/photo-1599596147684-2a13cc7f3479?q=80&w=2070&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1689791475735-a13437aa831b?q=80&w=2071&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1626084478175-1c39a8596ac0?q=80&w=2070&auto=format&fit=crop",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Kedarnath_Temple_in_Rainy_season.jpg/1280px-Kedarnath_Temple_in_Rainy_season.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Kedarnath_Temple%2C_Uttarakhand.jpg/1280px-Kedarnath_Temple%2C_Uttarakhand.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Kedarnath_Aerial_View.jpg/1280px-Kedarnath_Aerial_View.jpg",
         ],
         plans: [
             "Drive from Haridwar/Rishikesh to Guptkashi/Sonprayag.",
@@ -63,7 +63,7 @@ export const placesData = {
         description:
             "Gateway to the Garhwal Himalayas, Rishikesh is a city in India’s northern state of Uttarakhand, beside the Ganges River. The river is considered holy, and the city is renowned as a center for studying yoga and meditation.",
         bannerImage:
-            "https://images.unsplash.com/photo-1667468536034-78326e06b9b3?q=80&w=2070&auto=format&fit=crop",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Ram_Jhula_Rishikesh.jpg/1280px-Ram_Jhula_Rishikesh.jpg",
         highlights: [
             "River Rafting in Ganga",
             "Ganga Aarti at Triveni Ghat",
@@ -73,9 +73,9 @@ export const placesData = {
         importantInfo:
             "Alcohol and non-vegetarian food are strictly prohibited in Rishikesh town limits.",
         photos: [
-            "https://images.unsplash.com/photo-1667468536034-78326e06b9b3?q=80&w=2070&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1596020564619-354aa009b7eb?q=80&w=2070&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1662973163765-5c12030d9272?q=80&w=2070&auto=format&fit=crop",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Ram_Jhula_Rishikesh.jpg/1280px-Ram_Jhula_Rishikesh.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Rishikesh_Ganga_Aarti.jpg/1280px-Rishikesh_Ganga_Aarti.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Rafting_in_Rishikesh.jpg/1280px-Rafting_in_Rishikesh.jpg",
         ],
         plans: [
             "Arrival in Rishikesh, check-in to camp/hotel.",
@@ -92,7 +92,7 @@ export const placesData = {
         description:
             "Auli is a Himalayan ski resort and hill station in the north Indian state of Uttarakhand. It consists of coniferous and oak forests, plus the Nar Parbat and Nanda Devi mountains are visible.",
         bannerImage:
-            "https://images.unsplash.com/photo-1707106069903-a189f7831d3d?q=80&w=2070&auto=format&fit=crop",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Auli_in_Winter.jpg/1280px-Auli_in_Winter.jpg",
         highlights: [
             "Skiing and Snowboarding",
             "Cable Car Ride (Asia's Longest)",
@@ -102,9 +102,9 @@ export const placesData = {
         importantInfo:
             "Roads can be blocked during heavy snowfall. Carry heavy woolens in winter (Dec-Feb).",
         photos: [
-            "https://images.unsplash.com/photo-1707106069903-a189f7831d3d?q=80&w=2070&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1550953259-7d848039df78?q=80&w=2070&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1590059392215-626a57e3f8df?q=80&w=1974&auto=format&fit=crop",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Auli_in_Winter.jpg/1280px-Auli_in_Winter.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Auli_Artificial_Lake.jpg/1280px-Auli_Artificial_Lake.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Auli_Skiing_Slopes.jpg/1280px-Auli_Skiing_Slopes.jpg",
         ],
         plans: [
             "Drive to Joshimath from Haridwar/Dehradun.",
@@ -121,7 +121,7 @@ export const placesData = {
         description:
             "Mussoorie is a hill station and a municipal board in the Dehradun district of the Indian state of Uttarakhand. It is located about 35 kilometres from the state capital of Dehradun.",
         bannerImage:
-            "https://images.unsplash.com/photo-1579623838271-92e106b12791?q=80&w=1974&auto=format&fit=crop",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Mussoorie_landscape.jpg/1280px-Mussoorie_landscape.jpg",
         highlights: [
             "Kempty Falls",
             "Gun Hill Viewpoint",
@@ -130,9 +130,9 @@ export const placesData = {
         ],
         importantInfo: "Weekends can be very crowded. Booking hotels in advance is recommended.",
         photos: [
-            "https://images.unsplash.com/photo-1579623838271-92e106b12791?q=80&w=1974&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?q=80&w=2070&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1605626245051-6899450c262f?q=80&w=2070&auto=format&fit=crop",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Mussoorie_landscape.jpg/1280px-Mussoorie_landscape.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Kempty_Falls_Mussoorie.jpg/1280px-Kempty_Falls_Mussoorie.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Mall_Road_Mussoorie_Night.jpg/1280px-Mall_Road_Mussoorie_Night.jpg",
         ],
         plans: [
             "Arrival in Mussoorie and Mall Road visit.",
@@ -148,7 +148,7 @@ export const placesData = {
         description:
             "Nainital is a Himalayan resort town in the Kumaon region of India’s Uttarakhand state. It’s set around Nainital Lake, a popular boating site with Naina Devi Hindu Temple on its north shore.",
         bannerImage:
-            "https://images.unsplash.com/photo-1606977232230-22c608cb921c?q=80&w=1939&auto=format&fit=crop",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Nainital_Lake_View.jpg/1280px-Nainital_Lake_View.jpg",
         highlights: [
             "Naini Lake Boating",
             "Naina Devi Temple",
@@ -158,9 +158,9 @@ export const placesData = {
         importantInfo:
             "Mall Road is a no-parking and no-entry zone for vehicles during peak hours (6 PM - 9 PM usually).",
         photos: [
-            "https://images.unsplash.com/photo-1606977232230-22c608cb921c?q=80&w=1939&auto=format&fit=crop",
-            "https://plus.unsplash.com/premium_photo-1697729600773-4560df32cc33?q=80&w=2070&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1571407851969-245789f64985?q=80&w=2071&auto=format&fit=crop",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Nainital_Lake_View.jpg/1280px-Nainital_Lake_View.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Naina_Devi_Temple_Nainital.jpg/1280px-Naina_Devi_Temple_Nainital.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Nainital_Winter.jpg/1280px-Nainital_Winter.jpg",
         ],
         plans: [
             "Arrival at Nainital and boating in Naini Lake.",
