@@ -1,5 +1,6 @@
-// src/components/SinglePlace.jsx
+// src/pages/SinglePlace.jsx
 import React, { useState, useRef, useEffect } from "react";
+import { useParams } from "react-router-dom"; // Import useParams
 import { motion, AnimatePresence } from "framer-motion";
 import {
   FaStar,
@@ -10,15 +11,7 @@ import {
   FaHeart,
 } from "react-icons/fa";
 import SmallCarousel from "../components/SmallCarousel";
-
-const HERO_SRC =
-  "https://images.pexels.com/photos/16660010/pexels-photo-16660010.jpeg?cs=srgb&dl=pexels-vinod-singh-489965859-16660010.jpg&fm=jpg";
-
-const PHOTO_IMAGES = [
-  "https://i0.wp.com/www.travelkingindia.com/wp-content/uploads/2025/08/Chopta-1.jpg?fit=910%2C512&ssl=1",
-  HERO_SRC,
-  "https://images.pexels.com/photos/18893740/pexels-photo-18893740.jpeg",
-];
+import { placesData } from "../data/places"; // Import JSON data
 
 const COLORS = {
   gold: "#D4A017",
@@ -32,16 +25,16 @@ const COLORS = {
     "linear-gradient(180deg, rgba(212,160,23,0.95), rgba(212,160,23,0.9))",
 };
 
+// Removed "Reviews" from tabs as requested
 const TABS = [
   { key: "detail", label: "Detail" },
   { key: "photos", label: "Photos" },
-  { key: "Plans", label: "Plans" },
+  { key: "plans", label: "Plans" },
   { key: "map", label: "Map" },
   { key: "hosts", label: "Hosts" },
-  { key: "reviews", label: "Reviews" },
 ];
 
-// Simple host data for the Hosts carousel
+// Simple host data for the Hosts carousel (Static for now)
 const HOSTS = [
   {
     name: "Aditi Rawat",
@@ -66,8 +59,16 @@ const HOSTS = [
   },
 ];
 
-export default function SinglePlace({ tabs = TABS }) {
-  const [active, setActive] = useState(tabs[0].key);
+export default function SinglePlace() {
+  const { city } = useParams(); // Get ID from URL
+  const [active, setActive] = useState(TABS[0].key);
+
+  // Find the place object from the JSON data
+  // Fallback to "chopta" if ID not found, or could show a "Not Found" component
+  const place = placesData[city] || placesData["chopta"];
+
+  // If valid place found, use its data. If not found (and no fallback), we might want to return null/error.
+  // Proceeding with place (or fallback) for now.
 
   // underline moving logic
   const navRef = useRef(null);
@@ -96,18 +97,22 @@ export default function SinglePlace({ tabs = TABS }) {
     };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
-  }, [active, tabs]);
+  }, [active]);
+
+  if (!place) {
+    return <div className="p-10 text-center">Location not found</div>;
+  }
 
   return (
     <div
       style={{ backgroundColor: COLORS.white, color: COLORS.text }}
       className="min-h-screen font-sans"
     >
-      {/* HERO */}
+      {/* HERO BANNER - Dynamic Image */}
       <div className="w-full overflow-hidden">
         <img
-          src={HERO_SRC}
-          alt="uttarakhand hero"
+          src={place.bannerImage}
+          alt={place.name}
           className="w-full h-[52vh] md:h-[68vh] lg:h-[72vh] object-cover"
           style={{ display: "block" }}
         />
@@ -125,7 +130,7 @@ export default function SinglePlace({ tabs = TABS }) {
           {/* Tabs with smooth underline */}
           <div className="relative">
             <nav ref={navRef} className="flex gap-3 overflow-x-auto pb-1">
-              {tabs.map((t) => {
+              {TABS.map((t) => {
                 const isActive = active === t.key;
                 return (
                   <button
@@ -184,7 +189,7 @@ export default function SinglePlace({ tabs = TABS }) {
                       className="text-3xl md:text-4xl font-bold mb-3 italic"
                       style={{ color: COLORS.text }}
                     >
-                      Chopta — Trekking Meadows of Uttarakhand
+                      {place.name} — {place.tagline}
                     </h1>
 
                     <div className="flex items-center gap-3 mb-4">
@@ -196,7 +201,7 @@ export default function SinglePlace({ tabs = TABS }) {
                         <FaStarHalfAlt style={{ color: COLORS.gold }} />
                       </div>
                       <div style={{ color: COLORS.muted, fontSize: 14 }}>
-                        (2 Reviews)
+                        (Based on traveler reviews)
                       </div>
                     </div>
 
@@ -205,15 +210,7 @@ export default function SinglePlace({ tabs = TABS }) {
                       className="text-base leading-relaxed mb-6 italic"
                       style={{ color: COLORS.text }}
                     >
-                      Chopta, often called the “Mini Switzerland of India,” is a
-                      high-altitude meadow and a gateway to Tungnath and
-                      Chandrashila in Uttarakhand. Famous for lush alpine
-                      meadows, panoramic Himalayan views, and rhododendron
-                      forests, Chopta is perfect for short treks and
-                      beginner-friendly camping. The trek to Tungnath (the
-                      world’s highest Shiva temple) and the sunrise view from
-                      Chandrashila are the highlights — ideal for nature lovers
-                      and photographers seeking quiet mountain vistas.
+                      {place.description}
                     </p>
 
                     {/* Trip highlights + important note */}
@@ -226,15 +223,16 @@ export default function SinglePlace({ tabs = TABS }) {
                           style={{ color: COLORS.text }}
                           className="font-semibold"
                         >
-                          Trip Highlights
+                          Highlights
                         </h3>
                         <ul
                           style={{ color: COLORS.muted }}
                           className="mt-2 space-y-2 text-sm"
                         >
-                          <li>• Alpine meadows & Himalayan views</li>
-                          <li>• Short treks to Tungnath & Chandrashila</li>
-                          <li>• Best between April–June & Sept–Nov</li>
+                          {place.highlights &&
+                            place.highlights.map((h, i) => (
+                              <li key={i}>• {h}</li>
+                            ))}
                         </ul>
                       </div>
 
@@ -252,8 +250,7 @@ export default function SinglePlace({ tabs = TABS }) {
                           Important
                         </h4>
                         <p style={{ color: COLORS.muted }} className="text-sm">
-                          Carry warm clothing, good trekking shoes, and basic
-                          first-aid. Weather can change quickly at altitude.
+                          {place.importantInfo}
                         </p>
                       </div>
                     </div>
@@ -274,14 +271,14 @@ export default function SinglePlace({ tabs = TABS }) {
                     }}
                   >
                     <h2 className="text-2xl font-semibold mb-4">Photos</h2>
-
-                    <SmallCarousel images={PHOTO_IMAGES} />
+                    {/* Pass dynamic images */}
+                    <SmallCarousel images={place.photos || []} />
                   </motion.div>
                 )}
 
-                {active === "Plans" && (
+                {active === "plans" && (
                   <motion.div
-                    key="Plans"
+                    key="plans"
                     initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 8 }}
@@ -297,10 +294,8 @@ export default function SinglePlace({ tabs = TABS }) {
                       className="list-decimal ml-5 space-y-2"
                       style={{ color: COLORS.muted }}
                     >
-                      <li>Pickup & briefing</li>
-                      <li>Drive to Chopta, short acclimatization</li>
-                      <li>Trek to Tungnath & Chandrashila (sunrise option)</li>
-                      <li>Return and drop-off</li>
+                      {place.plans &&
+                        place.plans.map((p, i) => <li key={i}>{p}</li>)}
                     </ol>
                   </motion.div>
                 )}
@@ -319,8 +314,20 @@ export default function SinglePlace({ tabs = TABS }) {
                     }}
                   >
                     <h2 className="text-2xl font-semibold mb-3">Map</h2>
-                    <div className="w-full h-64 bg-gray-100 rounded flex items-center justify-center text-gray-400">
-                      Map placeholder
+                    <div className="w-full h-64 bg-gray-100 rounded flex items-center justify-center text-gray-400 overflow-hidden">
+                      {place.mapEmbed && !place.mapEmbed.includes("PLACEHOLDER") ? (
+                        <iframe
+                          src={place.mapEmbed}
+                          width="100%"
+                          height="100%"
+                          style={{ border: 0 }}
+                          allowFullScreen=""
+                          loading="lazy"
+                          referrerPolicy="no-referrer-when-downgrade"
+                        ></iframe>
+                      ) : (
+                        <span>Map is currently unavailable for {place.name}</span>
+                      )}
                     </div>
                   </motion.div>
                 )}
@@ -397,33 +404,6 @@ export default function SinglePlace({ tabs = TABS }) {
                           </div>
                         </div>
                       ))}
-                    </div>
-                  </motion.div>
-                )}
-
-                {active === "reviews" && (
-                  <motion.div
-                    key="reviews"
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 8 }}
-                    transition={{ duration: 0.35 }}
-                    className="rounded-lg p-6"
-                    style={{
-                      backgroundColor: COLORS.white,
-                      border: `1px solid ${COLORS.border}`,
-                    }}
-                  >
-                    <h2 className="text-2xl font-semibold mb-3">Reviews</h2>
-                    <div style={{ color: COLORS.muted }}>
-                      <div className="mb-3">
-                        <strong>Priya</strong> — "Amazing sunrise views"
-                        ⭐⭐⭐⭐⭐
-                      </div>
-                      <div>
-                        <strong>Arjun</strong> — "Great guide & safe trek."
-                        ⭐⭐⭐⭐☆
-                      </div>
                     </div>
                   </motion.div>
                 )}

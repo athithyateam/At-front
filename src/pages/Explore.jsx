@@ -21,47 +21,18 @@ import TopRatedTreks from "../components/explore/TopRatedTreks";
 import TopRatedHosts from "../components/explore/TopRatedHosts";
 import NearbyTreks from "../components/explore/TreksNearbyYou";
 
+// Import data
+import { placesData } from "../data/places";
+
 const Explore = () => {
   const navigate = useNavigate();
 
-  // ---- dummy data (replace with API later) ----
-  const locations = [
-    {
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTro1QNI4CaE9T6BqHnus2zF2b3qjEKtLdjNw&s",
-      city: "Maharashtra",
-    },
-    {
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQQkmWT5QIJlK6ob_s7vCUnDToVfQsnuX6oA&s",
-      city: "Delhi",
-    },
-    {
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3hDMXgzDyh3dxhGwf1NYpp3JNvPVaDIDpvw&s",
-      city: "Karnataka",
-    },
-    {
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKRkZVisbEAKoMxM1KC8gzWAUGPJcAoCzQtw&s",
-      city: "Tamil Nadu",
-    },
-    {
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNog-Vu51FGs_oRMmFkxxTBU9cOFIs0dzVCg&s",
-      city: "West Bengal",
-    },
-    {
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy76wDwDS53uxpxOh-gXbyRUNT1Vu2ZjnpKQ&s",
-      city: "Rajasthan",
-    },
-    {
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8AE3a3M-iE4YIxpG9XsZxKRpTDwpgN0UCcQ&s",
-      city: "Telangana",
-    },
-  ];
+  // Convert placesData object to an array for the top locations carousel
+  const locations = Object.entries(placesData).map(([slug, data]) => ({
+    city: data.name,
+    image: data.bannerImage,
+    id: slug, // use slug for navigation
+  }));
 
   const staysNear = [
     {
@@ -226,7 +197,7 @@ const Explore = () => {
             key={idx}
             image={loc.image}
             city={loc.city}
-            onClick={() => navigate(`/place/${loc.city}`)}
+            onClick={() => navigate(`/place/${loc.id}`)}
           />
         ))}
       </CarouselRow>
