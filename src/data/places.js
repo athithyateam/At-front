@@ -5,7 +5,7 @@ export const placesData = {
         description:
             "Chopta is a picturesque hamlet which is still unexplored by travelers. It is famous for its meadows and evergreen forest area which is part of Kedarnath wildlife sanctuary not to be confused with Chopta village. It is the base for trekking to Tungnath, the third temple of Panch Kedar, which lies 3.5 km away.",
         bannerImage:
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Chopta_Meadows.jpg/1280px-Chopta_Meadows.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Himalayan_Meadows.jpg/1024px-Himalayan_Meadows.jpg",
         highlights: [
             "Trek to Tungnath (World's Highest Shiva Temple)",
             "Chandrashila Summit View",
@@ -15,7 +15,7 @@ export const placesData = {
         importantInfo:
             "Electricity is limited in Chopta. Carry power banks. ATMs are available only in Ukhimath (30km away).",
         photos: [
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Chopta_Meadows.jpg/1280px-Chopta_Meadows.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Himalayan_Meadows.jpg/1024px-Himalayan_Meadows.jpg",
             "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Tungnath_Temple.jpg/1280px-Tungnath_Temple.jpg",
             "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Chandrashila_Summit.jpg/1280px-Chandrashila_Summit.jpg",
         ],
@@ -63,7 +63,7 @@ export const placesData = {
         description:
             "Gateway to the Garhwal Himalayas, Rishikesh is a city in India’s northern state of Uttarakhand, beside the Ganges River. The river is considered holy, and the city is renowned as a center for studying yoga and meditation.",
         bannerImage:
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Ram_Jhula_Rishikesh.jpg/1280px-Ram_Jhula_Rishikesh.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Ram_Jhula_bridge_on_the_Ganges%2C_Muni_Ki_Reti%2C_Rishikesh.jpg/1024px-Ram_Jhula_bridge_on_the_Ganges%2C_Muni_Ki_Reti%2C_Rishikesh.jpg",
         highlights: [
             "River Rafting in Ganga",
             "Ganga Aarti at Triveni Ghat",
@@ -73,7 +73,7 @@ export const placesData = {
         importantInfo:
             "Alcohol and non-vegetarian food are strictly prohibited in Rishikesh town limits.",
         photos: [
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Ram_Jhula_Rishikesh.jpg/1280px-Ram_Jhula_Rishikesh.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Ram_Jhula_bridge_on_the_Ganges%2C_Muni_Ki_Reti%2C_Rishikesh.jpg/1024px-Ram_Jhula_bridge_on_the_Ganges%2C_Muni_Ki_Reti%2C_Rishikesh.jpg",
             "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Rishikesh_Ganga_Aarti.jpg/1280px-Rishikesh_Ganga_Aarti.jpg",
             "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Rafting_in_Rishikesh.jpg/1280px-Rafting_in_Rishikesh.jpg",
         ],
@@ -92,7 +92,7 @@ export const placesData = {
         description:
             "Auli is a Himalayan ski resort and hill station in the north Indian state of Uttarakhand. It consists of coniferous and oak forests, plus the Nar Parbat and Nanda Devi mountains are visible.",
         bannerImage:
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Auli_in_Winter.jpg/1280px-Auli_in_Winter.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Auli_Uttarakhand.jpg/1024px-Auli_Uttarakhand.jpg",
         highlights: [
             "Skiing and Snowboarding",
             "Cable Car Ride (Asia's Longest)",
@@ -102,7 +102,7 @@ export const placesData = {
         importantInfo:
             "Roads can be blocked during heavy snowfall. Carry heavy woolens in winter (Dec-Feb).",
         photos: [
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Auli_in_Winter.jpg/1280px-Auli_in_Winter.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Auli_Uttarakhand.jpg/1024px-Auli_Uttarakhand.jpg",
             "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Auli_Artificial_Lake.jpg/1280px-Auli_Artificial_Lake.jpg",
             "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Auli_Skiing_Slopes.jpg/1280px-Auli_Skiing_Slopes.jpg",
         ],
@@ -148,7 +148,7 @@ export const placesData = {
         description:
             "Nainital is a Himalayan resort town in the Kumaon region of India’s Uttarakhand state. It’s set around Nainital Lake, a popular boating site with Naina Devi Hindu Temple on its north shore.",
         bannerImage:
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Nainital_Lake_View.jpg/1280px-Nainital_Lake_View.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Nainital_Lake_view_%2814622%29.jpg/1024px-Nainital_Lake_view_%2814622%29.jpg",
         highlights: [
             "Naini Lake Boating",
             "Naina Devi Temple",
@@ -158,7 +158,7 @@ export const placesData = {
         importantInfo:
             "Mall Road is a no-parking and no-entry zone for vehicles during peak hours (6 PM - 9 PM usually).",
         photos: [
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Nainital_Lake_View.jpg/1280px-Nainital_Lake_View.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Nainital_Lake_view_%2814622%29.jpg/1024px-Nainital_Lake_view_%2814622%29.jpg",
             "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Naina_Devi_Temple_Nainital.jpg/1280px-Naina_Devi_Temple_Nainital.jpg",
             "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Nainital_Winter.jpg/1280px-Nainital_Winter.jpg",
         ],
