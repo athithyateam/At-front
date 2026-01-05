@@ -112,6 +112,9 @@ export default function Sidebar({ isOpen, onClose }) {
                                     <SidebarLink to="/creators" label="For Creators" onClose={onClose} />
                                     <SidebarLink to="/about" label="About Us" onClose={onClose} />
                                 </div>
+
+                                <SidebarLink to="/safety" label="Safety" onClose={onClose} />
+                                <SidebarLink to="/support" label="Help & Support" onClose={onClose} />
                             </nav>
                         </div>
 
