@@ -9,7 +9,12 @@ const LocationCard = ({ image, city, onClick }) => {
       transition={{ type: "spring", stiffness: 250, damping: 18 }}
       className="relative w-56 md:w-60 h-40 md:h-44 rounded-2xl overflow-hidden shadow-lg cursor-pointer shrink-0"
     >
-      <img src={image} alt={city} className="w-full h-full object-cover" />
+      <img
+        src={image}
+        alt={city}
+        className="w-full h-full object-cover"
+        loading="lazy"
+      />
       <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/15 to-transparent" />
       <p className="absolute bottom-3 left-3 text-white font-semibold text-lg drop-shadow-lg">
         {city}

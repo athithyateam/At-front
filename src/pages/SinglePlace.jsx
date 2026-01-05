@@ -110,6 +110,7 @@ export default function SinglePlace() {
           alt={place.name}
           className="w-full h-[52vh] md:h-[68vh] lg:h-[72vh] object-cover"
           style={{ display: "block" }}
+          loading="lazy"
         />
       </div>
 
@@ -513,7 +514,7 @@ export default function SinglePlace() {
                     color: COLORS.white,
                   }}
                 >
-                  <div className="p-5">
+                  <div className="p-5 text-left">
                     <h4 className="text-xl font-bold mb-2">Get a Question?</h4>
                     <p className="text-sm mb-4" style={{ opacity: 0.95 }}>
                       Do not hesitate to give us a call. We are an expert team
