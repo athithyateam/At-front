@@ -9,6 +9,7 @@ import { createPortal } from "react-dom";
 import AuthModal from "../auth/AuthSection";
 import { useAuth } from "../../context/AuthContext";
 import { useNotifications } from "../../context/NotificationContext";
+import Sidebar from "./Sidebar";
 
 export default function Navbar() {
   const { user, loading, logout } = useAuth();
@@ -18,7 +19,7 @@ export default function Navbar() {
 
   const [scrolled, setScrolled] = useState(false);
   const [showAuth, setShowAuth] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [authProps, setAuthProps] = useState({});
 
@@ -36,9 +37,6 @@ export default function Navbar() {
   /* ---------------- Close profile dropdown ---------------- */
   useEffect(() => {
     const close = (e) => {
-      if (!e.target.closest(".profile-dropdown")) {
-        setDropdownOpen(false);
-      }
       if (!e.target.closest(".notification-dropdown")) {
         setNotificationOpen(false);
       }
@@ -237,50 +235,17 @@ export default function Navbar() {
                 </Link>
 
                 {/* PROFILE DROPDOWN */}
-                <div className="relative profile-dropdown">
-                  <button
-                    onClick={() => setDropdownOpen((p) => !p)}
-                    className={`w-9 h-9 rounded-full flex items-center justify-center transition ${isHome
-                      ? scrolled
-                        ? "bg-[#C59A2F] text-white"
-                        : "border border-white/80 text-white"
-                      : "border border-[#C59A2F] text-[#C59A2F]"
-                      }`}
-                  >
-                    <RxHamburgerMenu size={18} />
-                  </button>
-
-                  <div
-                    className={`absolute right-0 mt-2 w-44 rounded-xl border overflow-hidden transition-all ${dropdownOpen
-                      ? "opacity-100 translate-y-0 visible"
-                      : "opacity-0 -translate-y-2 invisible"
-                      } ${isHome
-                        ? "bg-black/80 backdrop-blur border-[#C59A2F]/40"
-                        : "bg-white border-gray-200 shadow-lg"
-                      }`}
-                  >
-                    {[
-                      ["Explore", "/explore"],
-                      ["Connect", "/connect"],
-                      ["Messages", "/chat"],
-                      ["Profile", `/profile/${user._id}`],
-                    ].map(([label, path]) => (
-                      <Link
-                        key={path}
-                        to={path}
-                        onClick={() => setDropdownOpen(false)}
-                        className={`block px-4 py-2 text-sm text-center transition ${isHome
-                          ? "text-white hover:bg-[#C59A2F]"
-                          : "text-gray-700 hover:bg-gray-100"
-                          }`}
-                      >
-                        {label}
-                      </Link>
-                    ))}
-
-                    {/* Logout removed as requested */}
-                  </div>
-                </div>
+                <button
+                  onClick={() => setSidebarOpen(true)}
+                  className={`w-9 h-9 rounded-full flex items-center justify-center transition ${isHome
+                    ? scrolled
+                      ? "bg-[#C59A2F] text-white"
+                      : "border border-white/80 text-white"
+                    : "border border-[#C59A2F] text-[#C59A2F]"
+                    }`}
+                >
+                  <RxHamburgerMenu size={18} />
+                </button>
               </>
             ) : (
               <button
@@ -294,6 +259,8 @@ export default function Navbar() {
           </div>
         </div>
       </nav>
+
+      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       {/* AUTH MODAL */}
       {showAuth &&
