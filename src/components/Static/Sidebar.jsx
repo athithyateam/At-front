@@ -53,7 +53,7 @@ export default function Sidebar({ isOpen, onClose }) {
                                 <Link
                                     to={`/profile/${user._id}`}
                                     onClick={onClose}
-                                    className="flex items-center gap-3 px-6 mb-6 p-2 rounded-xl hover:bg-gray-50 transition-colors group"
+                                    className="flex items-center gap-3 px-6 py-3 mb-4 hover:bg-gray-50 transition-colors group"
                                 >
                                     {/* Avatar Placeholder / Image */}
                                     <div className="w-10 h-10 rounded-full bg-[#fae8b4] text-[#C59A2F] flex items-center justify-center font-bold text-lg border border-[#C59A2F]/30 shrink-0 overflow-hidden">
@@ -68,11 +68,11 @@ export default function Sidebar({ isOpen, onClose }) {
                                         )}
                                     </div>
 
-                                    <div className="overflow-hidden">
-                                        <div className="font-bold text-gray-900 truncate group-hover:text-[#C59A2F] transition-colors capitalize">
+                                    <div className="overflow-hidden flex flex-col justify-center">
+                                        <div className="font-bold text-gray-900 truncate group-hover:text-[#C59A2F] transition-colors capitalize leading-tight">
                                             {user.firstname} {user.lastname}
                                         </div>
-                                        <div className="text-xs text-gray-500 truncate font-medium uppercase tracking-wider">
+                                        <div className="text-[10px] font-bold text-[#C59A2F] uppercase tracking-wider mt-0.5">
                                             {user.role || "Traveler"}
                                         </div>
                                     </div>
