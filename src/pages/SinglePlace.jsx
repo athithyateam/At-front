@@ -30,7 +30,8 @@ const TABS = [
   { key: "photos", label: "Photos" },
   { key: "plans", label: "Plans" },
   { key: "map", label: "Map" },
-  { key: "hosts", label: "Hosts" },
+  { key: "itineraries", label: "Itineraries" },
+  // { key: "hosts", label: "Hosts" },
 ];
 
 // Initial static host data passed to the carousel
@@ -279,20 +280,25 @@ export default function SinglePlace() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 8 }}
                     transition={{ duration: 0.35 }}
-                    className="rounded-lg p-6"
+                    className="rounded-lg p-6 md:p-8"
                     style={{
                       backgroundColor: COLORS.white,
                       border: `1px solid ${COLORS.border}`,
                     }}
                   >
-                    <h2 className="text-2xl font-semibold mb-3">Plans</h2>
-                    <ol
-                      className="list-decimal ml-5 space-y-2"
-                      style={{ color: COLORS.muted }}
-                    >
-                      {place.plans &&
-                        place.plans.map((p, i) => <li key={i}>{p}</li>)}
-                    </ol>
+                    <h2 className="text-2xl font-bold mb-6 text-left" style={{ color: COLORS.text }}>
+                      Trip Plans
+                    </h2>
+                    <div className="bg-gray-50 rounded-xl p-6 border border-gray-100">
+                      <ol className="list-decimal ml-5 space-y-4 text-left">
+                        {place.plans &&
+                          place.plans.map((p, i) => (
+                            <li key={i} className="pl-2 text-gray-700 leading-relaxed font-medium">
+                              {p}
+                            </li>
+                          ))}
+                      </ol>
+                    </div>
                   </motion.div>
                 )}
 
@@ -328,8 +334,29 @@ export default function SinglePlace() {
                   </motion.div>
                 )}
 
-                {/* Hosts Tab */}
-                {active === "hosts" && (
+                {/* Itineraries Tab (New) */}
+                {active === "itineraries" && (
+                  <motion.div
+                    key="itineraries"
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 8 }}
+                    transition={{ duration: 0.35 }}
+                    className="rounded-lg p-6"
+                    style={{
+                      backgroundColor: COLORS.white,
+                      border: `1px solid ${COLORS.border}`,
+                    }}
+                  >
+                    <h2 className="text-2xl font-semibold mb-3">Itineraries</h2>
+                    <p className="text-muted text-gray-500 text-left">
+                      Itineraries needs to be added here
+                    </p>
+                  </motion.div>
+                )}
+
+                {/* Hosts Tab (Commented Out) */}
+                {/* {active === "hosts" && (
                   <motion.div
                     key="hosts"
                     initial={{ opacity: 0, y: 12 }}
@@ -402,7 +429,7 @@ export default function SinglePlace() {
                       ))}
                     </div>
                   </motion.div>
-                )}
+                )} */}
               </AnimatePresence>
             </div>
 

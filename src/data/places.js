@@ -15,9 +15,9 @@ export const placesData = [
         importantInfo:
             "Electricity is limited in Chopta. Carry power banks. ATMs are available only in Ukhimath (30km away).",
         photos: [
-            "/images/chopta-1.jpg",
             "https://upload.wikimedia.org/wikipedia/commons/8/87/Chopta_Tungnath_Trek.jpg",
             "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Chandrashila_Summit.jpg/1280px-Chandrashila_Summit.jpg",
+            "/images/chopta-1.jpg",
         ],
         plans: [
             "Arrival at Sari Village / Chopta Base Camp.",
@@ -44,9 +44,9 @@ export const placesData = [
         importantInfo:
             "Biometric registration is mandatory. Carry warm woolen clothes even in summer. Medical fitness certificate may be required.",
         photos: [
-            "/images/kedarnath-1.jpg",
             "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Kedarnath_Temple%2C_Uttarakhand.jpg/1280px-Kedarnath_Temple%2C_Uttarakhand.jpg",
             "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Kedarnath_Aerial_View.jpg/1280px-Kedarnath_Aerial_View.jpg",
+            "/images/kedarnath-1.jpg",
         ],
         plans: [
             "Drive from Haridwar/Rishikesh to Guptkashi/Sonprayag.",
@@ -73,9 +73,9 @@ export const placesData = [
         importantInfo:
             "Alcohol and non-vegetarian food are strictly prohibited in Rishikesh town limits.",
         photos: [
-            "/images/rishikesh-1.jpg",
             "https://upload.wikimedia.org/wikipedia/commons/b/b5/Rishikesh_2015.jpg",
             "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Rishikesh_Ganga_Aarti.jpg/1280px-Rishikesh_Ganga_Aarti.jpg",
+            "/images/rishikesh-1.jpg",
         ],
         plans: [
             "Arrival in Rishikesh, check-in to camp/hotel.",
@@ -102,9 +102,9 @@ export const placesData = [
         importantInfo:
             "Roads can be blocked during heavy snowfall. Carry heavy woolens in winter (Dec-Feb).",
         photos: [
-            "/images/auli-1.jpg",
             "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Auli_Artificial_Lake.jpg/1280px-Auli_Artificial_Lake.jpg",
             "https://upload.wikimedia.org/wikipedia/commons/e/e3/Auli_skiing.jpg",
+            "/images/auli-1.jpg",
         ],
         plans: [
             "Drive to Joshimath from Haridwar/Dehradun.",
@@ -131,9 +131,9 @@ export const placesData = [
         ],
         importantInfo: "Weekends can be very crowded. Booking hotels in advance is recommended.",
         photos: [
-            "https://upload.wikimedia.org/wikipedia/commons/a/aa/Mussoorie_landscape.jpg",
             "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Kempty_Falls_Mussoorie.jpg/1280px-Kempty_Falls_Mussoorie.jpg",
             "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Mall_Road_Mussoorie_Night.jpg/1280px-Mall_Road_Mussoorie_Night.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/a/aa/Mussoorie_landscape.jpg",
         ],
         plans: [
             "Arrival in Mussoorie and Mall Road visit.",
@@ -159,9 +159,9 @@ export const placesData = [
         importantInfo:
             "Mall Road is a no-parking and no-entry zone for vehicles during peak hours (6 PM - 9 PM usually).",
         photos: [
-            "/images/nainital-1.webp",
             "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Naina_Devi_Temple_Nainital.jpg/1280px-Naina_Devi_Temple_Nainital.jpg",
             "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Nainital_Winter.jpg/1280px-Nainital_Winter.jpg",
+            "/images/nainital-1.webp",
         ],
         plans: [
             "Arrival at Nainital and boating in Naini Lake.",
