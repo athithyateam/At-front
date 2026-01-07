@@ -480,7 +480,7 @@ export default function HostPlanForm({ editId, onSaved }) {
                   label="Title"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  placeholder={`${user?.name || 'Guest'}’s invitation`}
+                  placeholder={user?.name ? `${user.name}'s invitation` : "Your invitation"}
                 />
                 <Input
                   label="Subtitle"
