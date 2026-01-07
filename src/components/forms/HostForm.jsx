@@ -13,7 +13,7 @@ export default function HostForm({ editId, editType }) {
       {/* Header */}
       <div className="mb-6 text-center">
         <h2 className="text-2xl font-semibold GOLD">{editId ? 'Edit' : 'Host'} Dashboard</h2>
-        <p className="text-sm muted mt-1">{editId ? 'Update your' : 'Create a'} Momentos, Plans (Trek) or Experience</p>
+        <p className="text-sm muted mt-1">{editId ? 'Update your' : 'Create an'} Experiences, Momentos, Plans</p>
       </div>
 
       {!editId && (

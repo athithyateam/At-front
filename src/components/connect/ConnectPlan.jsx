@@ -277,7 +277,7 @@ const ConnectPlan = () => {
 
             {/* INVITATION & SUBTITLE */}
             <div className="flex flex-col gap-0.5 mb-2">
-              {plan.plan?.name && plan.title && (
+              {plan.title && (
                 <span className="text-sm font-semibold text-[#C59A2F]">
                   {plan.title}
                 </span>

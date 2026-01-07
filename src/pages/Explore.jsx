@@ -207,7 +207,7 @@ const Explore = () => {
 
       {/* Featured Treks */}
       <CarouselRow
-        title="Featured Experience"
+        title="Featured Experiences"
         subtitle="Handpicked adventures curated by verified hosts"
         actionLabel="Explore all"
         backgroundClass="bg-[#FFF9EC]"
