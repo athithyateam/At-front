@@ -232,9 +232,10 @@ export default function HostPlanForm({ editId, onSaved }) {
           if (res.success) {
             const i = res.itinerary || res.post;
             setTitle(i.title || "");
+            setSubtitle(i.subtitle || "");
             setLongDesc(i.description || "");
             setCity(i.location?.city || "");
-            setStateField(i.location?.state || "");
+            setStateField(i.location?.state || "Uttarakhand");
             setCountry(i.location?.country || "India");
             setDays(i.duration?.days || 1);
             setNights(i.duration?.nights || 0);
@@ -254,8 +255,11 @@ export default function HostPlanForm({ editId, onSaved }) {
         }
       };
       fetchData();
+    } else if (user?.name && !title) {
+      // Set default dynamic title if not editing
+      setTitle(`${user.name}'s invitation`);
     }
-  }, [editId]);
+  }, [editId, user?.name]);
 
   /* ----------------------- Dropzone ----------------------- */
   const onDrop = useCallback((acceptedFiles) => {
@@ -476,13 +480,13 @@ export default function HostPlanForm({ editId, onSaved }) {
                   label="Title"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  placeholder={`${user?.name || 'Guest'}’s invitation`}
+                  placeholder="e.g. My Awesome Trip"
                 />
                 <Input
                   label="Subtitle"
                   value={subtitle}
                   onChange={(e) => setSubtitle(e.target.value)}
-                  placeholder="any Uttarakhand place name"
+                  placeholder="e.g. Kedarnath"
                 />
               </div>
 

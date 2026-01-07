@@ -206,6 +206,7 @@ export default function TravellerPlanForm({ editId }) {
           if (res.success) {
             const i = res.itinerary || res.post; // backend returns itinerary or post object
             setTitle(i.title || "");
+            setSubtitle(i.subtitle || "");
             setDescription(i.description || "");
             setPlanName(i.plan?.name || "");
             setCategories(i.categories || []);
@@ -237,8 +238,11 @@ export default function TravellerPlanForm({ editId }) {
         }
       };
       fetchData();
+    } else if (user?.name && !title) {
+      // Set default dynamic title if not editing
+      setTitle(`${user.name}'s invitation`);
     }
-  }, [editId]);
+  }, [editId, user?.name]);
 
   /* ---------------- PHOTOS ---------------- */
   const onDropPhotos = useCallback((files) => {
@@ -412,13 +416,13 @@ export default function TravellerPlanForm({ editId }) {
           <div className="grid grid-cols-1 gap-3">
             <input
               className="input-lux rounded-lg px-3 py-2 w-full text-base font-medium"
-              placeholder={`${user?.name || 'Guest'}’s invitation`}
+              placeholder="e.g. My Next Adventure"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
             <input
               className="input-lux rounded-lg px-3 py-2 w-full text-sm"
-              placeholder="any Uttarakhand place name"
+              placeholder="e.g. Kedarnath"
               value={subtitle}
               onChange={(e) => setSubtitle(e.target.value)}
             />
