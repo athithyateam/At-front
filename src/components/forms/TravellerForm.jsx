@@ -11,7 +11,7 @@ export default function TravellerForm({ editId, editType }) {
   return (
     <div className="mx-auto p-4 md:p-6 bg-[#fffdf8] rounded-2xl soft-border soft-shadow mt-10">
       {/* Header */}
-      <div className="mb-6">
+      <div className="mb-6 text-center">
         <h2 className="text-2xl font-semibold GOLD">
           {editId ? 'Edit' : 'Create'} Travel Listing
         </h2>
@@ -37,7 +37,7 @@ export default function TravellerForm({ editId, editType }) {
 
             <button
               onClick={() => setType("service")}
-              className={`relative z-10 flex-1 px-4 md:px-6 py-2 text-sm font-medium rounded-full transition text-center ${type === "service" ? "text-white" : "text-gray-600"
+              className={`relative z-10 flex-1 py-2 text-sm font-medium rounded-full transition text-center ${type === "service" ? "text-white" : "text-gray-600"
                 }`}
             >
               Experience
@@ -45,7 +45,7 @@ export default function TravellerForm({ editId, editType }) {
 
             <button
               onClick={() => setType("post")}
-              className={`relative z-10 flex-1 px-4 md:px-6 py-2 text-sm font-medium rounded-full transition text-center ${type === "post" ? "text-white" : "text-gray-600"
+              className={`relative z-10 flex-1 py-2 text-sm font-medium rounded-full transition text-center ${type === "post" ? "text-white" : "text-gray-600"
                 }`}
             >
               Momentos
@@ -53,7 +53,7 @@ export default function TravellerForm({ editId, editType }) {
 
             <button
               onClick={() => setType("plan")}
-              className={`relative z-10 flex-1 px-4 md:px-6 py-2 text-sm font-medium rounded-full transition text-center ${type === "plan" ? "text-white" : "text-gray-600"
+              className={`relative z-10 flex-1 py-2 text-sm font-medium rounded-full transition text-center ${type === "plan" ? "text-white" : "text-gray-600"
                 }`}
             >
               Plans
