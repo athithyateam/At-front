@@ -26,7 +26,7 @@ export default function Navbar() {
   const threshold = 50;
   const isHome = location.pathname === "/";
 
-  /* ---------------- Scroll effect ---------------- */
+  // Handle scroll effect for transparency toggle
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > threshold);
     onScroll();
@@ -34,7 +34,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, [location.pathname]);
 
-  /* ---------------- Close profile dropdown ---------------- */
+  // Close dropdowns on outside click
   useEffect(() => {
     const close = (e) => {
       if (!e.target.closest(".notification-dropdown")) {
@@ -45,15 +45,15 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", close);
   }, []);
 
-  /* ---------------- Auto close auth modal ---------------- */
+  // Sync auth modal visibility with user state
   useEffect(() => {
     if (user) setShowAuth(false);
   }, [user]);
 
-  /* ---------------- Open auth from URL params ---------------- */
+  // Deep linking to auth screens via query params
   useEffect(() => {
     const params = new URLSearchParams(location.search);
-    const authType = params.get("auth"); // 'login' or 'signup'
+    const authType = params.get("auth");
     const role = params.get("role");
 
     if (authType) {
@@ -63,7 +63,6 @@ export default function Navbar() {
       });
       setShowAuth(true);
 
-      // Clean URL
       const newSearch = new URLSearchParams(location.search);
       newSearch.delete("auth");
       newSearch.delete("role");
@@ -103,7 +102,7 @@ export default function Navbar() {
         : "text-gray-700 hover:text-[#C59A2F]"
     }`;
 
-  /* ---------------- Block render until auth resolves ---------------- */
+  // Block render until auth resolves
   if (loading) {
     return (
       <nav className="absolute inset-x-0 top-0 z-50 h-16 bg-white border-b border-gray-200" />
@@ -126,14 +125,11 @@ export default function Navbar() {
             />
           </Link>
 
-          {/* CENTER LINKS (hidden on small screens) - REMOVED */
-          /* <div className="hidden md:flex items-center gap-8"> ... </div> */}
-
           {/* RIGHT ACTIONS */}
           <div className="flex items-center gap-5">
             {user ? (
               <>
-                {/* NOTIFICATIONS */}
+                {/* Notifications */}
                 <div className="relative notification-dropdown">
                   <button
                     onClick={() => setNotificationOpen(!notificationOpen)}
@@ -211,7 +207,7 @@ export default function Navbar() {
                   )}
                 </div>
 
-                {/* CREATE POST */}
+                {/* Create Post */}
                 <Link
                   to="/post"
                   className={`inline-flex items-center justify-center w-9 h-9 rounded-full transition ${isHome
@@ -224,7 +220,7 @@ export default function Navbar() {
                   <MdAdd size={20} />
                 </Link>
 
-                {/* PROFILE DROPDOWN */}
+                {/* Profile Dropdown */}
                 <button
                   onClick={() => setSidebarOpen(true)}
                   className={`w-9 h-9 rounded-full flex items-center justify-center transition ${isHome
@@ -239,9 +235,7 @@ export default function Navbar() {
               </>
             ) : (
               <>
-
-
-                {/* Mobile: Hamburger Menu */}
+                {/* Mobile Hamburger Menu */}
                 <button
                   onClick={() => setSidebarOpen(true)}
                   className={`w-9 h-9 rounded-full flex items-center justify-center transition ${isHome

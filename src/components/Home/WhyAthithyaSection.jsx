@@ -31,11 +31,8 @@ export default function WhyAthithyaSection() {
   const bgY = useTransform(scrollYProgress, [0, 1], ["-10%", "15%"]);
 
   return (
-    /* OUTER SCROLL AREA */
     <div ref={wrapperRef} className="relative h-[360vh] pb-12">
-      {/* FIXED VIEWPORT */}
       <section className="sticky top-0 h-screen overflow-hidden">
-        {/* Background */}
         <motion.div
           style={{ y: bgY }}
           className="absolute inset-0 will-change-transform"
@@ -48,7 +45,6 @@ export default function WhyAthithyaSection() {
           <div className="absolute inset-0 bg-linear-to-b from-black/50 via-black/35 to-black/55" />
         </motion.div>
 
-        {/* Text */}
         <div className="relative z-10 h-full flex items-center justify-center px-6">
           <div className="relative w-full max-w-4xl text-center text-white">
             {STATEMENTS.map((item, i) => {

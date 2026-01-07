@@ -1,6 +1,6 @@
 // src/pages/SinglePlace.jsx
 import React, { useState, useRef, useEffect } from "react";
-import { useParams } from "react-router-dom"; // Import useParams
+import { useParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   FaStar,
@@ -11,7 +11,7 @@ import {
   FaHeart,
 } from "react-icons/fa";
 import SmallCarousel from "../components/SmallCarousel";
-import { placesData } from "../data/places"; // Import JSON data
+import { placesData } from "../data/places";
 
 const COLORS = {
   gold: "#D4A017",
@@ -31,10 +31,8 @@ const TABS = [
   { key: "plans", label: "Plans" },
   { key: "map", label: "Map" },
   { key: "itineraries", label: "Itineraries" },
-  // { key: "hosts", label: "Hosts" },
 ];
 
-// Initial static host data passed to the carousel
 const HOSTS = [
   {
     name: "Aditi Rawat",
@@ -60,39 +58,31 @@ const HOSTS = [
 ];
 
 export default function SinglePlace() {
-  const { city } = useParams(); // Get ID from URL
+  const { city } = useParams();
   const [active, setActive] = useState(TABS[0].key);
 
-  // Retrieve location data based on URL parameter
   const place = placesData.find((p) => p.id === city) || placesData[0];
 
-  // Logic for the animated tab underline
   const navRef = useRef(null);
   const [underline, setUnderline] = useState({ left: 0, width: 0 });
 
   useEffect(() => {
     const nav = navRef.current;
     if (!nav) return;
-    const activeBtn = nav.querySelector(`[data-key="${active}"]`);
-    if (activeBtn) {
-      const rect = activeBtn.getBoundingClientRect();
-      const parentRect = nav.getBoundingClientRect();
-      setUnderline({ left: rect.left - parentRect.left, width: rect.width });
-    }
-    // update on resize
-    const onResize = () => {
-      const btn = nav.querySelector(`[data-key="${active}"]`);
-      if (btn) {
-        const r = btn.getBoundingClientRect();
+    
+    // Animate tab underline
+    const updateUnderline = () => {
+      const activeBtn = nav.querySelector(`[data-key="${active}"]`);
+      if (activeBtn) {
+        const rect = activeBtn.getBoundingClientRect();
         const parentRect = nav.getBoundingClientRect();
-        setUnderline({
-          left: r.left - parentRect.left,
-          width: r.width,
-        });
+        setUnderline({ left: rect.left - parentRect.left, width: rect.width });
       }
     };
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
+
+    updateUnderline();
+    window.addEventListener("resize", updateUnderline);
+    return () => window.removeEventListener("resize", updateUnderline);
   }, [active]);
 
   if (!place) {
@@ -104,7 +94,6 @@ export default function SinglePlace() {
       style={{ backgroundColor: COLORS.white, color: COLORS.text }}
       className="min-h-screen font-sans"
     >
-      {/* HERO BANNER - Dynamic Image */}
       <div className="w-full overflow-hidden">
         <img
           src={place.bannerImage}
@@ -115,7 +104,6 @@ export default function SinglePlace() {
         />
       </div>
 
-      {/* Tabs + content card */}
       <div className="container mx-auto px-4 md:px-6 lg:px-12 mt-6">
         <div
           className="rounded-lg shadow-lg p-4 md:p-6"
@@ -124,7 +112,6 @@ export default function SinglePlace() {
             border: `1px solid ${COLORS.border}`,
           }}
         >
-          {/* Tabs with smooth underline */}
           <div className="relative">
             <nav ref={navRef} className="flex gap-3 overflow-x-auto pb-1">
               {TABS.map((t) => {
@@ -146,7 +133,6 @@ export default function SinglePlace() {
               })}
             </nav>
 
-            {/* animated underline - absolute element */}
             <div
               aria-hidden
               style={{
@@ -163,9 +149,7 @@ export default function SinglePlace() {
             />
           </div>
 
-          {/* Main grid */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
-            {/* LEFT - detail area (spans 2 cols) */}
             <div className="lg:col-span-2">
               <AnimatePresence mode="wait">
                 {active === "detail" && (
@@ -181,7 +165,6 @@ export default function SinglePlace() {
                       border: `1px solid ${COLORS.border}`,
                     }}
                   >
-                    {/* Title + stars */}
                     <h1
                       className="text-3xl md:text-4xl font-bold mb-3 text-left"
                       style={{ color: COLORS.text }}
@@ -202,7 +185,6 @@ export default function SinglePlace() {
                       </div>
                     </div>
 
-                    {/* Description */}
                     <p
                       className="text-base leading-relaxed mb-6 text-justify"
                       style={{ color: COLORS.text }}
@@ -210,7 +192,6 @@ export default function SinglePlace() {
                       {place.description}
                     </p>
 
-                    {/* Trip highlights + important note */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div
                         className="p-4 border rounded-md text-left"
@@ -268,7 +249,6 @@ export default function SinglePlace() {
                     }}
                   >
                     <h2 className="text-2xl font-semibold mb-4">Photos</h2>
-                    {/* Pass dynamic images */}
                     <SmallCarousel images={place.photos || []} />
                   </motion.div>
                 )}
@@ -334,7 +314,6 @@ export default function SinglePlace() {
                   </motion.div>
                 )}
 
-                {/* Itineraries Tab (New) */}
                 {active === "itineraries" && (
                   <motion.div
                     key="itineraries"
@@ -350,90 +329,13 @@ export default function SinglePlace() {
                   >
                     <h2 className="text-2xl font-semibold mb-3">Itineraries</h2>
                     <p className="text-muted text-gray-500 text-left">
-                      Itineraries needs to be added here
+                      Detailed itineraries coming soon.
                     </p>
                   </motion.div>
                 )}
-
-                {/* Hosts Tab (Commented Out) */}
-                {/* {active === "hosts" && (
-                  <motion.div
-                    key="hosts"
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 8 }}
-                    transition={{ duration: 0.35 }}
-                    className="rounded-lg p-6"
-                    style={{
-                      backgroundColor: COLORS.white,
-                      border: `1px solid ${COLORS.border}`,
-                    }}
-                  >
-                    <h2 className="text-2xl font-semibold mb-3">
-                      Meet Your Hosts
-                    </h2>
-                    <p className="text-sm mb-4" style={{ color: COLORS.muted }}>
-                      Local experts from Uttarakhand who make this experience
-                      safe, authentic and memorable.
-                    </p>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {HOSTS.map((host) => (
-                        <div
-                          key={host.name}
-                          className="rounded-lg border bg-white shadow-sm p-4 flex flex-col justify-between text-left"
-                          style={{ borderColor: COLORS.border }}
-                        >
-                          <div>
-                            <div className="flex items-center justify-between mb-2">
-                              <h3 className="font-semibold text-base text-left">
-                                {host.name}
-                              </h3>
-                              <span
-                                className="text-xs font-medium px-2 py-1 rounded-full"
-                                style={{
-                                  backgroundColor: COLORS.lightGoldBg,
-                                  color: COLORS.goldDark,
-                                }}
-                              >
-                                ⭐ {host.rating}
-                              </span>
-                            </div>
-                            <p
-                              className="text-xs mb-1 text-left"
-                              style={{ color: COLORS.muted }}
-                            >
-                              {host.role}
-                            </p>
-                            <p
-                              className="text-xs mb-2 text-left"
-                              style={{ color: COLORS.muted }}
-                            >
-                              {host.location}
-                            </p>
-                            <p
-                              className="text-xs text-left"
-                              style={{ color: COLORS.muted }}
-                            >
-                              {host.experience}
-                            </p>
-                          </div>
-
-                          <div className="mt-3 flex items-center gap-3 text-xs">
-                            <span className="flex items-center gap-1 text-[11px] text-gray-500">
-                              <FaPhoneAlt className="text-[11px]" /> On-trip
-                              support
-                            </span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </motion.div>
-                )} */}
               </AnimatePresence>
             </div>
 
-            {/* RIGHT - sticky sidebar (unchanged from your latest version) */}
             <aside className="relative">
               <div className="lg:sticky top-28 space-y-4">
                 <div
@@ -542,10 +444,9 @@ export default function SinglePlace() {
                   }}
                 >
                   <div className="p-5 text-left">
-                    <h4 className="text-xl font-bold mb-2">Get a Question?</h4>
+                    <h4 className="text-xl font-bold mb-2">Have a Question?</h4>
                     <p className="text-sm mb-4" style={{ opacity: 0.95 }}>
-                      Do not hesitate to give us a call. We are an expert team
-                      and we are happy to talk to you.
+                      Feel free to reach out. Our team of experts is here to help you plan your journey.
                     </p>
 
                     <div className="flex items-center gap-3 mb-2">
@@ -567,7 +468,6 @@ export default function SinglePlace() {
                     </div>
                   </div>
                 </div>
-                {/* end of sticky blocks */}
               </div>
             </aside>
           </div>
