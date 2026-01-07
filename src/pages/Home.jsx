@@ -3,9 +3,12 @@ import VideoCarousel from "../components/Home/VideoCarousel";
 import ScrollStorySection from "../components/Home/ScrollStorySection";
 import InstagramSection from "../components/Home/InstagramSection";
 import { FaArrowRightLong } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 
 export default function Home() {
+  const navigate = useNavigate();
+
   return (
     <div className="w-full min-h-screen">
       <VideoCarousel />
@@ -27,7 +30,10 @@ export default function Home() {
               travellers your way.
             </p>
           </div>
-          <button className="gold-cta-x h-12 relative inline-flex items-center px-8 md:px-12 py-3 rounded-sm font-medium transition-all duration-300 bg-[#C59A2F] text-white shadow-lg cursor-pointer hover:bg-[#b68923]">
+          <button
+            onClick={() => navigate("/?auth=signup&role=host")}
+            className="gold-cta-x h-12 relative inline-flex items-center px-8 md:px-12 py-3 rounded-sm font-medium transition-all duration-300 bg-[#C59A2F] text-white shadow-lg cursor-pointer hover:bg-[#b68923]"
+          >
             Start Hosting
             <span className="ml-2">
               <FaArrowRightLong />
