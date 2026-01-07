@@ -22,7 +22,7 @@ export default function TravellerForm({ editId, editType }) {
 
       {/* Luxury Switch */}
       {!editId && (
-        <div className="flex justify-center md:justify-start">
+        <div className="flex justify-center">
           <div className="relative inline-flex bg-white rounded-full p-1 soft-border mb-8 w-full max-w-md md:w-auto">
             {/* Animated Indicator */}
             <motion.div
