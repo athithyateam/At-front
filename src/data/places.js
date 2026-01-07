@@ -365,11 +365,11 @@ export const placesData = [
         tagline: "The Unspoiled Retreat",
         description:
             "Sitlakhet is a hidden gem perched at 1900m in the Almora district. It is home to the legendary Syahi Devi Temple. Locals believe the goddess protects the entire valley from her mountain throne. Historically, the area was a favorite retreat for social leaders like Govind Ballabh Pant, who came here to find inspiration in the silence of the deodar forests.",
-        bannerImage: "https://images.unsplash.com/photo-1465919292275-c60ad29da0a2?w=1200",
+        bannerImage: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1200",
         highlights: ["Syahi Devi Temple", "Himalayan Vistas", "Pine Forest Trails", "Camping under Stars"],
         importantInfo: "Known for its medicinal herbs and absolute peace. Very few cafes or tourist shops.",
         photos: [
-            "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1200",
+            "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1200",
             "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200",
         ],
         plans: [
@@ -386,11 +386,11 @@ export const placesData = [
         tagline: "Forgotten Village of Tone Valley",
         description:
             "Kalap is a remote village in the Tons river valley accessible only by a 4-hour trek. The village is unique because its residents trace their lineage back to both the Kauravas and Pandavas of the Mahabharata. They practice a fascinating form of mountain Hinduism that exists nowhere else, maintaining customs and dialects that have been forgotten by the rest of the world.",
-        bannerImage: "https://images.unsplash.com/photo-1493246327142-99433433890c?w=1200",
+        bannerImage: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200",
         highlights: ["Ancient Architecture", "Traditional Garhwali Food", "Tons River Valley", "Off-grid Experience"],
         importantInfo: "No road access; involves a moderate uphill trek. No mobile network. True remote experience.",
         photos: [
-            "https://images.unsplash.com/photo-1537210249814-b9a10a161ae4?w=1200",
+            "https://images.unsplash.com/photo-1533512163351-5120fc6ea562?w=1200",
             "https://images.unsplash.com/photo-1506466010722-395aa2bef877?w=1200",
         ],
         plans: [
