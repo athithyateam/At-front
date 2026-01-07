@@ -333,6 +333,7 @@ export default function HostPlanForm({ editId, onSaved }) {
   function hasValidMinimal() {
     const e = {};
     if (!title.trim()) e.title = "Title is required";
+    if (!city.trim()) e.city = "City is required";
     for (const r of availability) {
       if (!validateDateRange(r)) {
         e.availability = "One or more date ranges are invalid";
@@ -508,10 +509,11 @@ export default function HostPlanForm({ editId, onSaved }) {
             <Section title="Location & Quick facts">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 <Input
-                  label="City"
+                  label="City *"
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
                   placeholder="Sankri"
+                  required
                 />
                 <Input
                   label="State"
