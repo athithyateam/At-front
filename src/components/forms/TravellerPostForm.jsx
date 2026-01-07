@@ -136,7 +136,10 @@ function CategoryPills({ values, onAdd, onRemove }) {
     "Wildlife",
     "Luxury",
     "Weekend",
+    "Others"
   ];
+
+  const [customValue, setCustomValue] = useState("");
 
   return (
     <div>
@@ -166,17 +169,49 @@ function CategoryPills({ values, onAdd, onRemove }) {
 
       {/* Available */}
       <div className="flex flex-wrap gap-2">
-        {OPTIONS.filter((o) => !values.includes(o)).map((o) => (
-          <button
-            key={o}
-            type="button"
-            onClick={() => onAdd(o)}
-            className="px-3 py-1.5 rounded-full soft-border text-sm text-gray-600 hover:bg-[#fbf6ea]"
-          >
-            + {o}
-          </button>
-        ))}
+        {OPTIONS.map((o) => {
+          const isSelected = values.includes(o);
+          if (isSelected) return null;
+          return (
+            <button
+              key={o}
+              type="button"
+              onClick={() => onAdd(o)}
+              className="px-3 py-1.5 rounded-full soft-border text-sm text-gray-600 hover:bg-[#fbf6ea]"
+            >
+              + {o}
+            </button>
+          );
+        })}
       </div>
+
+      {/* Custom input for Others */}
+      {values.includes("Others") && (
+        <div className="mt-4">
+          <label className="text-xs muted mb-1 block">Specify your category</label>
+          <div className="flex gap-2">
+            <input
+              value={customValue}
+              onChange={(e) => setCustomValue(e.target.value)}
+              placeholder="Type your category..."
+              className="input-lux rounded-xl px-3 py-2 text-sm flex-1"
+            />
+            <button
+              type="button"
+              onClick={() => {
+                if (customValue.trim()) {
+                  onAdd(customValue.trim());
+                  onRemove("Others");
+                  setCustomValue("");
+                }
+              }}
+              className="GOLD-bg text-white px-4 py-2 rounded-lg text-sm font-medium"
+            >
+              Add
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -200,7 +235,7 @@ export default function TravellerPostForm({ editId }) {
 
   // Location fields
   const [city, setCity] = useState("");
-  const [state, setState] = useState("");
+  const [state, setState] = useState("Uttarakhand");
   const [country, setCountry] = useState("India");
 
   // Additional fields for experiences
@@ -335,7 +370,7 @@ export default function TravellerPostForm({ editId }) {
         setAmenities([]);
         setPhotos([]);
         setCity("");
-        setState("");
+        setState("Uttarakhand");
         setCountry("India");
         setDifficulty("Easy");
         setPricePerPerson("");
@@ -363,13 +398,18 @@ export default function TravellerPostForm({ editId }) {
           className="input-lux rounded-lg px-3 py-2 w-full text-base font-medium"
         />
 
-        <textarea
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          rows={3}
-          placeholder="Describe the experience"
-          className="input-lux rounded-lg px-3 py-2 w-full mt-2"
-        />
+        <div className="relative">
+          <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value.slice(0, 250))}
+            rows={3}
+            placeholder="Describe the experience"
+            className="input-lux rounded-lg px-3 py-2 w-full mt-2"
+          />
+          <div className="text-[10px] text-right text-gray-400 mt-1">
+            {description.length}/250 characters
+          </div>
+        </div>
       </Section>
 
       {/* ================= LOCATION ================= */}
@@ -389,9 +429,8 @@ export default function TravellerPostForm({ editId }) {
             <label className="text-xs muted mb-1 block">State/Province</label>
             <input
               value={state}
-              onChange={(e) => setState(e.target.value)}
-              placeholder="e.g. Uttarakhand"
-              className="input-lux rounded-xl px-3 py-2 w-full text-sm"
+              readOnly
+              className="input-lux rounded-xl px-3 py-2 w-full text-sm bg-gray-50 cursor-not-allowed"
             />
           </div>
 
@@ -399,9 +438,8 @@ export default function TravellerPostForm({ editId }) {
             <label className="text-xs muted mb-1 block">Country</label>
             <input
               value={country}
-              onChange={(e) => setCountry(e.target.value)}
-              placeholder="e.g. India"
-              className="input-lux rounded-xl px-3 py-2 w-full text-sm"
+              readOnly
+              className="input-lux rounded-xl px-3 py-2 w-full text-sm bg-gray-50 cursor-not-allowed"
             />
           </div>
         </div>
@@ -491,43 +529,6 @@ export default function TravellerPostForm({ editId }) {
             )}
           </div>
 
-          {/* TAGS */}
-          <div className="rounded-lg border bg-white p-4 input-lux">
-            <div className="mb-2">
-              <h4 className="text-sm font-semibold text-[#C59D5F]">
-                Search tags
-              </h4>
-              <p className="text-xs text-gray-500">
-                Keywords travellers may search
-              </p>
-            </div>
-
-            <InlineAdder
-              placeholder="e.g. beginner, winter, budget"
-              values={tags}
-              onAdd={(v) => setTags([...tags, v])}
-              onRemove={(v) => setTags(tags.filter((x) => x !== v))}
-            />
-          </div>
-
-          {/* AMENITIES */}
-          <div className="rounded-lg border bg-white p-4 input-lux">
-            <div className="mb-2">
-              <h4 className="text-sm font-semibold text-[#C59D5F]">
-                Amenities
-              </h4>
-              <p className="text-xs text-gray-500">
-                What’s included in the experience
-              </p>
-            </div>
-
-            <InlineAdder
-              placeholder="e.g. meals, guide, transport"
-              values={amenities}
-              onAdd={(v) => setAmenities([...amenities, v])}
-              onRemove={(v) => setAmenities(amenities.filter((x) => x !== v))}
-            />
-          </div>
         </div>
       </Section>
 

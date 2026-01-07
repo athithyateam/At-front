@@ -7,7 +7,7 @@ import { deletePost, deleteItinerary, deleteService } from "../../api/posts";
 const HOST_TABS = [
   { key: "posts", label: "Momentos", icon: <FiGrid className="w-4 h-4" /> },
   { key: "plans", label: "Plans", icon: <FiLayers className="w-4 h-4" /> },
-  { key: "services", label: "Experiences", icon: <FiBriefcase className="w-4 h-4" /> },
+  { key: "services", label: "Experience", icon: <FiBriefcase className="w-4 h-4" /> },
 ];
 
 export default function HostProfile({ posts = [], postStats = {}, reviewStats = {}, isOwner = false }) {
@@ -65,7 +65,7 @@ export default function HostProfile({ posts = [], postStats = {}, reviewStats = 
       <div className="grid grid-cols-3 gap-4">
         {[
           { label: "Total", value: postStats?.total || 0, color: "text-blue-600", bg: "bg-blue-50" },
-          { label: "Experiences", value: postStats?.services || 0, color: "text-green-600", bg: "bg-green-50" },
+          { label: "Experience", value: postStats?.services || 0, color: "text-green-600", bg: "bg-green-50" },
           { label: "Rating", value: `⭐ ${reviewStats?.averageRating || "0.0"}`, color: "text-yellow-600", bg: "bg-yellow-50" },
         ].map((stat, i) => (
           <div key={i} className={`${stat.bg} ${stat.color} p-4 rounded-2xl flex flex-col items-center justify-center border border-white/50 shadow-sm`}>
@@ -129,7 +129,7 @@ export default function HostProfile({ posts = [], postStats = {}, reviewStats = 
                   {activeTab !== "posts" && (
                     <div className="absolute top-4 left-4">
                       <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-[10px] font-black uppercase tracking-widest text-gray-800 shadow-sm border border-white/50">
-                        {activeTab === "plans" ? "Plans" : activeTab === "services" ? "Experiences" : p.postType}
+                        {activeTab === "plans" ? "Plans" : activeTab === "services" ? "Experience" : p.postType}
                       </span>
                     </div>
                   )}

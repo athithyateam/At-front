@@ -18,16 +18,16 @@ const SmallCarousel = ({ images }) => {
   );
 
   return (
-    <div className="relative w-full max-w-[820px] mx-auto rounded-lg overflow-hidden shadow-md">
-      
+    <div className="relative w-full h-full overflow-hidden">
+
       {/* Slider */}
-      <div ref={sliderRef} className="keen-slider">
+      <div ref={sliderRef} className="keen-slider h-full">
         {images.map((src, idx) => (
-          <div key={idx} className="keen-slider__slide">
+          <div key={idx} className="keen-slider__slide h-full">
             <img
               src={src}
               alt={`Slide ${idx}`}
-              className="w-full h-[320px] object-cover"
+              className="w-full h-full object-cover"
             />
           </div>
         ))}
@@ -53,9 +53,8 @@ const SmallCarousel = ({ images }) => {
         {images.map((_, idx) => (
           <div
             key={idx}
-            className={`w-2.5 h-2.5 rounded-full ${
-              currentSlide === idx ? "bg-white" : "bg-white/50"
-            }`}
+            className={`w-2.5 h-2.5 rounded-full ${currentSlide === idx ? "bg-white" : "bg-white/50"
+              }`}
           ></div>
         ))}
       </div>

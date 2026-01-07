@@ -191,7 +191,7 @@ export default function GuestProfile({ posts = [], isOwner = false }) {
                   </p>
 
                   <button className="flex items-center gap-2 text-xs font-bold text-[#C59A2F] group-hover:gap-3 transition-all duration-300">
-                    {p.postType === 'service' ? 'VIEW EXPERIENCES' : 'READ STORY'} <FiArrowRight />
+                    {p.postType === 'service' ? 'VIEW EXPERIENCE' : 'READ STORY'} <FiArrowRight />
                   </button>
                 </div>
               </motion.article>

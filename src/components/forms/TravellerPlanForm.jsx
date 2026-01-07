@@ -3,10 +3,11 @@ import { useDropzone } from "react-dropzone";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiChevronDown, FiX, FiUpload } from "react-icons/fi";
 import { createItinerary, getItinerary, updateItinerary } from "../../api/itineraries";
+import { useAuth } from "../../context/AuthContext";
 
 /* ---------------- CONSTANTS ---------------- */
 const POST_TYPE = "plan";
-const emptyLocation = { city: "", state: "", country: "", address: "" };
+const emptyLocation = { city: "", state: "Uttarakhand", country: "India", address: "" };
 
 const LOOKING_FOR_OPTIONS = [
   { label: "Anyone", value: "anyone" },
@@ -158,12 +159,14 @@ function Section({ title, children }) {
 
 /* ================= MAIN FORM ================= */
 export default function TravellerPlanForm({ editId }) {
+  const { user } = useAuth();
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [formError, setFormError] = useState("");
 
   /* core */
   const [title, setTitle] = useState("");
+  const [subtitle, setSubtitle] = useState("");
   const [description, setDescription] = useState("");
   const [planName, setPlanName] = useState("");
 
@@ -317,6 +320,7 @@ export default function TravellerPlanForm({ editId }) {
     const fd = new FormData();
     fd.append("postType", POST_TYPE);
     fd.append("title", title);
+    fd.append("subtitle", subtitle);
     fd.append("description", description);
     fd.append("planName", planName);
     fd.append("location", JSON.stringify(location));
@@ -404,20 +408,33 @@ export default function TravellerPlanForm({ editId }) {
             value={planName}
             onChange={(e) => setPlanName(e.target.value)}
           />
-          <input
-            className="input-lux rounded-lg px-3 py-2 w-full text-base font-medium"
-            placeholder="Trip title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
+          <div className="grid grid-cols-1 gap-3">
+            <input
+              className="input-lux rounded-lg px-3 py-2 w-full text-base font-medium"
+              placeholder={`${user?.name || 'Guest'}’s invitation`}
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+            <input
+              className="input-lux rounded-lg px-3 py-2 w-full text-sm"
+              placeholder="any Uttarakhand place name"
+              value={subtitle}
+              onChange={(e) => setSubtitle(e.target.value)}
+            />
+          </div>
 
-          <textarea
-            rows={3}
-            className="input-lux rounded-lg px-3 py-2 w-full mt-2"
-            placeholder="Describe the plan"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
+          <div className="relative mt-2">
+            <textarea
+              rows={3}
+              className="input-lux rounded-lg px-3 py-2 w-full"
+              placeholder="Describe the plan"
+              value={description}
+              onChange={(e) => setDescription(e.target.value.slice(0, 250))}
+            />
+            <div className="text-[10px] text-right text-gray-400 mt-1">
+              {description.length}/250 characters
+            </div>
+          </div>
         </Section>
 
         {/* ================= 2 COLUMN LAYOUT ================= */}
@@ -458,20 +475,14 @@ export default function TravellerPlanForm({ editId }) {
                     }
                   />
                   <input
-                    className="input-lux rounded-lg px-3 py-2"
-                    placeholder="State"
+                    className="input-lux rounded-lg px-3 py-2 bg-gray-50 cursor-not-allowed"
                     value={location.state}
-                    onChange={(e) =>
-                      setLocation({ ...location, state: e.target.value })
-                    }
+                    readOnly
                   />
                   <input
-                    className="input-lux rounded-lg px-3 py-2"
-                    placeholder="Country"
+                    className="input-lux rounded-lg px-3 py-2 bg-gray-50 cursor-not-allowed"
                     value={location.country}
-                    onChange={(e) =>
-                      setLocation({ ...location, country: e.target.value })
-                    }
+                    readOnly
                   />
                 </div>
 
@@ -691,48 +702,7 @@ export default function TravellerPlanForm({ editId }) {
               />
             </Section>
 
-            {/* TAGS & AMENITIES */}
-            <Section title="Tags & amenities">
-              <InlineAdder
-                placeholder="Add tag"
-                onAdd={(v) => setTags([...tags, v])}
-              />
-              <div className="flex flex-wrap gap-2 mt-2">
-                {tags.map((t) => (
-                  <span key={t} className="pill soft-border flex gap-2">
-                    {t}
-                    <button
-                      type="button"
-                      onClick={() => setTags(tags.filter((x) => x !== t))}
-                    >
-                      <FiX size={14} />
-                    </button>
-                  </span>
-                ))}
-              </div>
-
-              <div className="mt-4">
-                <InlineAdder
-                  placeholder="Add amenity"
-                  onAdd={(v) => setAmenities([...amenities, v])}
-                />
-                <div className="flex flex-wrap gap-2 mt-2">
-                  {amenities.map((a) => (
-                    <span key={a} className="pill soft-border flex gap-2">
-                      {a}
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setAmenities(amenities.filter((x) => x !== a))
-                        }
-                      >
-                        <FiX size={14} />
-                      </button>
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </Section>
+            {/* Removed Tags & Amenities */}
 
             {/* SUBMIT */}
             <div className="sticky top-20 bg-white p-4 rounded-xl soft-border">

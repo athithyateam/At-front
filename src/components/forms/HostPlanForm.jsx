@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useDropzone } from "react-dropzone";
 import { FiChevronDown, FiX } from "react-icons/fi";
 import { createItinerary, getItinerary, updateItinerary } from "../../api/itineraries";
+import { useAuth } from "../../context/AuthContext";
 
 /* ----------------------- visual constants ----------------------- */
 const GOLD = "#C59D5F";
@@ -188,13 +189,15 @@ function validateDateRange(range) {
 /* ----------------------- MAIN Component ----------------------- */
 
 export default function HostPlanForm({ editId, onSaved }) {
+  const { user } = useAuth();
   // core text fields
   const [title, setTitle] = useState("");
+  const [subtitle, setSubtitle] = useState("");
   const [longDesc, setLongDesc] = useState("");
 
   // structured fields
   const [city, setCity] = useState("");
-  const [stateField, setStateField] = useState("");
+  const [stateField, setStateField] = useState("Uttarakhand");
   const [country, setCountry] = useState("India");
 
   const [days, setDays] = useState(1);
@@ -341,6 +344,7 @@ export default function HostPlanForm({ editId, onSaved }) {
     fd.append("userRole", "host");
     fd.append("postType", "plan");
     fd.append("title", title);
+    fd.append("subtitle", subtitle);
     fd.append("description", longDesc);
 
     const locationObj = {
@@ -426,6 +430,7 @@ export default function HostPlanForm({ editId, onSaved }) {
         if (!editId) {
           // reset only on create
           setTitle("");
+          setSubtitle("");
           setLongDesc("");
           setAvailability([]);
           media.forEach((m) => m.preview && URL.revokeObjectURL(m.preview));
@@ -433,7 +438,7 @@ export default function HostPlanForm({ editId, onSaved }) {
           setTags([]);
           setAmenities([]);
           setCity("");
-          setStateField("");
+          setStateField("Uttarakhand");
           setCountry("India");
           setPricePerPerson("");
           setCapacity(4);
@@ -466,23 +471,32 @@ export default function HostPlanForm({ editId, onSaved }) {
           <div className="lg:col-span-2 space-y-5">
             {/* MAIN DETAILS */}
             <Section title="Main details">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 gap-3">
                 <Input
                   label="Title"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  placeholder="e.g. Kedarkantha Summit Trek"
+                  placeholder={`${user?.name || 'Guest'}’s invitation`}
+                />
+                <Input
+                  label="Subtitle"
+                  value={subtitle}
+                  onChange={(e) => setSubtitle(e.target.value)}
+                  placeholder="any Uttarakhand place name"
                 />
               </div>
 
-              <div className="mt-3">
+              <div className="mt-3 relative">
                 <Textarea
                   label="Full description"
                   value={longDesc}
-                  onChange={(e) => setLongDesc(e.target.value)}
+                  onChange={(e) => setLongDesc(e.target.value.slice(0, 250))}
                   rows={4}
                   placeholder="Meeting point, inclusions, what to bring..."
                 />
+                <div className="text-[10px] text-right text-gray-400 mt-1">
+                  {longDesc.length}/250 characters
+                </div>
               </div>
             </Section>
 
@@ -498,14 +512,14 @@ export default function HostPlanForm({ editId, onSaved }) {
                 <Input
                   label="State"
                   value={stateField}
-                  onChange={(e) => setStateField(e.target.value)}
-                  placeholder="Uttarakhand"
+                  readOnly
+                  className="bg-gray-50 cursor-not-allowed"
                 />
                 <Input
                   label="Country"
                   value={country}
-                  onChange={(e) => setCountry(e.target.value)}
-                  placeholder="India"
+                  readOnly
+                  className="bg-gray-50 cursor-not-allowed"
                 />
               </div>
 
@@ -630,68 +644,7 @@ export default function HostPlanForm({ editId, onSaved }) {
 
           {/* ================= RIGHT COLUMN ================= */}
           <div className="space-y-5">
-            {/* TAGS & AMENITIES */}
-            <Section title="Tags & Amenities">
-              <div className="space-y-4">
-                <div>
-                  <InlineAdder
-                    placeholder="Add tag"
-                    addLabel="Add"
-                    onAdd={addTag}
-                  />
-                  <div className="mt-2 flex flex-wrap gap-2">
-                    {tags.map((t) => (
-                      <span
-                        key={t}
-                        className="px-2 py-1 rounded-full text-sm flex items-center gap-2"
-                        style={{
-                          background: "#FFFDF8",
-                          border: "1px solid #EFE7D3",
-                        }}
-                      >
-                        {t}
-                        <button
-                          type="button"
-                          onClick={() => removeTag(t)}
-                          className="text-[#C59D5F]"
-                        >
-                          ×
-                        </button>
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <InlineAdder
-                    placeholder="Add amenity"
-                    addLabel="Add"
-                    onAdd={addAmenity}
-                  />
-                  <div className="mt-2 flex flex-wrap gap-2">
-                    {amenities.map((a) => (
-                      <span
-                        key={a}
-                        className="px-2 py-1 rounded-full text-sm flex items-center gap-2"
-                        style={{
-                          background: "#FFFDF8",
-                          border: "1px solid #EFE7D3",
-                        }}
-                      >
-                        {a}
-                        <button
-                          type="button"
-                          onClick={() => removeAmenity(a)}
-                          className="text-[#C59D5F]"
-                        >
-                          ×
-                        </button>
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </Section>
+            {/* Removed Tags & Amenities */}
 
             {/* MEDIA */}
             <Section title="Media">

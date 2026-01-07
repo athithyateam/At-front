@@ -195,6 +195,7 @@ export default function HostServiceForm({ editId, onSaved }) {
   const [title, setTitle] = useState("");
   const [summary, setSummary] = useState("");
   const [description, setDescription] = useState("");
+  const [level, setLevel] = useState("Easy");
 
   // categories (pills), tags
   const [categories, setCategories] = useState([]);
@@ -344,6 +345,7 @@ export default function HostServiceForm({ editId, onSaved }) {
     fd.append("title", title);
     fd.append("summary", summary);
     fd.append("description", description);
+    fd.append("difficulty", level); // Using 'difficulty' key for consistency with other parts if any
     fd.append(
       "price",
       JSON.stringify({
@@ -403,6 +405,7 @@ export default function HostServiceForm({ editId, onSaved }) {
           setTitle("");
           setSummary("");
           setDescription("");
+          setLevel("Easy");
           setPrice("");
           setMaxPeople(1);
           setDuration(1);
@@ -453,14 +456,28 @@ export default function HostServiceForm({ editId, onSaved }) {
               />
             </div>
 
-            <textarea
-              rows={3}
-              className="input-lux rounded-lg px-3 py-2 w-full mt-3"
-              placeholder="Full description, inclusions, duration, pre-reqs…"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              style={INPUT_STYLE}
-            />
+            <div className="relative">
+              <textarea
+                rows={3}
+                className="input-lux rounded-lg px-3 py-2 w-full mt-3"
+                placeholder="Full description, inclusions, duration, pre-reqs…"
+                value={description}
+                onChange={(e) => setDescription(e.target.value.slice(0, 250))}
+                style={INPUT_STYLE}
+              />
+              <div className="text-[10px] text-right text-gray-400 mt-1">
+                {description.length}/250 characters
+              </div>
+            </div>
+
+            <div className="mt-4">
+              <AnimatedSelect
+                label="Levels"
+                value={level}
+                options={["Easy", "Moderate", "Hard"]}
+                onChange={setLevel}
+              />
+            </div>
           </Section>
 
           <Section title="Location">
@@ -526,7 +543,7 @@ export default function HostServiceForm({ editId, onSaved }) {
 
               {/* DURATION VALUE */}
               <div>
-                <label className="text-xs muted mb-1 block">Duration</label>
+                <label className="text-xs muted mb-1 block">Charged per</label>
                 <input
                   type="number"
                   min={1}
@@ -539,7 +556,7 @@ export default function HostServiceForm({ editId, onSaved }) {
 
               {/* PERIOD */}
               <AnimatedSelect
-                label="Charged per"
+                label="Duration"
                 value={period}
                 options={["hour", "day", "session"]}
                 onChange={setPeriod}
@@ -642,7 +659,7 @@ export default function HostServiceForm({ editId, onSaved }) {
           </Section>
 
           {/* PRIVACY POLICY (COLLAPSIBLE) */}
-          <Section title="Host Policy">
+          <Section title="Host Rules">
             <details>
               <summary className="cursor-pointer text-sm text-[#C59D5F]">
                 Add numbered rules

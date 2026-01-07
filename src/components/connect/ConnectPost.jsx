@@ -14,6 +14,7 @@ import { useAuth } from "../../context/AuthContext";
 import { ENDPOINTS } from "../../api/allApi";
 import { reactToPost } from "../../api/posts";
 import PremiumSelect from "../PremiumSelect";
+import SmallCarousel from "../SmallCarousel";
 import { useNotifications } from "../../context/NotificationContext";
 
 /* ---------------- Config ---------------- */
@@ -173,16 +174,22 @@ const ConnectPost = ({ endpoint = ENDPOINTS.POSTS }) => {
               exit="exit"
               className="bg-white border border-gray-300 rounded-2xl overflow-hidden"
             >
-              {/* Image */}
-              <div className="h-56 bg-gray-100">
-                <img
-                  src={
-                    post.photos?.[0]?.url ||
-                    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/330px-Placeholder_view_vector.svg.png"
-                  }
-                  alt={post.title}
-                  className="w-full h-full object-cover"
-                />
+              {/* Image / Carousel */}
+              <div className="h-56 bg-gray-100 overflow-hidden">
+                {post.photos && post.photos.length > 1 ? (
+                  <SmallCarousel
+                    images={post.photos.map(p => p.url)}
+                  />
+                ) : (
+                  <img
+                    src={
+                      post.photos?.[0]?.url ||
+                      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/330px-Placeholder_view_vector.svg.png"
+                    }
+                    alt={post.title}
+                    className="w-full h-full object-cover"
+                  />
+                )}
               </div>
 
               <div className="p-4 space-y-3">

@@ -9,16 +9,16 @@ import { ENDPOINTS } from "../../api/allApi";
 const Connect = () => {
   const { user } = useAuth();
   const [searchParams, setSearchParams] = useSearchParams();
-  const activeTab = searchParams.get("tab") || "posts";
-
   const tabs = [
+    { key: "services", label: "Experience" },
     { key: "posts", label: "Momentos" },
     { key: "plans", label: "Plans" },
-  ];
+  ].filter(tab => {
+    if (tab.key === 'services' && user?.role === 'host') return false;
+    return true;
+  });
 
-  if (user?.role === "host") {
-    tabs.push({ key: "services", label: "Experiences" });
-  }
+  const activeTab = searchParams.get("tab") || tabs[0]?.key || "posts";
 
   const setActiveTab = (tab) => {
     setSearchParams({ tab });

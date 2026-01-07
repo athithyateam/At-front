@@ -25,9 +25,17 @@ export default function HostForm({ editId, editType }) {
             className="absolute top-1 bottom-1 rounded-full GOLD-bg"
             style={{
               width: "33.3333%",
-              left: type === "post" ? "2%" : type === "plan" ? "31.3333%" : "64.6666%",
+              left: type === "service" ? "2%" : type === "post" ? "31.3333%" : "64.6666%",
             }}
           />
+
+          <button
+            onClick={() => setType("service")}
+            className={`relative z-10 px-4 md:px-6 py-2 text-sm font-medium rounded-full transition ${type === "service" ? "text-white" : "text-gray-600"
+              }`}
+          >
+            Experience
+          </button>
 
           <button
             onClick={() => setType("post")}
@@ -43,14 +51,6 @@ export default function HostForm({ editId, editType }) {
               }`}
           >
             Plans
-          </button>
-
-          <button
-            onClick={() => setType("service")}
-            className={`relative z-10 px-4 md:px-6 py-2 text-sm font-medium rounded-full transition ${type === "service" ? "text-white" : "text-gray-600"
-              }`}
-          >
-            Experiences
           </button>
         </div>
       )}
