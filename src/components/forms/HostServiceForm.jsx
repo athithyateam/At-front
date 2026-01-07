@@ -196,6 +196,7 @@ export default function HostServiceForm({ editId, onSaved }) {
   const [summary, setSummary] = useState("");
   const [description, setDescription] = useState("");
   const [level, setLevel] = useState("Easy");
+  const [customCategory, setCustomCategory] = useState("");
 
   // categories (pills), tags
   const [categories, setCategories] = useState([]);
@@ -224,7 +225,7 @@ export default function HostServiceForm({ editId, onSaved }) {
 
   // location
   const [city, setCity] = useState("");
-  const [stateField, setStateField] = useState("");
+  const [stateField, setStateField] = useState("Uttarakhand");
   const [country, setCountry] = useState("India");
   const [meetingPoint, setMeetingPoint] = useState("");
 
@@ -491,10 +492,10 @@ export default function HostServiceForm({ editId, onSaved }) {
               />
 
               <input
-                className="input-lux rounded-lg px-3 py-2"
+                className="input-lux rounded-lg px-3 py-2 bg-gray-50 cursor-not-allowed"
                 placeholder="State (e.g. Uttarakhand)"
                 value={stateField}
-                onChange={(e) => setStateField(e.target.value)}
+                readOnly
                 style={INPUT_STYLE}
               />
 
@@ -601,6 +602,7 @@ export default function HostServiceForm({ editId, onSaved }) {
                       "Backpacking",
                       "Luxury",
                       "Budget",
+                      "Others",
                     ].map((o) => (
                       <button
                         key={o}
@@ -637,6 +639,32 @@ export default function HostServiceForm({ editId, onSaved }) {
                       </span>
                     ))}
                   </div>
+
+                  {/* Custom category for Others */}
+                  {categories.includes("Others") && (
+                    <div className="mt-4 flex gap-2">
+                      <input
+                        value={customCategory}
+                        onChange={(e) => setCustomCategory(e.target.value)}
+                        placeholder="Specify your category..."
+                        className="input-lux rounded-xl px-3 py-2 text-sm flex-1"
+                        style={INPUT_STYLE}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (customCategory.trim()) {
+                            addCategory(customCategory.trim());
+                            removeCategory("Others");
+                            setCustomCategory("");
+                          }
+                        }}
+                        className="GOLD-bg text-white px-4 py-2 rounded-lg text-sm font-medium"
+                      >
+                        Add
+                      </button>
+                    </div>
+                  )}
                 </div>
 
                 {/* Tags */}
