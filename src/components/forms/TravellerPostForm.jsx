@@ -139,8 +139,6 @@ function CategoryPills({ values, onAdd, onRemove }) {
     "Others"
   ];
 
-  const [customValue, setCustomValue] = useState("");
-
   return (
     <div>
       {/* Selected */}
@@ -184,35 +182,8 @@ function CategoryPills({ values, onAdd, onRemove }) {
           );
         })}
       </div>
-
-      {/* Custom input for Others */}
-      {values.includes("Others") && (
-        <div className="mt-4">
-          <label className="text-xs muted mb-1 block">Specify your category</label>
-          <div className="flex gap-2">
-            <input
-              value={customValue}
-              onChange={(e) => setCustomValue(e.target.value)}
-              placeholder="Type your category..."
-              className="input-lux rounded-xl px-3 py-2 text-sm flex-1"
-            />
-            <button
-              type="button"
-              onClick={() => {
-                if (customValue.trim()) {
-                  onAdd(customValue.trim());
-                  onRemove("Others");
-                  setCustomValue("");
-                }
-              }}
-              className="GOLD-bg text-white px-4 py-2 rounded-lg text-sm font-medium"
-            >
-              Add
-            </button>
-          </div>
-        </div>
-      )}
     </div>
+    </div >
   );
 }
 
