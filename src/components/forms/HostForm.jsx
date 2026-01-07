@@ -18,20 +18,22 @@ export default function HostForm({ editId, editType }) {
 
       {!editId && (
         <div className="flex justify-center">
-          <div className="relative inline-flex bg-white rounded-full p-1 soft-border mb-8 w-full max-w-md md:w-auto">
+          <div className="relative inline-flex bg-white rounded-full p-1 border border-gray-100 mb-8 w-max">
+            {/* Animated Indicator */}
             <motion.div
               layout
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="absolute top-1 bottom-1 rounded-full GOLD-bg"
+              className="absolute top-1 bottom-1 rounded-full bg-[#C59A2F]"
               style={{
-                width: "32%",
-                left: type === "service" ? "1%" : type === "post" ? "34%" : "67%",
+                width: "33.3333%",
+                left: type === "service" ? "0%" : type === "post" ? "33.3333%" : "66.6666%",
+                transform: "scale(0.95)"
               }}
             />
 
             <button
               onClick={() => setType("service")}
-              className={`relative z-10 flex-1 py-2 text-sm font-medium rounded-full transition text-center ${type === "service" ? "text-white" : "text-gray-600"
+              className={`relative z-10 px-6 py-2 text-sm font-semibold rounded-full transition-colors duration-300 min-w-[100px] ${type === "service" ? "text-white" : "text-gray-500 hover:text-gray-700"
                 }`}
             >
               Experience
@@ -39,7 +41,7 @@ export default function HostForm({ editId, editType }) {
 
             <button
               onClick={() => setType("post")}
-              className={`relative z-10 flex-1 py-2 text-sm font-medium rounded-full transition text-center ${type === "post" ? "text-white" : "text-gray-600"
+              className={`relative z-10 px-6 py-2 text-sm font-semibold rounded-full transition-colors duration-300 min-w-[100px] ${type === "post" ? "text-white" : "text-gray-500 hover:text-gray-700"
                 }`}
             >
               Momentos
@@ -47,7 +49,7 @@ export default function HostForm({ editId, editType }) {
 
             <button
               onClick={() => setType("plan")}
-              className={`relative z-10 flex-1 py-2 text-sm font-medium rounded-full transition text-center ${type === "plan" ? "text-white" : "text-gray-600"
+              className={`relative z-10 px-6 py-2 text-sm font-semibold rounded-full transition-colors duration-300 min-w-[100px] ${type === "plan" ? "text-white" : "text-gray-500 hover:text-gray-700"
                 }`}
             >
               Plans
