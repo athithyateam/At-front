@@ -238,11 +238,11 @@ export default function TravellerPlanForm({ editId }) {
         }
       };
       fetchData();
-    } else if (user?.name && !title) {
+    } else if (user?.firstname && !title) {
       // Set default dynamic title if not editing
-      setTitle(`${user.name}'s invitation`);
+      setTitle(`${user.firstname}'s invitation`);
     }
-  }, [editId, user?.name]);
+  }, [editId, user?.firstname]);
 
   /* ---------------- PHOTOS ---------------- */
   const onDropPhotos = useCallback((files) => {
@@ -416,7 +416,7 @@ export default function TravellerPlanForm({ editId }) {
           <div className="grid grid-cols-1 gap-3">
             <input
               className="input-lux rounded-lg px-3 py-2 w-full text-base font-medium"
-              placeholder={user?.name ? `${user.name}'s invitation` : "Your invitation"}
+              placeholder={user?.firstname ? `${user.firstname}'s invitation` : "Your invitation"}
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />

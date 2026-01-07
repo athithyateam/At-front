@@ -255,11 +255,11 @@ export default function HostPlanForm({ editId, onSaved }) {
         }
       };
       fetchData();
-    } else if (user?.name && !title) {
+    } else if (user?.firstname && !title) {
       // Set default dynamic title if not editing
-      setTitle(`${user.name}'s invitation`);
+      setTitle(`${user.firstname}'s invitation`);
     }
-  }, [editId, user?.name]);
+  }, [editId, user?.firstname]);
 
   /* ----------------------- Dropzone ----------------------- */
   const onDrop = useCallback((acceptedFiles) => {
@@ -480,7 +480,7 @@ export default function HostPlanForm({ editId, onSaved }) {
                   label="Title"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  placeholder={user?.name ? `${user.name}'s invitation` : "Your invitation"}
+                  placeholder={user?.firstname ? `${user.firstname}'s invitation` : "Your invitation"}
                 />
                 <Input
                   label="Subtitle"
