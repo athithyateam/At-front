@@ -22,41 +22,43 @@ export default function TravellerForm({ editId, editType }) {
 
       {/* Luxury Switch */}
       {!editId && (
-        <div className="relative inline-flex bg-white rounded-full p-1 soft-border mb-8">
-          {/* Animated Indicator */}
-          <motion.div
-            layout
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="absolute top-1 bottom-1 rounded-full GOLD-bg flex"
-            style={{
-              width: "33.3333%",
-              left: type === "service" ? "2%" : type === "post" ? "32.3333%" : "65.6666%",
-            }}
-          />
+        <div className="flex justify-center md:justify-start">
+          <div className="relative inline-flex bg-white rounded-full p-1 soft-border mb-8 w-full max-w-md md:w-auto">
+            {/* Animated Indicator */}
+            <motion.div
+              layout
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="absolute top-1 bottom-1 rounded-full GOLD-bg flex"
+              style={{
+                width: "32%",
+                left: type === "service" ? "1%" : type === "post" ? "34%" : "67%",
+              }}
+            />
 
-          <button
-            onClick={() => setType("service")}
-            className={`relative z-10 px-4 md:px-6 py-2 text-sm font-medium rounded-full transition ${type === "service" ? "text-white" : "text-gray-600"
-              }`}
-          >
-            Experience
-          </button>
+            <button
+              onClick={() => setType("service")}
+              className={`relative z-10 flex-1 px-4 md:px-6 py-2 text-sm font-medium rounded-full transition text-center ${type === "service" ? "text-white" : "text-gray-600"
+                }`}
+            >
+              Experience
+            </button>
 
-          <button
-            onClick={() => setType("post")}
-            className={`relative z-10 px-6 py-2 text-sm font-medium rounded-full transition ${type === "post" ? "text-white" : "text-gray-600"
-              }`}
-          >
-            Momentos
-          </button>
+            <button
+              onClick={() => setType("post")}
+              className={`relative z-10 flex-1 px-4 md:px-6 py-2 text-sm font-medium rounded-full transition text-center ${type === "post" ? "text-white" : "text-gray-600"
+                }`}
+            >
+              Momentos
+            </button>
 
-          <button
-            onClick={() => setType("plan")}
-            className={`relative z-10 px-6 py-2 text-sm font-medium rounded-full transition ${type === "plan" ? "text-white" : "text-gray-600"
-              }`}
-          >
-            Plans
-          </button>
+            <button
+              onClick={() => setType("plan")}
+              className={`relative z-10 flex-1 px-4 md:px-6 py-2 text-sm font-medium rounded-full transition text-center ${type === "plan" ? "text-white" : "text-gray-600"
+                }`}
+            >
+              Plans
+            </button>
+          </div>
         </div>
       )}
 
