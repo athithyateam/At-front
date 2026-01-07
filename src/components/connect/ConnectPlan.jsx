@@ -271,23 +271,9 @@ const ConnectPlan = () => {
             </div>
 
             {/* TITLE */}
-            <h2 className="text-2xl font-bold text-gray-900 leading-snug text-left mb-1">
-              {plan.plan?.name || plan.title}
+            <h2 className="text-2xl font-bold text-gray-900 leading-snug text-left">
+              {plan.title}
             </h2>
-
-            {/* INVITATION & SUBTITLE */}
-            <div className="flex flex-col gap-0.5 mb-2">
-              {plan.title && (
-                <span className="text-sm font-semibold text-[#C59A2F]">
-                  {plan.title}
-                </span>
-              )}
-              {plan.subtitle && (
-                <span className="text-sm text-gray-400 italic font-medium">
-                  {plan.subtitle}
-                </span>
-              )}
-            </div>
 
             {/* RATING */}
             <div className="mt-1">
@@ -295,6 +281,26 @@ const ConnectPlan = () => {
                 average={plan.rating?.average || 0}
                 count={plan.rating?.count || 0}
               />
+            </div>
+
+            {/* DESCRIPTION */}
+            <div className="mt-4 text-[15px] text-gray-700 leading-relaxed text-justify">
+              <p className={isExpanded ? "" : "line-clamp-3"}>
+                {plan.description}
+              </p>
+
+              {plan.description?.length > 160 && (
+                <button
+                  onClick={() => toggleExpand(plan._id)}
+                  className="mt-1 flex items-center gap-1 text-sm text-[#C59A2F] hover:underline"
+                >
+                  {isExpanded ? "Show less" : "Read more"}
+                  <FiChevronDown
+                    className={`transition-transform ${isExpanded ? "rotate-180" : ""
+                      }`}
+                  />
+                </button>
+              )}
             </div>
 
             {/* META */}
@@ -332,25 +338,6 @@ const ConnectPlan = () => {
               </div>
             )}
 
-            {/* DESCRIPTION */}
-            <div className="mt-4 text-[15px] text-gray-700 leading-relaxed text-justify">
-              <p className={isExpanded ? "" : "line-clamp-3"}>
-                {plan.description}
-              </p>
-
-              {plan.description?.length > 160 && (
-                <button
-                  onClick={() => toggleExpand(plan._id)}
-                  className="mt-1 flex items-center gap-1 text-sm text-[#C59A2F] hover:underline"
-                >
-                  {isExpanded ? "Show less" : "Read more"}
-                  <FiChevronDown
-                    className={`transition-transform ${isExpanded ? "rotate-180" : ""
-                      }`}
-                  />
-                </button>
-              )}
-            </div>
 
             {/* CATEGORIES */}
             {plan.categories?.length > 0 && (
