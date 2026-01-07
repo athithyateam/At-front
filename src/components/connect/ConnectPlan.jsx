@@ -271,12 +271,26 @@ const ConnectPlan = () => {
             </div>
 
             {/* TITLE */}
-            <h2 className="text-2xl font-bold text-gray-900 leading-snug text-left">
-              {plan.title}
+            <h2 className="text-2xl font-bold text-gray-900 leading-snug text-left mb-1">
+              {plan.plan?.name || plan.title}
             </h2>
 
+            {/* INVITATION & SUBTITLE */}
+            <div className="flex flex-col gap-0.5 mb-2">
+              {plan.plan?.name && plan.title && (
+                <span className="text-sm font-semibold text-[#C59A2F]">
+                  {plan.title}
+                </span>
+              )}
+              {plan.subtitle && (
+                <span className="text-sm text-gray-400 italic font-medium">
+                  {plan.subtitle}
+                </span>
+              )}
+            </div>
+
             {/* RATING */}
-            <div className="mt-2">
+            <div className="mt-1">
               <RatingStars
                 average={plan.rating?.average || 0}
                 count={plan.rating?.count || 0}
