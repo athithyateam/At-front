@@ -196,7 +196,6 @@ export default function HostServiceForm({ editId, onSaved }) {
   const [summary, setSummary] = useState("");
   const [description, setDescription] = useState("");
   const [level, setLevel] = useState("Easy");
-  const [customCategory, setCustomCategory] = useState("");
 
   // categories (pills), tags
   const [categories, setCategories] = useState([]);
@@ -639,32 +638,6 @@ export default function HostServiceForm({ editId, onSaved }) {
                       </span>
                     ))}
                   </div>
-
-                  {/* Custom category for Others */}
-                  {categories.includes("Others") && (
-                    <div className="mt-4 flex gap-2">
-                      <input
-                        value={customCategory}
-                        onChange={(e) => setCustomCategory(e.target.value)}
-                        placeholder="Specify your category..."
-                        className="input-lux rounded-xl px-3 py-2 text-sm flex-1"
-                        style={INPUT_STYLE}
-                      />
-                      <button
-                        type="button"
-                        onClick={() => {
-                          if (customCategory.trim()) {
-                            addCategory(customCategory.trim());
-                            removeCategory("Others");
-                            setCustomCategory("");
-                          }
-                        }}
-                        className="GOLD-bg text-white px-4 py-2 rounded-lg text-sm font-medium"
-                      >
-                        Add
-                      </button>
-                    </div>
-                  )}
                 </div>
 
                 {/* Tags */}

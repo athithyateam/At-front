@@ -183,7 +183,6 @@ function CategoryPills({ values, onAdd, onRemove }) {
         })}
       </div>
     </div>
-    </div >
   );
 }
 
