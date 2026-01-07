@@ -416,7 +416,7 @@ export default function TravellerPlanForm({ editId }) {
           <div className="grid grid-cols-1 gap-3">
             <input
               className="input-lux rounded-lg px-3 py-2 w-full text-base font-medium"
-              placeholder="e.g. My Next Adventure"
+              placeholder={`${user?.name || 'Guest'}’s invitation`}
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
