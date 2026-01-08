@@ -19,8 +19,8 @@ export default function Home() {
 
       {/* Become a Host CTA */}
       <section className="py-10 px-4 md:px-12 bg-white">
-        <div className="bg-[#FFF4D6] border border-yellow-300 rounded-2xl px-6 py-8 md:px-10 md:py-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm">
-          <div>
+        <div className="bg-[#FFF4D6] border border-yellow-300 rounded-2xl px-6 py-8 md:px-10 md:py-10 flex flex-col md:flex-row items-center md:items-center justify-between gap-6 shadow-sm">
+          <div className="text-center md:text-left">
             <h2 className="text-2xl md:text-3xl font-bold text-[#C59A2F] mb-2">
               Become a Host
             </h2>
@@ -32,7 +32,7 @@ export default function Home() {
           </div>
           <button
             onClick={() => navigate("/?auth=signup&role=host")}
-            className="gold-cta-x h-12 relative inline-flex items-center px-8 md:px-12 py-3 rounded-sm font-medium transition-all duration-300 bg-[#C59A2F] text-white shadow-lg cursor-pointer hover:bg-[#b68923]"
+            className="gold-cta-x h-12 relative inline-flex items-center justify-center px-8 md:px-12 py-3 rounded-sm font-medium transition-all duration-300 bg-[#C59A2F] text-white shadow-lg cursor-pointer hover:bg-[#b68923]"
           >
             Start Hosting
             <span className="ml-2">

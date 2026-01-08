@@ -3,10 +3,9 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import TravellerPostForm from "./TravellerPostForm";
 import TravellerPlanForm from "./TravellerPlanForm";
-import HostServiceForm from "./HostServiceForm";
 
 export default function TravellerForm({ editId, editType }) {
-  const [type, setType] = useState(editType || "service"); // service | post | plan
+  const [type, setType] = useState(editType || "post"); // post | plan
 
   return (
     <div className="mx-auto p-4 md:p-6 bg-[#fffdf8] rounded-2xl soft-border soft-shadow mt-10">
@@ -30,19 +29,11 @@ export default function TravellerForm({ editId, editType }) {
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
               className="absolute top-1 bottom-1 rounded-full bg-[#C59A2F] flex"
               style={{
-                width: "33.3333%",
-                left: type === "service" ? "0%" : type === "post" ? "33.3333%" : "66.6666%",
+                width: "50%",
+                left: type === "post" ? "0%" : "50%",
                 transform: "scale(0.95)"
               }}
             />
-
-            <button
-              onClick={() => setType("service")}
-              className={`relative z-10 px-6 py-2 text-sm font-semibold rounded-full transition-colors duration-300 min-w-[100px] ${type === "service" ? "text-white" : "text-gray-500 hover:text-gray-700"
-                }`}
-            >
-              Experience
-            </button>
 
             <button
               onClick={() => setType("post")}
@@ -70,7 +61,6 @@ export default function TravellerForm({ editId, editType }) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.25 }}
       >
-        {type === "service" && <HostServiceForm editId={editId} />}
         {type === "post" && <TravellerPostForm editId={editId} />}
         {type === "plan" && <TravellerPlanForm editId={editId} />}
       </motion.div>

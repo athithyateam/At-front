@@ -14,7 +14,7 @@ const Connect = () => {
     { key: "posts", label: "Momentos" },
     { key: "plans", label: "Plans" },
   ].filter(tab => {
-    if (tab.key === 'services' && user?.role === 'host') return false;
+    if (tab.key === 'services' && user?.role !== 'host') return false;
     return true;
   });
 
