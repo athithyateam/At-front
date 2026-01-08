@@ -192,10 +192,11 @@ export default function HostPlanForm({ editId, onSaved }) {
   const { user } = useAuth();
   // core text fields
   const [title, setTitle] = useState("");
-  const [subtitle, setSubtitle] = useState("");
+  // subtitle removed
   const [longDesc, setLongDesc] = useState("");
 
   // structured fields
+  const [meetingPoint, setMeetingPoint] = useState("");
   const [city, setCity] = useState("");
   const [stateField, setStateField] = useState("Uttarakhand");
   const [country, setCountry] = useState("India");
@@ -232,8 +233,8 @@ export default function HostPlanForm({ editId, onSaved }) {
           if (res.success) {
             const i = res.itinerary || res.post;
             setTitle(i.title || "");
-            setSubtitle(i.subtitle || "");
             setLongDesc(i.description || "");
+            setMeetingPoint(i.location?.meetingPoint || "");
             setCity(i.location?.city || "");
             setStateField(i.location?.state || "Uttarakhand");
             setCountry(i.location?.country || "India");
@@ -349,10 +350,11 @@ export default function HostPlanForm({ editId, onSaved }) {
     fd.append("userRole", "host");
     fd.append("postType", "plan");
     fd.append("title", title);
-    fd.append("subtitle", subtitle);
+    // subtitle removed
     fd.append("description", longDesc);
 
     const locationObj = {
+      meetingPoint,
       city: city || "",
       state: stateField || "",
       country: country || "",
@@ -435,8 +437,10 @@ export default function HostPlanForm({ editId, onSaved }) {
         if (!editId) {
           // reset only on create
           setTitle("");
-          setSubtitle("");
+          // reset only on create
+          setTitle("");
           setLongDesc("");
+          setMeetingPoint("");
           setAvailability([]);
           media.forEach((m) => m.preview && URL.revokeObjectURL(m.preview));
           setMedia([]);
@@ -484,11 +488,26 @@ export default function HostPlanForm({ editId, onSaved }) {
                   placeholder={user?.firstname ? `${user.firstname}'s invitation` : "Your invitation"}
                 />
                 <Input
-                  label="Subtitle"
-                  value={subtitle}
-                  onChange={(e) => setSubtitle(e.target.value)}
-                  placeholder="e.g. Kedarnath"
+                  label="Set as Location"
+                  value={meetingPoint}
+                  onChange={(e) => setMeetingPoint(e.target.value)}
+                  placeholder="e.g. Rishi Bhavan or specific address"
                 />
+                <div className="grid grid-cols-2 gap-3">
+                  <Input
+                    label="Areas"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    placeholder="e.g. Sankri"
+                    required
+                  />
+                  <Input
+                    label="State"
+                    value={stateField}
+                    readOnly
+                    className="bg-gray-50 cursor-not-allowed"
+                  />
+                </div>
               </div>
 
               <div className="mt-3 relative">
@@ -505,31 +524,10 @@ export default function HostPlanForm({ editId, onSaved }) {
               </div>
             </Section>
 
-            {/* LOCATION + QUICK FACTS */}
-            <Section title="Location & Quick facts">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                <Input
-                  label="City *"
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
-                  placeholder="Sankri"
-                  required
-                />
-                <Input
-                  label="State"
-                  value={stateField}
-                  readOnly
-                  className="bg-gray-50 cursor-not-allowed"
-                />
-                <Input
-                  label="Country"
-                  value={country}
-                  readOnly
-                  className="bg-gray-50 cursor-not-allowed"
-                />
-              </div>
+            {/* QUICK FACTS (Location moved to Main Details) */}
+            <Section title="Quick facts">
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <MetricInput
                   label="Days"
                   hint="Trip days"

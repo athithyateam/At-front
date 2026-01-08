@@ -139,6 +139,17 @@ function CategoryPills({ values, onAdd, onRemove }) {
     "Others"
   ];
 
+  const [showOtherInput, setShowOtherInput] = useState(false);
+  const [otherValue, setOtherValue] = useState("");
+
+  const handleAddOther = () => {
+    if (otherValue.trim()) {
+      onAdd(otherValue.trim());
+      setOtherValue("");
+      setShowOtherInput(false);
+    }
+  };
+
   return (
     <div>
       {/* Selected */}
@@ -170,6 +181,23 @@ function CategoryPills({ values, onAdd, onRemove }) {
         {OPTIONS.map((o) => {
           const isSelected = values.includes(o);
           if (isSelected) return null;
+
+          if (o === "Others") {
+            return (
+              <button
+                key={o}
+                type="button"
+                onClick={() => setShowOtherInput(!showOtherInput)}
+                className={`px-3 py-1.5 rounded-full soft-border text-sm transition ${showOtherInput
+                    ? "bg-[#fbf6ea] text-[#C59D5F] font-medium border-[#C59D5F]"
+                    : "text-gray-600 hover:bg-[#fbf6ea]"
+                  }`}
+              >
+                + Others
+              </button>
+            );
+          }
+
           return (
             <button
               key={o}
@@ -182,6 +210,43 @@ function CategoryPills({ values, onAdd, onRemove }) {
           );
         })}
       </div>
+
+      {/* Custom Input */}
+      {showOtherInput && (
+        <motion.div
+          initial={{ opacity: 0, y: -5 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mt-3 flex gap-2 items-center"
+        >
+          <input
+            autoFocus
+            value={otherValue}
+            onChange={(e) => setOtherValue(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                handleAddOther();
+              }
+            }}
+            placeholder="Type category..."
+            className="input-lux rounded-xl px-3 py-2 text-sm flex-1 min-w-[150px]"
+          />
+          <button
+            type="button"
+            onClick={handleAddOther}
+            className="GOLD-bg text-white px-4 py-2 rounded-xl text-sm font-medium hover:opacity-90 transition"
+          >
+            Add
+          </button>
+          <button
+            type="button"
+            onClick={() => setShowOtherInput(false)}
+            className="text-gray-400 hover:text-gray-600 text-sm px-2"
+          >
+            Cancel
+          </button>
+        </motion.div>
+      )}
     </div>
   );
 }

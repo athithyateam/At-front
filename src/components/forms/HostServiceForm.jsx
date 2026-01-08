@@ -607,7 +607,7 @@ export default function HostServiceForm({ editId, onSaved }) {
                         key={o}
                         type="button"
                         onClick={() => addCategory(o)}
-                        className="px-3 py-1.5 rounded-full text-sm border border-dashed hover:bg-[#fbf6ea]"
+                        className="px-3 py-1.5 rounded-full text-sm border border-dashed border-[#C59D5F] hover:bg-[#fbf6ea] text-gray-700"
                       >
                         + {o}
                       </button>
