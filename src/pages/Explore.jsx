@@ -189,12 +189,22 @@ const Explore = () => {
         </div>
       </div>
 
+      {/* Explore Experiences - NOW AT TOP */}
+      <CarouselRow
+        title="Explore Experiences"
+        subtitle="Discover all adventures added by our host community"
+        actionLabel="Explore all"
+        backgroundClass="bg-white"
+      >
+        <AllExperiences />
+      </CarouselRow>
+
       {/* Top Locations */}
       <CarouselRow
         title="Top Locations in Uttarakhand"
         subtitle="Explore the most loved states and cities"
         actionLabel="View all"
-        backgroundClass="bg-white"
+        backgroundClass="bg-[#FFF9EC]"
       >
         {locations.map((loc, idx) => (
           <LocationCard
@@ -206,31 +216,32 @@ const Explore = () => {
         ))}
       </CarouselRow>
 
-      {/* Featured Treks */}
+      {/* Featured Experiences */}
       <CarouselRow
         title="Featured Experiences"
         subtitle="Handpicked adventures curated by verified hosts"
         actionLabel="Explore all"
-        backgroundClass="bg-[#FFF9EC]"
+        backgroundClass="bg-white"
       >
         <FeaturedTreks />
       </CarouselRow>
 
-      {/* Stays Near You */}
+      {/* Treks Nearby You */}
       <CarouselRow
         title="Treks Nearby You"
         subtitle="Discover adventures close to your location"
         actionLabel="View all"
-        backgroundClass="bg-white"
+        backgroundClass="bg-[#FFF9EC]"
       >
         <NearbyTreks />
       </CarouselRow>
+
       {/* Top Rated Treks */}
       <CarouselRow
         title="Top Rated Treks"
         subtitle="Highly rated by real trekkers"
         actionLabel="View all treks"
-        backgroundClass="bg-[#FFF9EC]"
+        backgroundClass="bg-white"
       >
         <TopRatedTreks />
       </CarouselRow>
@@ -240,7 +251,7 @@ const Explore = () => {
         title="Top Rated Hosts"
         subtitle="Trusted experts loved by travelers"
         actionLabel="Meet all hosts"
-        backgroundClass="bg-white"
+        backgroundClass="bg-[#FFF9EC]"
       >
         <TopRatedHosts />
       </CarouselRow>
@@ -250,21 +261,11 @@ const Explore = () => {
         title="Travel Guides & Tips"
         subtitle="Learn before you go – curated by our team and hosts"
         actionTo="/guides"
-        backgroundClass="bg-[#FFF9EC]"
+        backgroundClass="bg-white"
       >
         {blogs.map((b, idx) => (
           <BlogCard key={idx} {...b} />
         ))}
-      </CarouselRow>
-
-      {/* All Experiences */}
-      <CarouselRow
-        title="More Experiences"
-        subtitle="Explore all adventures added by our host community"
-        actionLabel="Explore all"
-        backgroundClass="bg-white"
-      >
-        <AllExperiences />
       </CarouselRow>
 
       {/* Small scrollbar-hide helper for all horizontal rows (if not global already) */}
