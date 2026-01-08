@@ -10,13 +10,9 @@ const Connect = () => {
   const { user } = useAuth();
   const [searchParams, setSearchParams] = useSearchParams();
   const tabs = [
-    { key: "services", label: "Experience" },
     { key: "posts", label: "Momentos" },
     { key: "plans", label: "Plans" },
-  ].filter(tab => {
-    if (tab.key === 'services' && user?.role !== 'host') return false;
-    return true;
-  });
+  ];
 
   const activeTab = searchParams.get("tab") || tabs[0]?.key || "posts";
 
@@ -76,7 +72,6 @@ const Connect = () => {
       <div className="max-w-2xl mx-auto px-4 py-6">
         {activeTab === "posts" && <ConnectPost endpoint={ENDPOINTS.POSTS} />}
         {activeTab === "plans" && <ConnectPlan />}
-        {activeTab === "services" && <ConnectPost endpoint={ENDPOINTS.ALL_SERVICES} />}
       </div>
     </div>
   );

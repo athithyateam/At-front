@@ -20,6 +20,7 @@ import FeaturedTreks from "../components/explore/FeaturedTreks";
 import TopRatedTreks from "../components/explore/TopRatedTreks";
 import TopRatedHosts from "../components/explore/TopRatedHosts";
 import NearbyTreks from "../components/explore/TreksNearbyYou";
+import AllExperiences from "../components/explore/AllExperiences";
 
 // Import data
 import { placesData } from "../data/places";
@@ -254,6 +255,16 @@ const Explore = () => {
         {blogs.map((b, idx) => (
           <BlogCard key={idx} {...b} />
         ))}
+      </CarouselRow>
+
+      {/* All Experiences */}
+      <CarouselRow
+        title="More Experiences"
+        subtitle="Explore all adventures added by our host community"
+        actionLabel="Explore all"
+        backgroundClass="bg-white"
+      >
+        <AllExperiences />
       </CarouselRow>
 
       {/* Small scrollbar-hide helper for all horizontal rows (if not global already) */}
