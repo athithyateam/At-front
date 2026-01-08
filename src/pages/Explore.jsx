@@ -189,22 +189,12 @@ const Explore = () => {
         </div>
       </div>
 
-      {/* Explore Experiences - NOW AT TOP */}
-      <CarouselRow
-        title="Explore Experiences"
-        subtitle="Discover all adventures added by our host community"
-        actionLabel="Explore all"
-        backgroundClass="bg-white"
-      >
-        <AllExperiences />
-      </CarouselRow>
-
       {/* Top Locations */}
       <CarouselRow
         title="Top Locations in Uttarakhand"
         subtitle="Explore the most loved states and cities"
         actionLabel="View all"
-        backgroundClass="bg-[#FFF9EC]"
+        backgroundClass="bg-white"
       >
         {locations.map((loc, idx) => (
           <LocationCard
@@ -214,6 +204,16 @@ const Explore = () => {
             onClick={() => navigate(`/place/${loc.id}`)}
           />
         ))}
+      </CarouselRow>
+
+      {/* Explore Experiences */}
+      <CarouselRow
+        title="Explore Experiences"
+        subtitle="Discover all adventures added by our host community"
+        actionLabel="Explore all"
+        backgroundClass="bg-[#FFF9EC]"
+      >
+        <AllExperiences />
       </CarouselRow>
 
       {/* Featured Experiences */}
