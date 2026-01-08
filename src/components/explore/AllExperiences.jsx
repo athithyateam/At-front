@@ -10,7 +10,7 @@ const AllExperiences = () => {
         async function fetchExperiences() {
             try {
                 // Use the dedicated listServices helper
-                const data = await ServicesAPI.listServices();
+                const data = await ServicesAPI.listServices({ limit: 50 });
                 console.log("AllExperiences - API Response:", data);
 
                 // Be very flexible with the key names returned by the API
