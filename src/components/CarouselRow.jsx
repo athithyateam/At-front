@@ -1,6 +1,7 @@
 // src/components/layout/CarouselRow.jsx
 import React, { useRef } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaArrowRightLong } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
 const CarouselRow = ({
@@ -38,24 +39,26 @@ const CarouselRow = ({
         </div>
 
         {/* ACTION */}
-        {actionLabel && (
-          <>
+        {(actionLabel || actionTo) && (
+          <div className="shrink-0 mb-1">
             {actionTo ? (
               <Link
                 to={actionTo}
-                className="inline-flex items-center text-sm font-medium text-[#C59A2F] hover:underline"
+                className="flex items-center justify-center w-10 h-10 rounded-full border border-[#C59A2F]/30 text-[#C59A2F] hover:bg-[#C59A2F] hover:text-white transition-all duration-300"
+                title={actionLabel || "View all"}
               >
-                {actionLabel}
+                <FaArrowRightLong size={18} />
               </Link>
             ) : (
               <button
                 onClick={onAction}
-                className="inline-flex items-center text-sm font-medium text-[#C59A2F] hover:underline"
+                className="flex items-center justify-center w-10 h-10 rounded-full border border-[#C59A2F]/30 text-[#C59A2F] hover:bg-[#C59A2F] hover:text-white transition-all duration-300"
+                title={actionLabel || "View all"}
               >
-                {actionLabel}
+                <FaArrowRightLong size={18} />
               </button>
             )}
-          </>
+          </div>
         )}
       </div>
 

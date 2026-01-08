@@ -228,7 +228,7 @@ const Explore = () => {
 
       {/* Treks Nearby You */}
       <CarouselRow
-        title="Treks Nearby You"
+        title="Experiences Nearby You"
         subtitle="Discover adventures close to your location"
         actionLabel="View all"
         backgroundClass="bg-[#FFF9EC]"
@@ -238,7 +238,7 @@ const Explore = () => {
 
       {/* Top Rated Treks */}
       <CarouselRow
-        title="Top Rated Treks"
+        title="Top Rated Experiences"
         subtitle="Highly rated by real trekkers"
         actionLabel="View all treks"
         backgroundClass="bg-white"
