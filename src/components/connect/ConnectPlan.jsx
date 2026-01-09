@@ -15,7 +15,6 @@ import PremiumSelect from "../PremiumSelect";
 import RatingStars from "../RatingStars";
 import { useNotifications } from "../../context/NotificationContext";
 
-/* ---------------- helpers ---------------- */
 
 const EMOJIS = ["🔥", "❤️", "👍", "😍", "😮", "👏"];
 
@@ -32,7 +31,6 @@ function getLookingFor(tags = []) {
   ).map((l) => l.label);
 }
 
-/* ---------------- component ---------------- */
 
 const ConnectPlan = () => {
   const { user } = useAuth();
@@ -43,9 +41,8 @@ const ConnectPlan = () => {
   const [expanded, setExpanded] = useState({});
   const [openPicker, setOpenPicker] = useState(null);
 
-  /* filters */
   const [lookingFor, setLookingFor] = useState("all");
-  const [sortBy, setSortBy] = useState("default"); // default | rating_desc | rating_asc
+  const [sortBy, setSortBy] = useState("default");
   const [topRatedOnly, setTopRatedOnly] = useState(false);
   const { addNotification } = useNotifications();
 
