@@ -179,7 +179,7 @@ const Explore = () => {
 
   return (
     <>
-      <div className="relative w-full h-[450px] md:h-[650px] flex items-center justify-center overflow-hidden">
+      <div className="relative w-full h-[600px] md:h-[650px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 w-full h-full">
           <img
             src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?q=80&w=2048&auto=format&fit=crop"
@@ -189,7 +189,7 @@ const Explore = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-black/30" />
         </div>
 
-        <div className="relative z-10 w-full max-w-5xl px-4 md:px-6 text-center">
+        <div className="relative z-10 w-full max-w-5xl px-4 md:px-6 text-center pt-24 md:pt-0">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -198,7 +198,7 @@ const Explore = () => {
             <h1 className="text-3xl sm:text-4xl md:text-7xl font-bold text-white mb-4 md:mb-6 drop-shadow-2xl tracking-tight leading-tight">
               Experience the Soul of <span className="text-[#d5ad37]">Uttarakhand</span>
             </h1>
-            <p className="text-sm sm:text-base md:text-2xl text-white/90 mb-8 md:mb-12 max-w-xs sm:max-w-xl md:max-w-3xl mx-auto drop-shadow-lg font-medium leading-relaxed">
+            <p className="text-sm sm:text-base md:text-2xl text-white/90 mb-8 md:mb-12 max-w-[280px] sm:max-w-xl md:max-w-3xl mx-auto drop-shadow-lg font-medium leading-relaxed">
               Discover hidden trails, connect with authentic local hosts, and immerse yourself in the divine beauty of the Himalayas.
             </p>
             <div className="w-full max-w-2xl mx-auto px-2 sm:px-0">
