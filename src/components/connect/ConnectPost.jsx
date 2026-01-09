@@ -45,6 +45,7 @@ const ConnectPost = ({ endpoint = ENDPOINTS.POSTS }) => {
   useEffect(() => {
     async function fetchPosts() {
       try {
+        // Fetching initial posts and reactions from the database
         const res = await axios.get(endpoint);
         setPosts(res.data?.experiences || res.data?.services || []);
       } catch (err) {
@@ -90,6 +91,7 @@ const ConnectPost = ({ endpoint = ENDPOINTS.POSTS }) => {
         setPosts((prev) =>
           prev.map((p) => {
             if (p._id === postId) {
+              // Updating the specific post's reactions with fresh data from the database response
               return { ...p, reactions: Array.isArray(updatedReactions) ? updatedReactions : p.reactions };
             }
             return p;

@@ -49,6 +49,7 @@ const ConnectPlan = () => {
   useEffect(() => {
     async function fetchPlans() {
       try {
+        // Fetching initial plans and reactions from the database
         const res = await listItineraries();
         setPlans(res?.itineraries || []);
       } catch (e) {
@@ -74,6 +75,7 @@ const ConnectPlan = () => {
         setPlans((prev) =>
           prev.map((p) => {
             if (p._id === planId) {
+              // Updating the specific plan's reactions with fresh data from the database response
               return { ...p, reactions: Array.isArray(updatedReactions) ? updatedReactions : p.reactions };
             }
             return p;
