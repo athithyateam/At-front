@@ -1,7 +1,7 @@
 // src/pages/Explore.jsx
 import { FaArrowRightLong } from "react-icons/fa6";
 
-import Carousel from "../components/Carousel";
+import { motion } from "framer-motion";
 import SearchBar from "../components/Search";
 
 // Layout
@@ -180,12 +180,35 @@ const Explore = () => {
   return (
     <>
       {/* Hero Section */}
-      <div className="relative w-full h-[360px] md:h-[350px]">
-        <Carousel />
-        <div className="absolute inset-0 flex items-end justify-center pointer-events-none">
-          <div className="pointer-events-auto w-11/12 md:w-3/5 lg:w-1/2 mb-10">
-            <SearchBar />
-          </div>
+      <div className="relative w-full h-[500px] md:h-[650px] flex items-center justify-center">
+        {/* Banner Image */}
+        <div className="absolute inset-0 w-full h-full">
+          <img
+            src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?q=80&w=2048&auto=format&fit=crop"
+            alt="Uttarakhand Banner"
+            className="w-full h-full object-cover"
+          />
+          {/* Dark Overlay with Gradient for better text readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-transparent" />
+        </div>
+
+        {/* Content Overlay */}
+        <div className="relative z-10 w-full max-w-5xl px-6 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h1 className="text-4xl md:text-7xl font-bold text-white mb-6 drop-shadow-2xl tracking-tight">
+              Experience the Soul of <span className="text-[#d5ad37]">Uttarakhand</span>
+            </h1>
+            <p className="text-lg md:text-2xl text-white/90 mb-10 max-w-3xl mx-auto drop-shadow-lg font-medium leading-relaxed">
+              Discover hidden trails, connect with authentic local hosts, and immerse yourself in the divine beauty of the Himalayas.
+            </p>
+            <div className="w-full max-w-2xl mx-auto">
+              <SearchBar />
+            </div>
+          </motion.div>
         </div>
       </div>
 

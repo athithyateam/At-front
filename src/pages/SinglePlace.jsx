@@ -1,6 +1,6 @@
 // src/pages/SinglePlace.jsx
 import React, { useState, useRef, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   FaStar,
@@ -9,6 +9,7 @@ import {
   FaHeadset,
   FaStarHalfAlt,
   FaHeart,
+  FaArrowLeft,
 } from "react-icons/fa";
 import SmallCarousel from "../components/SmallCarousel";
 import { placesData } from "../data/places";
@@ -59,6 +60,7 @@ const HOSTS = [
 
 export default function SinglePlace() {
   const { city } = useParams();
+  const navigate = useNavigate();
   const [active, setActive] = useState(TABS[0].key);
 
   const place = placesData.find((p) => p.id === city) || placesData[0];
@@ -69,7 +71,7 @@ export default function SinglePlace() {
   useEffect(() => {
     const nav = navRef.current;
     if (!nav) return;
-    
+
     // Animate tab underline
     const updateUnderline = () => {
       const activeBtn = nav.querySelector(`[data-key="${active}"]`);
@@ -94,7 +96,19 @@ export default function SinglePlace() {
       style={{ backgroundColor: COLORS.white, color: COLORS.text }}
       className="min-h-screen font-sans"
     >
-      <div className="w-full overflow-hidden">
+      <div className="w-full overflow-hidden relative">
+        {/* Back Button */}
+        <motion.button
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => navigate(-1)}
+          className="absolute top-6 left-6 z-20 flex items-center gap-2 px-5 py-2.5 bg-white/90 hover:bg-white text-gray-800 rounded-full shadow-xl transition-all duration-300 group cursor-pointer backdrop-blur-sm border border-white/20"
+        >
+          <FaArrowLeft className="group-hover:-translate-x-1 transition-transform text-[#d4af37]" />
+          <span className="font-bold text-sm tracking-wide">Back to Explore</span>
+        </motion.button>
         <img
           src={place.bannerImage}
           alt={place.name}
