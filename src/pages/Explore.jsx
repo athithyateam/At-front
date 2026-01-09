@@ -179,20 +179,16 @@ const Explore = () => {
 
   return (
     <>
-      {/* Hero Section */}
       <div className="relative w-full h-[500px] md:h-[650px] flex items-center justify-center">
-        {/* Banner Image */}
         <div className="absolute inset-0 w-full h-full">
           <img
             src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?q=80&w=2048&auto=format&fit=crop"
             alt="Uttarakhand Banner"
             className="w-full h-full object-cover"
           />
-          {/* Dark Overlay with Gradient for better text readability */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-transparent" />
         </div>
 
-        {/* Content Overlay */}
         <div className="relative z-10 w-full max-w-5xl px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

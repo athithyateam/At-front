@@ -39,14 +39,13 @@ const ConnectPost = ({ endpoint = ENDPOINTS.POSTS }) => {
   const [location, setLocation] = useState("all");
 
   const [saved, setSaved] = useState({});
-  const [openPicker, setOpenPicker] = useState(null); // postId
+  const [openPicker, setOpenPicker] = useState(null);
   const { addNotification } = useNotifications();
 
   useEffect(() => {
     async function fetchPosts() {
       try {
         const res = await axios.get(endpoint);
-        // Backend developer has stored posts in 'experiences' or 'services'
         setPosts(res.data?.experiences || res.data?.services || []);
       } catch (err) {
         console.error("Fetch posts failed", err);
@@ -85,7 +84,6 @@ const ConnectPost = ({ endpoint = ENDPOINTS.POSTS }) => {
         token: localStorage.getItem("auth_token"),
       });
 
-      // Backend returns either the updated reactions array or the whole post
       const updatedReactions = res.reactions || res.data?.reactions || res;
 
       if (Array.isArray(updatedReactions) || res.success) {
@@ -236,7 +234,6 @@ const ConnectPost = ({ endpoint = ENDPOINTS.POSTS }) => {
                   {post.description}
                 </p>
 
-                {/* Reaction Section - Integrated with backend data */}
                 <div className="flex flex-wrap gap-2 items-center min-h-[20px]">
                   {Object.entries(getCounts(post)).map(([emoji, count]) => (
                     <motion.div

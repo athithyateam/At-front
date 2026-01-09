@@ -107,7 +107,6 @@ export default function SinglePlace() {
       </div>
 
       <div className="container mx-auto px-4 md:px-6 lg:px-12 mt-6">
-        {/* Back Button in the second section (Content Section) */}
         <motion.button
           initial={{ opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
