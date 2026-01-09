@@ -198,7 +198,7 @@ const Explore = () => {
             <h1 className="text-3xl sm:text-4xl md:text-7xl font-bold text-white mb-4 md:mb-6 drop-shadow-2xl tracking-tight leading-tight">
               Experience the Soul of <span className="text-[#d5ad37]">Uttarakhand</span>
             </h1>
-            <p className="text-sm sm:text-base md:text-2xl text-white/90 mb-8 md:mb-12 max-w-[280px] sm:max-w-xl md:max-w-3xl mx-auto drop-shadow-lg font-medium leading-relaxed">
+            <p className="text-base sm:text-lg md:text-2xl text-white/90 mb-8 md:mb-12 max-w-[320px] sm:max-w-xl md:max-w-3xl mx-auto drop-shadow-lg font-medium leading-relaxed">
               Discover hidden trails, connect with authentic local hosts, and immerse yourself in the divine beauty of the Himalayas.
             </p>
             <div className="w-full max-w-2xl mx-auto px-2 sm:px-0">
