@@ -38,10 +38,7 @@ const ConnectPost = ({ endpoint = ENDPOINTS.POSTS }) => {
 
   const [location, setLocation] = useState("all");
 
-  const [raised, setRaised] = useState({});
   const [saved, setSaved] = useState({});
-  // allReactions removed, using post.reactions directly (Real-Time Database)
-
   const [openPicker, setOpenPicker] = useState(null); // postId
   const { addNotification } = useNotifications();
 
@@ -49,6 +46,7 @@ const ConnectPost = ({ endpoint = ENDPOINTS.POSTS }) => {
     async function fetchPosts() {
       try {
         const res = await axios.get(endpoint);
+        // Backend developer has stored posts in 'experiences' or 'services'
         setPosts(res.data?.experiences || res.data?.services || []);
       } catch (err) {
         console.error("Fetch posts failed", err);
@@ -87,11 +85,14 @@ const ConnectPost = ({ endpoint = ENDPOINTS.POSTS }) => {
         token: localStorage.getItem("auth_token"),
       });
 
-      if (res.success) {
+      // Backend returns either the updated reactions array or the whole post
+      const updatedReactions = res.reactions || res.data?.reactions || res;
+
+      if (Array.isArray(updatedReactions) || res.success) {
         setPosts((prev) =>
           prev.map((p) => {
             if (p._id === postId) {
-              return { ...p, reactions: res.reactions };
+              return { ...p, reactions: Array.isArray(updatedReactions) ? updatedReactions : p.reactions };
             }
             return p;
           })
@@ -99,41 +100,38 @@ const ConnectPost = ({ endpoint = ENDPOINTS.POSTS }) => {
       }
     } catch (err) {
       console.error(err);
-      alert("Failed to react");
     }
     setOpenPicker(null);
   }
 
   function getCounts(post) {
     const counts = {};
-    if (post.reactions) {
+    if (post.reactions && Array.isArray(post.reactions)) {
       post.reactions.forEach((r) => {
-        counts[r.emoji] = (counts[r.emoji] || 0) + 1;
+        if (r.emoji) counts[r.emoji] = (counts[r.emoji] || 0) + 1;
       });
     }
     return counts;
   }
 
   function getMyReaction(post) {
-    if (!user || !post.reactions) return null;
+    if (!user || !post.reactions || !Array.isArray(post.reactions)) return null;
     const r = post.reactions.find(
-      (react) => react.user === user._id || react.user?._id === user._id
+      (react) => {
+        const reactUserId = react.user?._id || react.user;
+        return reactUserId === user._id;
+      }
     );
     return r ? r.emoji : null;
   }
 
-  function toggleRaise(postId) {
-    setRaised((prev) => ({
-      ...prev,
-      [postId]: (prev[postId] || 0) + 1,
-    }));
-  }
-
   function handleShare(post) {
     const url = `${window.location.origin}/post/${post._id}`;
-    navigator.share
-      ? navigator.share({ title: post.title, url })
-      : navigator.clipboard.writeText(url);
+    if (navigator.share) {
+      navigator.share({ title: post.title, url }).catch(() => { });
+    } else {
+      navigator.clipboard.writeText(url);
+    }
   }
 
   if (loading) {
@@ -238,16 +236,22 @@ const ConnectPost = ({ endpoint = ENDPOINTS.POSTS }) => {
                   {post.description}
                 </p>
 
-                {/* Reaction Counts */}
-                <div className="flex gap-3 text-sm min-h-[24px]">
-                  {Object.entries(getCounts(post)).length > 0 ? (
-                    Object.entries(getCounts(post)).map(([emoji, count]) => (
-                      <span key={emoji} className="bg-gray-50 px-2 py-0.5 rounded-full border border-gray-100 text-xs flex items-center gap-1">
-                        <span>{emoji}</span>
-                        <span className="font-semibold text-gray-700">{count}</span>
-                      </span>
-                    ))
-                  ) : <div className="h-6"></div>}
+                {/* Reaction Section - Integrated with backend data */}
+                <div className="flex flex-wrap gap-2 items-center min-h-[20px]">
+                  {Object.entries(getCounts(post)).map(([emoji, count]) => (
+                    <motion.div
+                      key={emoji}
+                      initial={{ scale: 0.9 }}
+                      animate={{ scale: 1 }}
+                      className="flex items-center gap-1.5 px-2 py-1 rounded-full bg-gray-50 border border-gray-100 transition-all hover:bg-gray-100"
+                    >
+                      <span className="text-sm">{emoji}</span>
+                      <span className="text-xs font-bold text-gray-600">{count}</span>
+                    </motion.div>
+                  ))}
+                  {Object.keys(getCounts(post)).length === 0 && (
+                    <span className="text-xs text-gray-400 italic">No reactions yet</span>
+                  )}
                 </div>
 
                 {/* Footer */}
