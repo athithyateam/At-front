@@ -186,7 +186,7 @@ const Explore = () => {
             alt="Uttarakhand Banner"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/20" />
         </div>
 
         <div className="relative z-10 w-full max-w-5xl px-6 text-center">
