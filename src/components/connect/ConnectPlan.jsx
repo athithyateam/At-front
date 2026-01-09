@@ -9,8 +9,7 @@ import {
   FiSmile,
 } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
-import { listItineraries } from "../../api/itineraries";
-import { reactToPost } from "../../api/posts";
+import { listItineraries, reactToItinerary } from "../../api/itineraries";
 import { useAuth } from "../../context/AuthContext";
 import PremiumSelect from "../PremiumSelect";
 import RatingStars from "../RatingStars";
@@ -68,15 +67,17 @@ const ConnectPlan = () => {
     if (!user) return alert("Please login to react");
 
     try {
-      const res = await reactToPost(planId, emoji, {
+      const res = await reactToItinerary(planId, emoji, {
         token: localStorage.getItem("auth_token"),
       });
 
-      if (res.success) {
+      const updatedReactions = res.reactions || res.data?.reactions || res;
+
+      if (Array.isArray(updatedReactions) || res.success) {
         setPlans((prev) =>
           prev.map((p) => {
             if (p._id === planId) {
-              return { ...p, reactions: res.reactions };
+              return { ...p, reactions: Array.isArray(updatedReactions) ? updatedReactions : p.reactions };
             }
             return p;
           })
@@ -84,7 +85,6 @@ const ConnectPlan = () => {
       }
     } catch (err) {
       console.error(err);
-      alert("Failed to react");
     }
     setOpenPicker(null);
   }

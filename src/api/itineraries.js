@@ -98,9 +98,37 @@ export async function updateItinerary(id, formData, { token, onUploadProgress } 
   }
 }
 
+export async function reactToItinerary(id, emoji, { token } = {}) {
+  try {
+    const res = await axiosInstance.put(ENDPOINTS.REACT_ITINERARY(id), { emoji }, {
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    });
+    return res.data;
+  } catch (err) {
+    const message = err?.response?.data?.message || err?.message || "Failed to react to itinerary";
+    console.error("reactToItinerary error:", message, err);
+    throw { success: false, message, original: err };
+  }
+}
+
+export async function deleteItinerary(id, { token } = {}) {
+  try {
+    const res = await axiosInstance.delete(ENDPOINTS.DELETE_ITINERARY(id), {
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    });
+    return res.data;
+  } catch (err) {
+    const message = err?.response?.data?.message || err?.message || "Failed to delete itinerary";
+    console.error("deleteItinerary error:", message, err);
+    throw { success: false, message, original: err };
+  }
+}
+
 export default {
   createItinerary,
   getItinerary,
   listItineraries,
   updateItinerary,
+  reactToItinerary,
+  deleteItinerary,
 };

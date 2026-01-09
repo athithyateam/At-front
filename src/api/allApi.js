@@ -14,6 +14,7 @@ export const ENDPOINTS = {
   GET_ITINERARY: (id) => `${API_BASE}/api/itineraries/${id}`,
   USER_ITINERARIES: (userId) => `${API_BASE}/api/itineraries/${userId}`,
   DELETE_ITINERARY: (id) => `${API_BASE}/api/itineraries/${id}`,
+  REACT_ITINERARY: (id) => `${API_BASE}/api/itineraries/${id}/react`,
 
   // services
   POST_SERVICE: `${API_BASE}/api/posts/services`,
