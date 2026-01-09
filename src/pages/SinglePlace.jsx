@@ -97,18 +97,6 @@ export default function SinglePlace() {
       className="min-h-screen font-sans"
     >
       <div className="w-full overflow-hidden relative">
-        {/* Back Button */}
-        <motion.button
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => navigate(-1)}
-          className="absolute top-6 left-6 z-20 flex items-center gap-2 px-5 py-2.5 bg-white/90 hover:bg-white text-gray-800 rounded-full shadow-xl transition-all duration-300 group cursor-pointer backdrop-blur-sm border border-white/20"
-        >
-          <FaArrowLeft className="group-hover:-translate-x-1 transition-transform text-[#d4af37]" />
-          <span className="font-bold text-sm tracking-wide">Back to Explore</span>
-        </motion.button>
         <img
           src={place.bannerImage}
           alt={place.name}
@@ -119,6 +107,19 @@ export default function SinglePlace() {
       </div>
 
       <div className="container mx-auto px-4 md:px-6 lg:px-12 mt-6">
+        {/* Back Button in the second section (Content Section) */}
+        <motion.button
+          initial={{ opacity: 0, x: -10 }}
+          animate={{ opacity: 1, x: 0 }}
+          onClick={() => navigate(-1)}
+          className="flex items-center gap-2 mb-4 text-sm font-bold text-gray-600 hover:text-[#d4af37] transition-colors group cursor-pointer"
+        >
+          <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center group-hover:bg-[#FFF7E6] transition-colors">
+            <FaArrowLeft className="group-hover:-translate-x-0.5 transition-transform" />
+          </div>
+          <span>Back to Top Locations</span>
+        </motion.button>
+
         <div
           className="rounded-lg shadow-lg p-4 md:p-6"
           style={{
