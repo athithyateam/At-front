@@ -189,7 +189,7 @@ const Explore = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-black/30" />
         </div>
 
-        <div className="relative z-10 w-full max-w-5xl px-4 md:px-6 text-center">
+        <div className="relative z-10 w-full max-w-5xl px-4 md:px-6 text-center pt-16">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
