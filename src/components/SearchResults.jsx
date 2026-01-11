@@ -16,11 +16,17 @@ const SearchResults = () => {
   useEffect(() => {
     async function fetchResults() {
       try {
-        const res = await axiosInstance.get(ENDPOINTS.POSTS, {
-          params: { location, from, to },
+        // Use the dedicated search endpoint that handles "location" parameter across city/state/country
+        const res = await axiosInstance.get(ENDPOINTS.SEARCH, {
+          params: {
+            location,
+            type: 'experience', // Filter for experiences to match the UI components
+            // Note: Date filtering (from/to) is not currently supported by the search API
+          },
         });
 
-        setResults(res?.data?.posts || []);
+        // The search API returns results in res.data.data.results
+        setResults(res?.data?.data?.results || []);
       } catch (err) {
         console.error("Search error:", err);
       } finally {
@@ -67,12 +73,12 @@ const SearchResults = () => {
             {results.map((trek) => (
               <FeaturedTrekCard
                 key={trek._id}
-                image={trek.photos?.[0]?.url}
+                image={trek.photos?.[0]?.url || "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800"}
                 title={trek.title}
-                days={`${trek.duration.days}D • ${trek.duration.nights}N`}
-                level={trek.difficulty}
-                price={`₹${trek.price.perPerson}`}
-                location={`${trek.location.city}, ${trek.location.state}`}
+                days={`${trek.duration?.days || 1}D • ${trek.duration?.nights || 1}N`}
+                level={trek.difficulty || "Moderate"}
+                price={`₹${trek.price?.perPerson || "Request Price"}`}
+                location={`${trek.location?.city || ""}, ${trek.location?.state || ""}`}
               />
             ))}
           </div>

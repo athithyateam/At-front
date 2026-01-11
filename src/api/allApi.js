@@ -42,4 +42,7 @@ export const ENDPOINTS = {
   MARK_READ: (id) => `${API_BASE}/api/notifications/${id}/read`,
   MARK_ALL_READ: `${API_BASE}/api/notifications/mark-all/read`,
   CLEAR_ALL_NOTIFS: `${API_BASE}/api/notifications/clear/all`,
+
+  // search
+  SEARCH: `${API_BASE}/api/search`,
 };
