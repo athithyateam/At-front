@@ -3,6 +3,7 @@ export const API_BASE = import.meta.env.VITE_WEB_API || "";
 export const ENDPOINTS = {
   // experience (momentos/posts)
   POSTS: `${API_BASE}/api/posts/experiences`,
+  POSTS_ROOT: `${API_BASE}/api/posts`,
   GET_POST: (id) => `${API_BASE}/api/posts/experiences/${id}`,
   DELETE_POST: (id) => `${API_BASE}/api/posts/experiences/${id}`,
   USER_POST: (userId) => `${API_BASE}/api/posts/experiences/user/${userId}`,

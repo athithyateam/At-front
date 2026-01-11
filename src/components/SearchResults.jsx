@@ -16,17 +16,16 @@ const SearchResults = () => {
   useEffect(() => {
     async function fetchResults() {
       try {
-        // Use the dedicated search endpoint that handles "location" parameter across city/state/country
-        const res = await axiosInstance.get(ENDPOINTS.SEARCH, {
+        // We use the root Posts endpoint which is more general and includes 'trek' types
+        // The search API (/api/search) was too restrictive and only included 'plan' and 'experience'
+        const res = await axiosInstance.get(ENDPOINTS.POSTS_ROOT, {
           params: {
-            location,
-            type: 'experience', // Filter for experiences to match the UI components
-            // Note: Date filtering (from/to) is not currently supported by the search API
+            city: location, // The posts API expects 'city' for location filtering
           },
         });
 
-        // The search API returns results in res.data.data.results
-        setResults(res?.data?.data?.results || []);
+        // The posts API returns results in res.data.posts
+        setResults(res?.data?.posts || []);
       } catch (err) {
         console.error("Search error:", err);
       } finally {
