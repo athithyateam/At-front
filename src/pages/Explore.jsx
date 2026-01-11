@@ -179,7 +179,7 @@ const Explore = () => {
 
   return (
     <>
-      <div className="relative w-full h-[600px] md:h-[650px] flex items-center justify-center overflow-hidden">
+      <div className="relative w-full h-[300px] md:h-[400px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 w-full h-full">
           <img
             src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?q=80&w=2048&auto=format&fit=crop"
@@ -189,7 +189,7 @@ const Explore = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-black/30" />
         </div>
 
-        <div className="relative z-10 w-full max-w-5xl px-4 md:px-6 text-center pt-24 md:pt-0">
+        <div className="relative z-10 w-full max-w-5xl px-4 md:px-6 text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
